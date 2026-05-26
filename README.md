@@ -1,1 +1,20 @@
-# Lucella-attendance-register
+# Lucella High School Attendance Register.
+
+Have you ever been late for your 10:00 am meeting because you were dealing with a message from school asking where your child is, when you clearly communicated at 7:00 am that they were unwell and spending the day at home being looked after by their grandparents?
+
+Have you received messages from disgrunted parents asking why you have not yet authorised their very justified child's absence?
+
+Attendance is a masive subject in school and a system that allows clear and easy communication between partents and school is paramamount in order not to create resentment and animosity between them.
+
+This project has been drawn out of my own experiences as a parent, Head of a school department and school governor.
+
+Many school apps to communicate with parents such as Class Charts or Arbor, rely on school sending information out to parents without expecting any feedback from them, with the result that parents have to use emails, text messages or phone recordings to report a school abscence. 
+
+Those messages then have to be read and recorded on the appropriate way by a member of staff that will most likely be rushed by the normal issues concerning the start of the day in a busy school. Reading messages will be the last point on the to-do list while dealing with other more pressing matters.
+
+This results on school systems sending automated messages to parents, parents not knowing if their message was received and general pandemonium.
+
+Taking in account that keeping accurate records of which students are in school at all times is not only a legal matter, but also a safeguarding one, it is imperative that communication on attendance is run seamlesly between school and parents.
+
+Lucella High School Attendance Register will provide an easy way for parents to access their child's register, log in abscences and their reason, and be able to see when the absence has been authorised.
+School staff will be able to see when a student has been reported as absent by their parent, while the School's Attendance officer will be able to authorise or unauthorise abscences. Parents will receive an automated message when their child's abscence has been unauthorised.
