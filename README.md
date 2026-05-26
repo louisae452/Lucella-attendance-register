@@ -45,3 +45,18 @@ School staff will be able to see when a student has been reported as absent by t
 - To be quickly and accurately informed when their child is missing.
 - To be informed when an absence has been unauthorised.
 
+## User stories.
+- As a user I want to be able to log onto the site so that I can see the appropriate pages.
+- As an Admission's Officer I want to be able to see the list of all registered students so that if I click on one I can see their details.
+- As an Admissions Officer I want to be able to register a student so that they are on the register.
+- As an Admission's Officer I want to be able to deregister a student so that records are kept up to date.
+- As a teacher I want to be able to see the list of students in my class so that I can mark them on the register.
+- As a teacher I want to be able to see the class attendance over the year so that I can target students with low attendance.
+- As a parent I want to be able to see my child's timetable so that they are prepared for the day ahead.
+- As a parent I want to be able to see my child's attendance record so that I know if I am likely to get fined by school.
+- As a parent I want to be able to record my child's absence so that it can be authorised by the school.
+- As a parent I want to be informed when my child's absence has been unauthorised so that I can provide more information to get it authorised.
+- As a parent I want to be informed when my child is missing from school so that I can find where they are.
+- As an Attendance Officer I want to be able to see a record of all students' attendance so that I can target students with critical attendance.
+- As an Attendance Officer I want to see all unclassified absences so that I can authorise/un-authorise them.
+
