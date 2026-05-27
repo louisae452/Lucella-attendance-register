@@ -49,7 +49,7 @@ School staff will be able to see when a student has been reported as absent by t
 - As a user I want to be able to log onto the site so that I can see the appropriate pages.
 - As an Admission's Officer I want to be able to see the list of all registered students so that if I click on one I can see their details.
 - As an Admissions Officer I want to be able to register a student so that they are on the register.
-- As an Admission's Officer I want to be able to deregister a student so that records are kept up to date.
+- As an Admission's Officer I want to be able to deregister a studentgit  so that records are kept up to date.
 - As a teacher I want to be able to see the list of students in my class so that I can mark them on the register.
 - As a teacher I want to be able to see the class attendance over the year so that I can target students with low attendance.
 - As a parent I want to be able to see my child's timetable so that they are prepared for the day ahead.
