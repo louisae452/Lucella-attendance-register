@@ -1,0 +1,1 @@
+web: gunicorn lucella_attendance.wsgi
