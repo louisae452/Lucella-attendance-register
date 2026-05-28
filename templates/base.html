@@ -1,0 +1,39 @@
+{% load static %}
+
+{% url 'home' as home_url %}
+
+<!DOCTYPE html>
+<html class="h-100" lang="en">
+
+<head>
+    <title>Lucella Attendance REgister</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />   
+    <!-- Custom Css-->
+     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+</body>
+    <header>
+        <div id="header">
+            <h1>Logo</h1>
+            <h1>Lucella High school</h1>
+        </div>
+    </header>
+    <main>
+        <div id="content-container">
+            <p>Message if logged in</p>
+            {% block content %}
+            {% endblock content %}
+        </div>
+    </main>
+    <footer>
+        <p>Contact: <i class="fa-solid fa-at"></i></p>
+        <p>Follow us: <i class="fa-brands fa-facebook-f"></i><i class="fa-brands fa-twitter"></i> </p>
+    </footer>
+
+
+<!-- Font awesome -->
+<script src="https://kit.fontawesome.com/39f1e1f60d.js" crossorigin="anonymous"></script>
+
+
+</body>

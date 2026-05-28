@@ -1,0 +1,57 @@
+/* Base.html styling */
+
+/*Push footer to end of page. */
+main {
+    display: flex;
+    flex-direction: column;
+}
+header {
+    display: flex;
+    align-items: center;
+    max-width: 100vw;
+    min-height: 20vh;
+    background-color:blueviolet;
+}
+#header {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    margin: 10px;  
+}
+#header h1 {
+    margin: 10px;
+}
+body {
+   min-width: 100vw;
+   margin: 0;
+}
+footer {
+    background-color:blueviolet;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;   
+}
+/* Place background image*/
+#content-container {
+    min-height: 80vh;
+    background: url(../images/background-picture.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0;
+}
+#content-container p {
+    text-align: right;
+    margin: 20px;
+}
+
+
+/*End of base.html styling */
+
+/* Home htmlstyyling */
+#welcome {
+    font-size: 3em;
+    text-align: center;
+    margin: 20px;
+
+}
+/* End of home.html styling */
