@@ -37,7 +37,10 @@ footer {
     background: url(../images/background-picture.jpg);
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
     margin: 0;
+    /*display: flex;
+    align-items: center;*/
 }
 #content-container p {
     text-align: right;
@@ -53,5 +56,19 @@ footer {
     text-align: center;
     margin: 20px;
 
+}
+#home-logins {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.button {
+    width: 50px;
+    height:40px;
+    border-radius: 5px;
+    background-color:blueviolet;
+    color:aquamarine;
+    margin: 20px;
+    
 }
 /* End of home.html styling */

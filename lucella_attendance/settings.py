@@ -27,7 +27,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = 'django-insecure-szp)me@dc@kjkca0^_99r02^v0uyqwwpwa0+(67f(v61)mchls'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1']
 
@@ -90,6 +90,11 @@ DATABASES = {
     'default':
         dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
+
+CSFR_TRUSTED_ORIGINS = [
+    "https://*.codeinstitute-ide-net/",
+    "http://*.herokuapp.com"
+]
 
 
 # Password validation

@@ -71,3 +71,6 @@ Heroku
 - To choose icons: [Font Awesome](https://fontawesome.com/).
 
 
+- Django docs.
+- Group permissions https://www.geeksforgeeks.org/python/python-user-groups-custom-permissions-django/
+- To make models https://sentry.io/answers/difference-between-onetoonefield-and-foreign-key-django/
