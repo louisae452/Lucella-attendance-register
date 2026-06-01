@@ -1,16 +1,21 @@
 {% extends "base.html" %}
 {% load static %}
+{% url 'account_login' as login_url %}
+{% url 'account_signup' as signup_url %}
+{% url 'account_logout' as logout_url %}
 
 {% block content %}
-<div>
-    <h1 id="welcome"> Welcome to Lucella High School!</h1>
-</div>
-<div id="home-logins">
-    <div id="parents-login" class="button">
-        <h4>Parents</h4>
+<div id="home">
+    <div>
+        <h1 id="welcome"> Welcome to Lucella High School!</h1>
     </div>
-    <div id="staff-login" class="button">
-        <h4>Staff</h4>
+    <div id="home-logins">
+        <div id="parents-login" class="button">
+            <a href="{% url 'account_logout' %}">Log out</a>
+        </div>
+        <div id="staff-login" class="button">
+            <a href="{%url 'account_login' %}">Log in</a>
+        </div>
     </div>
 </div>
 

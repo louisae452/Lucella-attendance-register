@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<p>This is a test</p>
+<div>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Surname</th>
+        </tr>
+        
+        {% for student in students %}
+        <tr>
+            <td>{{ student.student_name}}</td>
+            <td>{{ student.student_surname }}</td>
+        <tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

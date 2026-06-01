@@ -74,3 +74,4 @@ Heroku
 - Django docs.
 - Group permissions https://www.geeksforgeeks.org/python/python-user-groups-custom-permissions-django/
 - To make models https://sentry.io/answers/difference-between-onetoonefield-and-foreign-key-django/
+- To write listview as function https://www.geeksforgeeks.org/python/list-view-function-based-views-django/
