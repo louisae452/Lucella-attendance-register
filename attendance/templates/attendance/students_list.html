@@ -2,19 +2,31 @@
 {% load static %}
 
 {% block content %}
-
+<div>
+    {% if user.is_authenticated %}
     <table>
         <tr>
             <th>Name</th>
             <th>Surname</th>
+            <th>Date of Birth</th>
+            <th>Gender</th>
+            <th>Group</th>
+            <th>Music option</th>
+            <th>Parent name</th>
         </tr>
         
         {% for student in students %}
         <tr>
             <td>{{ student.student_name}}</td>
             <td>{{ student.student_surname }}</td>
+            <td>{{ student.date_of_birth }}</td>
+            <td>{{ student.get_sex_display }}</td>
+            <td>{{ student.get_group_display }}</td>
+            <td>{{ student.get_music_option_display }}</td>
+            <td>{{ student.parent_name }}</td>
         <tr>
         {% endfor %}
     </table>
+    {% endif %}
 </div>
 {% endblock %}

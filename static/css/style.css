@@ -91,3 +91,9 @@ footer {
     
 }
 /* End of home.html styling */
+
+/* students_lsit.html styling */
+td, th {
+    width: 100px;
+    text-align: left;
+}
