@@ -9,13 +9,8 @@
     <div>
         <h1 id="welcome"> Welcome to Lucella High School!</h1>
     </div>
-    <div id="home-logins">
-        <div id="parents-login" class="button">
-            <a href="{% url 'account_logout' %}">Log out</a>
-        </div>
-        <div id="staff-login" class="button">
-            <a href="{%url 'account_login' %}">Log in</a>
-        </div>
+    <div class="logins"> 
+        <a class="button" href="{%url 'account_login' %}">Log in</a>
     </div>
 </div>
 

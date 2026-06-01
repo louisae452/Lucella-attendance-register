@@ -18,7 +18,7 @@ class HomeView(TemplateView):
 
 @login_required
 # @permission_required("student.add_student", raise_exception=True)
-# https://www.geeksforgeeks.org/python/list-view-function-based-views-django/
+
 def students_list(request):
     students = Student.objects.all().values()
     return render(request, "attendance/students_list.html", {"students":students})

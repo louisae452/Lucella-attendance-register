@@ -51,7 +51,7 @@ footer {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    margin: 0;
+    margin: 0px;
     display: flex;
     flex-direction: column;
     
@@ -59,25 +59,35 @@ footer {
 }
 
 #welcome {
+    
     font-size: 3em;
     text-align: center;
-    margin: 0px;
+    margin: 10px;
 
 }
-#home-logins {
-    
+.logins {
+    height: 70%;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    
+    align-items: end;  
 }
+
+
 .button {
     width: 100px;
     height: 50px;
     border-radius: 5px;
-    background-color:blueviolet;
+    background-color:rgb(99, 49, 72);
     color:aquamarine;
-    margin: 100px;
+    margin: 50px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    
+
     
 }
 /* End of home.html styling */
