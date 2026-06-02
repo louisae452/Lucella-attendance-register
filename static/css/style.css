@@ -34,12 +34,14 @@ footer {
 /* Place background */
 #content-container {
     min-height: 80vh;
+    
     background-color: rgb(232, 226, 230);
 }
+/* Not needed? 
 #content-container p {
     text-align: right;
     margin: 20px;
-}
+} */
 
 
 /*End of base.html styling */
@@ -95,5 +97,33 @@ footer {
 /* students_lsit.html styling */
 td, th {
     width: 100px;
+    text-align: left;
+}
+/* End of students_list.html styling */
+
+/* Authentification pages styling */
+.pagecontent {
+    display:flex;
+    
+    justify-content: center;
+    margin: 20px;
+}
+
+.authpage {
+    display:flex;
+    flex-direction: column;
+    
+    text-align: center;
+}
+.formcenter {
+    display: flex;
+    justify-content: center;
+}
+.formleft {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
+form label {
     text-align: left;
 }

@@ -1,0 +1,28 @@
+{% extends "base.html"  %}
+{% load static %}
+{% load custom_tags %}
+
+
+{% url 'students' as students_url %}
+
+{% block content %}
+<div>
+    {% if user.is_authenticated %}
+        {% if request.user|has_group:"teacher" %}
+            <div>
+                <a class="button" href="{% url 'students' %}">See student list</a>
+            </div>
+            <div>
+        {% elif request.user|has_group:"parent" %}
+            <div>
+                <h1>Coming soon!</h1>
+            </div>
+        {% else %}
+            <div>
+                <h1>Go away!</h1>
+            </div>
+        {% endif %}
+        
+    {% endif %}
+
+{% endblock %}
