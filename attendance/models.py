@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 # Model to store parents details.
 class Parent(models.Model):
-    parent_name = models.OneToOneField(User, on_delete=models.RESTRICT)
+    parent_name = models.OneToOneField(User, on_delete=models.RESTRICT, limit_choices_to={'groups__name': "parent"})
     phone_number= models.CharField(max_length=100)
     
     class Meta:
@@ -31,7 +31,7 @@ class Student(models.Model):
     music_option = models.IntegerField(choices=MUSIC, blank=False)
     registered_on = models.DateTimeField(auto_now_add=True)
     deregistered = models.BooleanField(default=False)
-    parent_name = models.ForeignKey(User, on_delete=models.CASCADE)
+    parent_name = models.ForeignKey(User, on_delete=models.CASCADE, limit_choices_to={'groups__name': "parent"})
     
     class Meta:
         ordering = ["-group", "student_surname"]

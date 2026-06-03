@@ -21,11 +21,9 @@ from attendance.views import HomeView
 # from attendance import views as index_views
 
 urlpatterns = [
-    # path('', index_views.index, name='index'),
+    
     path('', include('attendance.urls'), name='home'),
     path('accounts/', include('allauth.urls')),
     path('admin/', admin.site.urls),
-    path('landing/', include('attendance.urls'), name='landing'),
-    path('student/', include('attendance.urls'), name='students-urls'),
     
 ]

@@ -77,3 +77,4 @@ Heroku
 - To write listview as function https://www.geeksforgeeks.org/python/list-view-function-based-views-django/
 - To check if user belongs to group. [Stack Overflow]( https://stackoverflow.com/questions/34571880/how-to-check-in-template-if-user-belongs-to-a-group) 
 - To create custom tags. https://www.geeksforgeeks.org/python/how-to-create-custom-template-tags-in-django/
+- To filter users by group. [StackOverflow](https://stackoverflow.com/questions/11118179/django-filter-users-by-group-in-a-model-foreign-key)
