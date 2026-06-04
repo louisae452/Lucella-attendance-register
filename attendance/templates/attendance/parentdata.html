@@ -4,15 +4,18 @@
 
 {% block content %}
 
-<div>
-    <form method="post">
+    <div class="form-container">
+        
+        <div class="reducesize">
+            <h1> Parent's additional information</h1>
+            <form method="post">
 
-        {{ parentform }}
-        {% csrf_token %}
-        <button class="button" type="submit">Save data</p>
-        </form>
+                {{ parentform }}
+                {% csrf_token %}
+                <button class="button" type="submit">Save data</button>
+            </form>
+        </div>
 
-
-</div>
+    </div>
 
 {% endblock %}

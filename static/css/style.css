@@ -129,6 +129,7 @@ form label {
 }
 /* End of authenticatn pages styling */
 /* Add new parent and student pages styling */
+/*
 .centercontent {
     display: flex;
     flex-direction: column;
@@ -145,4 +146,43 @@ form label {
 }
 .helptext {
     color:rgb(97, 183, 155);
+}
+*/
+/* parentdata */
+.helptext {
+    color:rgb(97, 183, 155);
+}
+
+.reducesize div {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}/*
+.custom-form input {
+    width: 100px;
+}
+.custom-form select {
+    width: 100px;
+}*/
+.reducesize {
+    display: flex;
+    width:50%;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    
+   
+}  
+.form-container {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+    
+}  
+form label{
+    font-size: 1.2em;
+}
+form {
+    width:50%
 }

@@ -3,16 +3,19 @@
 
 
 {% block content %}
-<p>This is a test 1</p>
-<div>
+
+<div class="form-container">
 
     
-    
-    </form>
-    <form method="post">
-        {{ studentform }}
-        {% csrf_token %}
-        <button class="button" type="submit">Save user</p>
+    <div class="reducesize">
+        <h1>Student's information</h1>
+        <p> Ensure parent has been registered before attempting to register student</p>
+        <form method="post">
+            {{ studentform }}
+            {% csrf_token %}
+            <button class="button" type="submit">Save user</buttton>
+        </form>
+    </div>
 </div>
 
 
