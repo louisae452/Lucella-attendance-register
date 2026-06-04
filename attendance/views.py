@@ -40,23 +40,40 @@ def students_list(request):
 
 def add_parent(request):
     userform = UserForm()
+    
     if request.method == "POST":
         userform = UserForm(data=request.POST)
         if userform.is_valid():
-            user = userform.save()
+            newuser = userform.save()
             group = Group.objects.get(name="parent")
-            user.groups.add(group)
-         
-            return redirect('landing')
+            newuser.groups.add(group)
+            return redirect('parentdata')
     
     return render(
         request,
         "attendance/new_parent.html",
         {
-            'userform':userform,
-            #'parentform': parentform
+            'userform': userform,
         }
     )
+    
+def add_parentdata(request):
+    parentform = ParentForm()
+    if request.method == "POST":
+        parentform = ParentForm(data=request.POST)
+        if parentform.is_valid():
+            parentform.save()
+            return redirect('landing')
+    return render(
+        request,
+        "attendance/parentdata.html",
+        {
+            'parentform': parentform,
+        }
+    )
+
+
+
 def add_student(request):
     
     studentform = StudentForm
@@ -64,12 +81,9 @@ def add_student(request):
         studentform = StudentForm(data=request.POST)
         if studentform.is_valid():
             studentform.save()
-            
-         
             return redirect('landing')
     return render(
         request,
-       
        "attendance/new_student.html",
        {
            'studentform': studentform,

@@ -23,4 +23,4 @@ class UserForm(forms.ModelForm):
 class ParentForm(forms.ModelForm):
     class Meta:
         model = Parent
-        fields = ('phone_number',)         
+        fields = ('parent_name', 'phone_number',)         

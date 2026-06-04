@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<div>
+    <form method="post">
+
+        {{ parentform }}
+        {% csrf_token %}
+        <button class="button" type="submit">Save data</p>
+        </form>
+
+
+</div>
+
+{% endblock %}

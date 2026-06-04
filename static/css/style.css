@@ -101,7 +101,7 @@ td, th {
 }
 /* End of students_list.html styling */
 
-/* Authentification pages styling */
+/* Authentication pages styling */
 .pagecontent {
     display:flex;
     
@@ -126,4 +126,23 @@ td, th {
 }
 form label {
     text-align: left;
+}
+/* End of authenticatn pages styling */
+/* Add new parent and student pages styling */
+.centercontent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+.formfield {
+    display:flex;
+    flex-direction: column;
+}
+.buttonfield {
+    display:flex;
+    justify-content: center;
+}
+.helptext {
+    color:rgb(97, 183, 155);
 }

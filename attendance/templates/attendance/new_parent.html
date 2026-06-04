@@ -3,24 +3,54 @@
 
 
 {% block content %}
-<p>This is a test</p>
-<div>
-    <form method="post">
-        {{ userform }}
-        {{ parentform }}
-        {% csrf_token %}
-        <button class="button" type="submit">Save parent</p>
-    </form>
-        
-        
-        
 
+<div class="">
+    <div class="centercontent">
+        <h2>Please, enter the parent's details.</h2>
+    </div>
+    <div class="centercontent">
+        <form class="" method="post">
+            <div class="">
+                <div class="formfield">
+                    <label for="id_username">Username:</label>
+                    <div class="helptext" id="id_username_helptext">This is the name and surname with no spaces.</div>
+                    <input type="text" name="username" maxlength="150" required="" aria-describedby="id_username_helptext" id="id_username" fdprocessedid="tv07g">
+                </div>
+                <div class="formfield">
+                    <label for="id_first_name">First name:</label>
+                    <input type="text" name="first_name" maxlength="150" id="id_first_name" fdprocessedid="x9xzta">
+                </div>
+                <div class="formfield">
+                    <label for="id_last_name">Last name:</label>
+                    <input type="text" name="last_name" maxlength="150" id="id_last_name" fdprocessedid="xc9g0l">
+                </div>
+                <div class="formfield">
+                    <label for="id_email">Email address:</label>
+                    <input type="email" name="email" maxlength="254" id="id_email" fdprocessedid="1dzy9f">
+                </div>
+                <div class="formfield">
+                    <label for="id_password">Password:</label>
+                    <input type="text" name="password" maxlength="128" required="" id="id_password" fdprocessedid="ud009">
+                </div>
+                {% csrf_token %}
+            </div>
+            <div class="buttonfield">
+                <button class="button" type="submit" fdprocessedid="xpkd5x">Save parent</button>
+            </div>
+        </form>
+    </div>
+
+ <!--       
+    <div>
+            {{ userform }}
+            {{ parentform }}
+            {% csrf_token %}
+            <button class="button" type="submit">Save parent</p>
+        </form>
     
-    
-    
-    
-        
-    
+    </div>
+-->       
+  
 </div>
 
 
