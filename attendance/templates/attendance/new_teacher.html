@@ -8,11 +8,11 @@
 
 <div class="form-container">
     <div class="reducesize">
-        <h1>Enter the parent's details.</h1>
+        <h1>Enter the teacher's details.</h1>
         <form method="post">
             {{ userform }}
             {% csrf_token %}
-            <button class="button" type="submit">Save parent</button>
+            <button class="button" type="submit">Save teacher</button>
         </form>
     </div>
 </div>
@@ -21,9 +21,4 @@
         <a class="button" href="{% url 'landing' %}">Main menu</a>
     </div>
 {% endif %}
-
-
-
-
-
 {% endblock %}

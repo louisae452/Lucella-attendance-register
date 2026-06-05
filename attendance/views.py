@@ -8,6 +8,7 @@ from .models import Student
 from .forms import StudentForm
 from .forms import UserForm
 from .forms import ParentForm
+from .forms import TeacherForm
 
 # Create your views here.
 
@@ -35,7 +36,7 @@ def students_list(request):
     return render(request, "attendance/students_list.html", {"students":students})
     #return object_list(request, template_name="attendance.students_list,html", queryset=students)
  
-#View to add a student.
+#View to add a parent.
 #login_required
 
 def add_parent(request):
@@ -56,7 +57,7 @@ def add_parent(request):
             'userform': userform,
         }
     )
-    
+# View to add additional data for parents. 
 def add_parentdata(request):
     parentform = ParentForm()
     if request.method == "POST":
@@ -72,10 +73,9 @@ def add_parentdata(request):
         }
     )
 
-
+# View to add a student
 
 def add_student(request):
-    
     studentform = StudentForm
     if request.method == "POST":
         studentform = StudentForm(data=request.POST)
@@ -87,7 +87,41 @@ def add_student(request):
        "attendance/new_student.html",
        {
            'studentform': studentform,
-       }
-        
-        
+       } 
    )
+    
+#View to add a teacher.
+def add_teacher(request):
+    userform = UserForm()
+    
+    if request.method == "POST":
+        userform = UserForm(data=request.POST)
+        if userform.is_valid():
+            newuser = userform.save()
+            group = Group.objects.get(name="teacher")
+            newuser.groups.add(group)
+            return redirect('teacherdata')
+    
+    return render(
+        request,
+        "attendance/new_teacher.html",
+        {
+            'userform': userform,
+        }
+    )
+    
+# View to add additional data to teacher
+def add_teacherdata(request):
+    teacherform = TeacherForm()
+    if request.method == "POST":
+        teacherform = TeacherForm(data=request.POST)
+        if teacherform.is_valid():
+            teacherform.save()
+            return redirect('landing')
+    return render(
+        request,
+        "attendance/teacherdata.html",
+        {
+            'teacherform': teacherform,
+        }
+    )

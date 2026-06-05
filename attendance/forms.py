@@ -1,5 +1,6 @@
 from .models import Student
 from .models import Parent
+from .models import Teacher
 
 from django import forms
 from django.contrib.auth.models import User
@@ -7,7 +8,7 @@ from django.contrib.auth.models import User
 class StudentForm(forms.ModelForm):
     class Meta:
         model = Student
-        fields = ('student_name', 'student_surname', 'student_code', 'parent_name', 'date_of_birth', 'sex', 'group', 'music_option', )
+        fields = ('student_name', 'student_surname', 'student_code', 'parent_name', 'date_of_birth', 'sex', 'group', 'music_option', 'option',)
         help_texts = {
             'student_code': 'The student code is the last two digits of the year of birth, month of birth, first two letters of surname followed by first two letters of name in capitals.',
         }          
@@ -24,4 +25,11 @@ class UserForm(forms.ModelForm):
 class ParentForm(forms.ModelForm):
     class Meta:
         model = Parent
-        fields = ('parent_name', 'phone_number',)         
+        fields = ('parent_name', 'phone_number',)     
+
+class TeacherForm(forms.ModelForm):
+    class Meta:
+        model = Teacher
+        fields = ('teacher_name', 'phone_number',)
+        
+            
