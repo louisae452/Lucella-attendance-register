@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
-
+{% load custom_tags %}
 
 {% block content %}
+
+{% if request.user|has_group:"teacher" %}
 
     <div class="form-container">
         
@@ -17,5 +19,12 @@
         </div>
 
     </div>
+{% else %}
+<div>
+    <a class="button" href="{% url 'landing' %}">Main menu</a>
+</div>
+
+{% endif %}
+
 
 {% endblock %}

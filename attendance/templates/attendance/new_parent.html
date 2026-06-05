@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
-
+{% load custom_tags %}
 
 {% block content %}
+
+{% if request.user|has_group:"teacher" %}
 
 <div class="form-container">
     <div class="reducesize">
@@ -12,11 +14,15 @@
             {% csrf_token %}
             <button class="button" type="submit">Save parent</button>
         </form>
-    
     </div>
-      
-  
 </div>
+{% else %}
+    <div>
+        <a class="button" href="{% url 'landing' %}">Main menu</a>
+    </div>
+{% endif %}
+
+
 
 
 
