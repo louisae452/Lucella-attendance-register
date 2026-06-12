@@ -1,9 +1,14 @@
 from .models import Student
 from .models import Parent
 from .models import Teacher
+from .models import Timetable
+from .models import DailyRegister
 
 from django import forms
+from django.forms import inlineformset_factory
+from django.forms import modelformset_factory
 from django.contrib.auth.models import User
+
 
 class StudentForm(forms.ModelForm):
     class Meta:
@@ -31,5 +36,32 @@ class TeacherForm(forms.ModelForm):
     class Meta:
         model = Teacher
         fields = ('teacher_name', 'phone_number',)
+
+class GetregisterForm(forms.ModelForm):
+    
+    class Meta:
+        model = Timetable
+        fields = ('day', 'session', 'subject_name')
+             
+# Form to get class daily register
+#RegisterFormSet = inlineformset_factory(Student, DailyRegister, fields=['student_code','mark'], can_delete=False)
+#Need to change in if suff??
+
+
+#student =Student.objects.get(set=currentset)
+#formset= DailyRegisterSet(instance=student)           
+
+#RegisterFormSet = modelformset_factory (DailyRegister, fields=['session_id','mark', 'student_code'], extra=0)
+
+
+# 
+class RegisterForm(forms.ModelForm):
+    class Meta:
+        model = DailyRegister
+        fields=['student_code', 'mark']
+    def __init__(self, *for_args, **kwars):
+        super().__init__(*for_args, **kwars)
+        self.fields['student_code'].disabled = True
         
-            
+#create formset class:
+RegisterFormSet = modelformset_factory(DailyRegister, form=RegisterForm, extra=0)    

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+{% load custom_tags %}
+
+{% block content %}
+
+{% if request.user|has_group:"admissions_officer" %}
+
+<!---->
+<table>
+        {% for student in students %}
+            <tr>
+                <td>
+                    <!-- Method B: Pull from the specific instance on each loop -->
+                     {{ student.student_name }}{{ student.student_surname}}
+                     {{ student.student_object.code}}
+
+                    <!-- Note: This displays empty/None on extra/new empty rows -->
+                </td>
+                <td>
+                    {{ student.attendance.status }} <!-- Important hidden field for formsets -->
+                    
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+-->
+
+
+
+{% for student in students %}
+    {{ student.student_object.code}}
+    {{ student.register_id }}
+    {{ student.student_obj.name }}
+    {{ student.attendance_status }}
+{% endfor %}
+
+
+{% endif %}
+{% endblock %}

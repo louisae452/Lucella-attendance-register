@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+{% load custom_tags %}
+
+{% block content %}
+
+{% if request.user|has_group:"admissions_officer" %}
+
+<div class="form-container">
+    <div class="reducesize">
+        <h1>{{ date }}</h1>
+        <h1>{{ sessionid}} </h1>
+
+        <form method="post">
+
+            
+            {% csrf_token %}
+            {{ register.management_form }}
+            <table|>
+                {% for form in register %}
+                <tr>
+                    {{ form.id }}
+                    <td>{{ form.student_code }}</td>
+                    <td>{{ form.mark }}</td>
+
+                </tr>
+                {% endfor %}
+
+
+
+
+            </table>
+
+
+
+
+            <button class="button" type="submit" href= " ">Go to register</button>
+        </form>
+    </div>
+</div>
+{% else %}
+    <div>
+        <a class="button" href="{% url 'landing' %}">Main menu</a>
+    </div>
+{% endif %}
+{% endblock %}

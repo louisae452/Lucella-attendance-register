@@ -15,6 +15,7 @@
                 <a class="button" href="{% url 'newparent' %}">Add parent</a>
                 <a class="button" href="{% url 'newstudent' %}">Add student</a>
                 <a class="button" href="{% url 'newteacher' %}">Add teacher</a>
+                <a class="button" href="{% url 'getregister' %}">Register</a>
             </div>
             <div>
         {% elif request.user|has_group:"parent" %}

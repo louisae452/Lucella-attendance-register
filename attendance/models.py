@@ -16,9 +16,9 @@ class Parent(models.Model):
 
 #  Model to store students' details.
 
-SEX = ((0, "Male"), (1, "Female"))
+SEX = ((3, "Male"), (2, "Female"))
 GROUP = ((0, "Juniors"), (1, "Seniors"))
-MUSIC = ((0, "Beginers"), (1, "Advanced"))
+MUSIC = ((4, "Beginers"), (5, "Advanced"))
 OPTION = ((0, "MJB"), (1, "MJA"), (2, "MSB"), (3, "MSA"), (4, "FJB"), (5, "FJA"), (6, "FSB"), (7, "FSA"), (8, "Undetermined"))
 class Student(models.Model):
     student_name = models.CharField(max_length=200)
@@ -52,7 +52,7 @@ class Teacher(models.Model):
     
 # Model to store subjects information.
 ROOM = ((0, 'English room'), (1, 'Maths room'), (2, 'Lab'), (3, 'Sports Hall'), (4, 'Gym'), (5, 'Music A'), (6, 'Music B'))
-SET = ((0, 'Junior'), (1, 'Senior'), (2, 'Girls'), (3, 'Boys'),
+SET = ((0, 'Junior'), (1, 'Senior'), (2, 'Female'), (3, 'Male'),
        (4, 'Beginner'), (5, 'Advanced'))
 
 class Subject(models.Model):
@@ -64,11 +64,11 @@ class Subject(models.Model):
     set = models.IntegerField(choices=SET, blank=True)
     
     def __str__(self):
-        return f"{self.subject_name} {self.set}"
+        return f"{self.subject_name}"
 
 
 SESSION = ((0, 'MomoA'), (1, 'MoafA'), (2, 'TumoA'), (3, 'TuafA'), (4, 'WemoA'), (5, 'WeafA'), (6, 'ThmoA'), (7, 'ThafA'), (8, 'FrmoA'), (9, 'FrafA'), (10, 'MomoB'), (11, 'MoafB'), (12, 'TumoB'), (13, 'TuafB'), (14, 'WemoB'), (15, 'WeafB'), (16, 'ThmoB'), (17, 'ThafB'), (18, 'FrmoB'), (19, 'FrafB'))
-DAYS = ((1, 'Monday'), (2, 'Tuesday'), (3, 'Wednesday'), (4, 'Thursday'), (5, 'Friday'))
+DAYS = ((0, 'Monday'), (1, 'Tuesday'), (2, 'Wednesday'), (3, 'Thursday'), (4, 'Friday'))
 TIME = ((0, 'Morning'), (1, 'Afternoon')) 
 TIMETABLEGROUP = ((0,'A'), (1, 'B'), (2, 'TBA'))       
 class Timetable(models.Model):
@@ -78,5 +78,26 @@ class Timetable(models.Model):
     group = models.IntegerField(choices=TIMETABLEGROUP, blank=True)
     subject_name = models.ForeignKey(Subject, on_delete=models.RESTRICT)
     
+    class Meta:
+        ordering = ['day', 'session', 'group']
+    
     def __str__(self):
-        return f"{self.day} {self.session}"
+        return f"{self.get_day_display()} {self.get_session_display()} Group: {self.get_group_display()}"
+    
+# Model to record daily attendance.
+MARK = ((0, 'Present'), (1, 'Absent'), (2, ' '))
+STATUS = ((0, 'N/A'), (1, 'Pending'), (2, 'Authorised'), (3, 'Unauthorised'))
+ABSENCECODE = ((0, 'Medical'), (1, 'Educational activity'), (2, 'Unauthorised'), (3, ' '))
+class DailyRegister(models.Model):
+    session_id = models.ForeignKey(Timetable, on_delete=models.RESTRICT)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField()
+    student_code = models.ForeignKey(Student, on_delete=models.RESTRICT)
+    mark = models.IntegerField(choices=MARK, blank=True, default=2)
+    # reason_for_absence = models.CharField(max_length=200, blank=True)
+    status = models.IntegerField(choices=STATUS, blank=True, default='0')
+    code = models.IntegerField(choices=ABSENCECODE, blank=True, default='3')
+        
+    
+                                
+                                
