@@ -18,13 +18,13 @@ class Parent(models.Model):
 
 SEX = ((3, "Male"), (2, "Female"))
 GROUP = ((0, "Juniors"), (1, "Seniors"))
-MUSIC = ((4, "Beginers"), (5, "Advanced"))
+MUSIC = ((4, "Beginners"), (5, "Advanced"))
 OPTION = ((0, "MJB"), (1, "MJA"), (2, "MSB"), (3, "MSA"), (4, "FJB"), (5, "FJA"), (6, "FSB"), (7, "FSA"), (8, "Undetermined"))
 class Student(models.Model):
     student_name = models.CharField(max_length=200)
     student_surname = models.CharField(max_length=200)
     date_of_birth = models.DateField()
-    student_code = models.CharField(max_length= 50, blank=True)
+    student_code = models.CharField(max_length= 50, blank=True, unique=True)
     sex = models.IntegerField(choices=SEX, blank=False)
     group = models.IntegerField(choices=GROUP, blank=False)
     music_option = models.IntegerField(choices=MUSIC, blank=False)
@@ -82,7 +82,8 @@ class Timetable(models.Model):
         ordering = ['day', 'session', 'group']
     
     def __str__(self):
-        return f"{self.get_day_display()} {self.get_session_display()} Group: {self.get_group_display()}"
+        return f"{self.subject_name}"
+        #return f"{self.get_day_display()} {self.get_session_display()} Group: {self.get_group_display()}"
     
 # Model to record daily attendance.
 MARK = ((0, 'Present'), (1, 'Absent'), (2, ' '))
@@ -91,7 +92,7 @@ ABSENCECODE = ((0, 'Medical'), (1, 'Educational activity'), (2, 'Unauthorised'),
 class DailyRegister(models.Model):
     session_id = models.ForeignKey(Timetable, on_delete=models.RESTRICT)
     date_created = models.DateTimeField(auto_now_add=True)
-    date = models.DateTimeField()
+    date = models.DateField()
     student_code = models.ForeignKey(Student, on_delete=models.RESTRICT)
     mark = models.IntegerField(choices=MARK, blank=True, default=2)
     # reason_for_absence = models.CharField(max_length=200, blank=True)

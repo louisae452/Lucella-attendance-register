@@ -1,9 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.views import generic
 from django.views.generic import TemplateView
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required, permission_required
+from django.views.decorators.cache import never_cache
 from .models import Student
 from .models import Timetable
 from .models import Subject
@@ -13,10 +14,11 @@ from .forms import UserForm
 from .forms import ParentForm
 from .forms import TeacherForm
 from .forms import GetregisterForm
+from django.core.cache import cache
 
-from .forms import RegisterForm
+#from .forms import RegisterForm
 from .forms import RegisterFormSet
-from datetime import date
+from datetime import date, datetime
 
 # Create your views here.
 
@@ -40,7 +42,11 @@ class LandingView(TemplateView):
 
 def students_list(request):
     students = Student.objects.all()
-    
+    for student in students:
+        presentdays = DailyRegister.objects.filter(student_code__student_code=student.student_code, mark=0).count()
+        totaldays =  DailyRegister.objects.filter(student_code__student_code=student.student_code).count() 
+        attendancepercentage = (presentdays/totaldays)*100
+        student.attendancepercentage = attendancepercentage
     return render(request, "attendance/students_list.html", {"students":students})
     #return object_list(request, template_name="attendance.students_list,html", queryset=students)
  
@@ -135,8 +141,10 @@ def add_teacherdata(request):
     )
     
 # View to get class register
+@never_cache
 def get_register (request):
-    getregisterform =GetregisterForm()
+    cache.clear()
+    #getregisterform =GetregisterForm()
     if request.method == "POST":
         getregisterform = GetregisterForm(data=request.POST)
         if getregisterform.is_valid():
@@ -162,11 +170,11 @@ def get_register (request):
                         new_record = DailyRegister(session_id=currentsessionid, date=today, student_code=student)
                         new_record.save()
                 #  Get ids for all the DailyRegister records for current session and set.      
-                new_records_ids= list(DailyRegister.objects.filter(date=today).values_list('id', flat=True))
+                new_records_ids= list(DailyRegister.objects.filter(date=today, session_id=currentsessionid).values_list('id', flat=True))
                 request.session['filtered_new_records_ids'] = new_records_ids
                 # Send the session ids to saveregister view
                 return redirect('saveregister')              
-                               
+    getregisterform =GetregisterForm()                           
     return render(
         request,
         "attendance/get_register.html",
@@ -178,42 +186,53 @@ def get_register (request):
     
 # View to save the day's register.
 def saveregister(request):
-   id_list = request.session.get('filtered_new_records_ids',[])
-   
-   daily_records= DailyRegister.objects.filter(id__in=id_list)
-   # Get todays date
-   today = date.today()
-   # Get session info
-   sessionid = daily_records.first().session_id 
-   # Get register
-   register = RegisterFormSet(queryset=daily_records)
-   
-   if request.method == "POST":
-       register=RegisterFormSet(data=request.POST)
-       if register.is_valid():
-            for form in register:
-                
-                instance = form.save(commit=False)
-                if instance.mark == 1:
-                    instance.status = 1
-                instance.save()
-       return redirect('landing')
-   
-   
-   
-   
-   
-   
-   return render (
-        request,
-  
+    id_list = request.session.get('filtered_new_records_ids',[])
+    daily_records= DailyRegister.objects.filter(id__in=id_list)
+    # Get todays date
+    today_date = date.today()
+    today=datetime.now().date()
+    # Get session info
+    sessionid = daily_records.first().session_id 
+    # Get register
+    register = RegisterFormSet(queryset=daily_records)
+    if request.method == "POST":
+        register=RegisterFormSet(data=request.POST)
+        if register.is_valid():
+             for form in register:
+                 instance = form.save(commit=False)
+                 if instance.mark == 1:
+                     instance.status = 1
+                 instance.save()           
+        del request.session['filtered_new_records_ids']        
+        return redirect('landing')
+    
+    return request(
+        
         "attendance/daily_register.html",
         {
-            'date': today,
-            'sessionid': sessionid,
-            
-            
-            
-            'register': register
+          'date': today_date,
+          'sessionid': sessionid, 
+          'register': register,
+          'today':today
         }
         )
+# View to show student's detail (from teacher landing)
+   
+def student_detail(request, student_code):
+    studentname = Student.objects.filter(student_code=student_code).first().student_name
+    studentsurname = Student.objects.filter(student_code=student_code).first().student_surname
+    student_records = DailyRegister.objects.filter(student_code__student_code=student_code)
+    
+    return render(
+        request,
+        "attendance/student_detail.html",
+        {
+            'studentname': studentname,
+            'studentsurname': studentsurname,
+            
+            'student_records': student_records
+        },
+    )
+    
+    
+    
