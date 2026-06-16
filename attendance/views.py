@@ -276,17 +276,6 @@ def sendemail(request, student_code):
             message.send()
             #send_mail(subject, html_content, settings.EMAIL_HOST_USER, [parentmail] )
             return redirect('landing')
-            
-            
-            
-            
-            
-    
-    
-    
-    
-    
-    
     return render(
         request,
         "attendance/sendemail.html",
@@ -298,6 +287,30 @@ def sendemail(request, student_code):
             
         }
     )        
+# Parents pages.
+# View to show registered children.
+@login_required
+def children_list(request):
+    
+    children = Student.objects.filter(parent_name=request.user)
+    print(f"DEBUG {children.count()}")
+   
+    return render(
+        request,
+        "attendance/landing.html",
+        {
+            'children': children,
+        }
+    )
+
+def landing_router(request, *args, **kwargs):
+    if request.user.groups.filter(name='parent').exists():
+            
+        return children_list(request)
+    elif request.user.groups.filter(name='teacher').exists():
+        return HomeView.as_view()(request, *args, **kwargs)
+            
+            
             
     
     

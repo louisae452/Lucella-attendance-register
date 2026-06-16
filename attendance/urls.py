@@ -3,14 +3,13 @@ from django.urls import path
 from .views import HomeView
 from .views import LandingView
 
-#app_name = 'attendance'
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
     # ???
     path('daiyly_register/', views.get_register, name='dailyregister'),
     path('getregister', views.get_register, name='getregister'),
-    path('landing/', LandingView.as_view(), name='landing'),
+    path('landing/', views.landing_router, name='landing'),
     path('newparent/', views.add_parent, name='newparent'),
     path('newstudent/', views.add_student, name='newstudent'),
     path('newteacher/', views.add_teacher, name='newteacher'),

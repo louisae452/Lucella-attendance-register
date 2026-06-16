@@ -20,7 +20,33 @@
             <div>
         {% elif request.user|has_group:"parent" %}
             <div>
-                <h1>Coming soon!</h1>
+                <h1>Click on the required child's student_code</h1>
+                
+                <table>
+                    <tr>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        
+                    </tr>
+                    
+                    {% for child in children %}
+                    <tr>
+                        <td>{{ child.student_code }}</td>
+                        <td>{{ child.student_name}}</td>
+                        <td>{{ child.student_surname }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td coldspan="3">DEBUG: Empty list</tr>
+                        </tr>
+                    {% endfor %}
+                </table>
+
+
+
+                <a class="button">Report an absence</a>
+            
             </div>
         {% else %}
             <div>
