@@ -5,34 +5,38 @@
 {% block content %}
 
 {% if request.user|has_group:"admissions_officer" %}
+<div >
+    <h2>{{studentsurname }}  {{ studentname }}</h2>
 
-<h2>{{studentsurname }}  {{ studentname }}</h2>
-
-
-<table>
-    <tr>
-        <th>Date</th>
-        <th>Session</th>
-        <th>Mark</th>
-        <th>Status</th>
-        <th>Code</th>
-            
-    </tr>
-        
-    {% for record in student_records %}
-    <tr>
-            
-        <td>{{ record.date }}</td>
-        <td>{{ record.session_id }}</td>
-        <td>{{ record.get_mark_display }}</td>
-        <td>{{ record.get_status_display }}</td>
-        <td>{{ record.get_code_display }}</td>
-            
-    <tr>
-    {% endfor %}
-</table>
-
-
+    <div class="form-container">
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Session</th>
+                <th>Mark</th>
+                <th>Status</th>
+                <th>Code</th>
+                    
+            </tr>
+                
+            {% for record in student_records %}
+            <tr>
+                    
+                <td>{{ record.date }}</td>
+                <td>{{ record.session_id }}</td>
+                <td>{{ record.get_mark_display }}</td>
+                <td>{{ record.get_status_display }}</td>
+                <td>{{ record.get_code_display }}</td>
+                    
+            <tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+<div>
+    <a class="button" href="{% url 'sendemail' studentcode %}">Email</a>
+    <a class="button" href="{% url 'students' %}">Student list</a>
+</div>
 
 {% endif %}
 {% endblock %}

@@ -2,13 +2,20 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.views import generic
 from django.views.generic import TemplateView
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required, permission_required
 from django.views.decorators.cache import never_cache
+from django.core.mail import send_mail, EmailMultiAlternatives
+from django.conf import settings
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+
 from .models import Student
 from .models import Timetable
 from .models import Subject
 from .models import DailyRegister
+from .models import Email
 from .forms import StudentForm
 from .forms import UserForm
 from .forms import ParentForm
@@ -19,6 +26,7 @@ from django.core.cache import cache
 #from .forms import RegisterForm
 from .forms import RegisterFormSet
 from datetime import date, datetime
+from .forms import SendemailForm
 
 # Create your views here.
 
@@ -27,8 +35,6 @@ from datetime import date, datetime
 class HomeView(TemplateView):
     template_name = "attendance/home.html"
     
-
-# Check person is logged in and has required permission(admissions_officer group)
 
 
 # View to landing page.
@@ -45,7 +51,7 @@ def students_list(request):
     for student in students:
         presentdays = DailyRegister.objects.filter(student_code__student_code=student.student_code, mark=0).count()
         totaldays =  DailyRegister.objects.filter(student_code__student_code=student.student_code).count() 
-        attendancepercentage = (presentdays/totaldays)*100
+        attendancepercentage = round(((presentdays/totaldays)*100), 2)
         student.attendancepercentage = attendancepercentage
     return render(request, "attendance/students_list.html", {"students":students})
     #return object_list(request, template_name="attendance.students_list,html", queryset=students)
@@ -206,8 +212,8 @@ def saveregister(request):
         del request.session['filtered_new_records_ids']        
         return redirect('landing')
     
-    return request(
-        
+    return render(
+        request,
         "attendance/daily_register.html",
         {
           'date': today_date,
@@ -219,9 +225,12 @@ def saveregister(request):
 # View to show student's detail (from teacher landing)
    
 def student_detail(request, student_code):
-    studentname = Student.objects.filter(student_code=student_code).first().student_name
-    studentsurname = Student.objects.filter(student_code=student_code).first().student_surname
+    
+    studentname = Student.objects.get(student_code=student_code).student_name
+    studentsurname = Student.objects.get(student_code=student_code).student_surname
+    studentcode = student_code
     student_records = DailyRegister.objects.filter(student_code__student_code=student_code)
+    
     
     return render(
         request,
@@ -229,10 +238,67 @@ def student_detail(request, student_code):
         {
             'studentname': studentname,
             'studentsurname': studentsurname,
+            'studentcode': studentcode,
             
             'student_records': student_records
         },
     )
+    
+    
+# View to  send email to parent.
+def sendemail(request, student_code):
+    form = SendemailForm()
+    studentcode =  student_code
+    studentname = Student.objects.get(student_code=student_code).student_name
+    studentsurname = Student.objects.get(student_code=student_code).student_surname
+    if request.method == 'POST':
+        parentname = Student.objects.get(student_code=student_code).parent_name
+        User = get_user_model()
+        parent = User.objects.get(username=parentname)
+        parentmail = parent.email
+        form = SendemailForm(data=request.POST)
+        if form.is_valid():
+            sentemail = form.save(commit=False)
+            sentemail.student_code = Student.objects.get(student_code=student_code)
+            sentemail.save()
+            subject = sentemail.subject
+            text = sentemail.subject.text
+            #Write the email
+            text_info = {
+                'studentname': studentname,
+                'studentsurname': studentsurname,
+                'text': text,
+            }
+            html_content = render_to_string('attendance/email.html', text_info)
+            text_content = strip_tags(html_content)
+            message = EmailMultiAlternatives(subject, text_content, settings.EMAIL_HOST_USER, [parentmail])
+            message.attach_alternative(html_content, "text/html")
+            message.send()
+            #send_mail(subject, html_content, settings.EMAIL_HOST_USER, [parentmail] )
+            return redirect('landing')
+            
+            
+            
+            
+            
+    
+    
+    
+    
+    
+    
+    return render(
+        request,
+        "attendance/sendemail.html",
+        {
+            'form':form,
+            'studentcode':studentcode,
+            'studentname': studentname,
+            'studentsurname': studentsurname,
+            
+        }
+    )        
+            
     
     
     

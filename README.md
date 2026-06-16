@@ -79,3 +79,4 @@ Heroku
 - To create custom tags. https://www.geeksforgeeks.org/python/how-to-create-custom-template-tags-in-django/
 - To filter users by group. [StackOverflow](https://stackoverflow.com/questions/11118179/django-filter-users-by-group-in-a-model-foreign-key)
 - Formsets [Geeksforgeeks]( https://www.geeksforgeeks.org/python/django-modelformsets/)
+- To send emails [Geeksforgeeks](https://www.geeksforgeeks.org/python/setup-sending-email-in-django-project/)

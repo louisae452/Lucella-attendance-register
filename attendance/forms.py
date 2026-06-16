@@ -3,6 +3,7 @@ from .models import Parent
 from .models import Teacher
 from .models import Timetable
 from .models import DailyRegister
+from .models import Sentemail
 
 from django import forms
 from django.forms import inlineformset_factory
@@ -65,3 +66,15 @@ class RegisterForm(forms.ModelForm):
         
 #create formset class:
 RegisterFormSet = modelformset_factory(DailyRegister, form=RegisterForm, extra=0)    
+
+# Create form to send email.
+class SendemailForm(forms.ModelForm):
+    class Meta:
+        model = Sentemail
+        fields = ['subject']
+        
+    
+        
+
+
+        

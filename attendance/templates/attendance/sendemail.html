@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+{% load custom_tags %}
+
+{% block content %}
+
+{% if request.user|has_group:"admissions_officer" %}
+
+<div class="form-container">
+    <div class="reducesize">
+        <h1>{{studentname}} {{studentsurname}}</h1>
+        <form method="post">
+        
+            {% csrf_token %}
+            
+            
+            {{ form }}
+        
+            <button class="button" type="submit" href={% url 'dailyregister' %}>Send email</button>
+        </form>
+    </div>
+</div>
+
+    <div>
+        <a class="button" href="{% url 'landing' %}">Main menu</a>
+    </div>
+{% endif %}
+{% endblock %}

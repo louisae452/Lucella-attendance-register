@@ -98,6 +98,25 @@ class DailyRegister(models.Model):
     # reason_for_absence = models.CharField(max_length=200, blank=True)
     status = models.IntegerField(choices=STATUS, blank=True, default='0')
     code = models.IntegerField(choices=ABSENCECODE, blank=True, default='3')
+
+# Model for emails.
+SUBJECT= ((0, 'Attendance below 90%'), (1, 'Attendance below 80%'), (2, 'Student missing'))
+class Email(models.Model):
+    subject = models.IntegerField(choices=SUBJECT)
+    text = models.TextField()
+    
+    def __str__(self):
+        return f"{self.get_subject_display()}"
+    
+class Sentemail(models.Model):
+    student_code = models.ForeignKey(Student, on_delete=models.RESTRICT)
+    subject = models.ForeignKey(Email, on_delete=models.RESTRICT)
+    date_sent = models.DateTimeField(auto_now_add=True)
+
+
+  
+  
+  
         
     
                                 

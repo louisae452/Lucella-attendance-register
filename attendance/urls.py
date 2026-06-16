@@ -18,7 +18,9 @@ urlpatterns = [
     path('student/', views.students_list, name='students'),
     path('teacherdata/', views.add_teacherdata, name='teacherdata'),
     path('saveregister/', views.saveregister, name='saveregister'),
-    path('<str:student_code>/', views.student_detail, name='studentdetail'),
+    #path('sendemail/', views.send_email, name='sendemail'),
+    path('student/<str:student_code>/', views.student_detail, name='studentdetail'),
+    path('email/<str:student_code>/', views.sendemail, name='sendemail'),
     
    
 ]
