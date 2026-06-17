@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+{% load custom_tags %}
+
+
+{% block content %}
+{% if request.user|has_group:"parent" %}
+<div>
+    <h1>Report your child's absence</h1>
+    <h2>{{ child.student_name }} {{ child.student_surname }}</h1>
+    <p>Please, click on the session your child will be missing. Report every session they wil be missing.</p>
+    <div>
+        <table>
+            <tr>
+                <th> </th>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thrusday</th>
+                <th>Friday</th>
+            </tr>
+            <tr>
+                <th>Morning</th>
+                <td><a href="{% url 'reportabsence' child.student_code timetablevalues.M0.session_id %}">{{ timetablevalues.M0.subject_name}}</a></td>
+                <td><a href="{% url 'reportabsence' child.student_code timetablevalues.10.session_id %}">{{ timetablevalues.10.subject_name}}</a></td>
+                <td><a href="{% url 'reportabsence' child.student_code timetablevalues.20.session_id %}">{{ timetablevalues.20.subject_name}}</a></td>
+                <td><a href="{% url 'reportabsence' child.student_code timetablevalues.30.session_id %}">{{ timetablevalues.30.subject_name}}</a></td>
+                <td><a href="{% url 'reportabsence' child.student_code timetablevalues.40.session_id %}">{{ timetablevalues.40.subject_name}}</a></td>
+            </tr>
+            <tr>
+                <th>Afternoon</th>
+                <td><a href="{% url 'reportabsence' child.student_code timetablevalues.M1.session_id %}">{{ timetablevalues.M1.subject_name}}</a></td>
+                <td><a href="{% url 'reportabsence' child.student_code timetablevalues.11.session_id %}">{{ timetablevalues.11.subject_name}}</a></td>
+                <td><a href="{% url 'reportabsence' child.student_code timetablevalues.21.session_id %}">{{ timetablevalues.21.subject_name}}</a></td>
+                <td><a href="{% url 'reportabsence' child.student_code timetablevalues.31.session_id %}">{{ timetablevalues.31.subject_name}}</a></td>
+                <td><a href="{% url 'reportabsence' child.student_code timetablevalues.41.session_id %}">{{ timetablevalues.41.subject_name}}</a></td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <a class="button" href="{% url 'absence' child.student_code %}">Report an absence</a>
+                <a class="button" href="">View timetable</a>
+                <a class="button" href="">View attendance record</a>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

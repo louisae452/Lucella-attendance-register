@@ -68,11 +68,11 @@ class Subject(models.Model):
 
 
 SESSION = ((0, 'MomoA'), (1, 'MoafA'), (2, 'TumoA'), (3, 'TuafA'), (4, 'WemoA'), (5, 'WeafA'), (6, 'ThmoA'), (7, 'ThafA'), (8, 'FrmoA'), (9, 'FrafA'), (10, 'MomoB'), (11, 'MoafB'), (12, 'TumoB'), (13, 'TuafB'), (14, 'WemoB'), (15, 'WeafB'), (16, 'ThmoB'), (17, 'ThafB'), (18, 'FrmoB'), (19, 'FrafB'))
-DAYS = ((0, 'Monday'), (1, 'Tuesday'), (2, 'Wednesday'), (3, 'Thursday'), (4, 'Friday'))
-TIME = ((0, 'Morning'), (1, 'Afternoon')) 
-TIMETABLEGROUP = ((0,'A'), (1, 'B'), (2, 'TBA'))       
+DAYS = ((0, "Monday"), (1, "Tuesday"), (2, "Wednesday"), (3, "Thursday"), (4,"Friday"))
+TIME = ((0, "Morning"), (1, "Afternoon")) 
+TIMETABLEGROUP = ((0, "A"), (1, "B"))     
 class Timetable(models.Model):
-    session_id = models.IntegerField(choices=SESSION, blank=True)
+    session_id = models.IntegerField(choices=SESSION, blank=True, unique=True)
     day = models.IntegerField(choices=DAYS, blank=True, default=0)
     session = models.IntegerField(choices=TIME, blank=True)
     group = models.IntegerField(choices=TIMETABLEGROUP, blank=True)
@@ -98,6 +98,7 @@ class DailyRegister(models.Model):
     # reason_for_absence = models.CharField(max_length=200, blank=True)
     status = models.IntegerField(choices=STATUS, blank=True, default='0')
     code = models.IntegerField(choices=ABSENCECODE, blank=True, default='3')
+    reason_for_absence = models.TextField(default=" ")
 
 # Model for emails.
 SUBJECT= ((0, 'Attendance below 90%'), (1, 'Attendance below 80%'), (2, 'Student missing'))

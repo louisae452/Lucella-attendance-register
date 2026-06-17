@@ -1,9 +1,5 @@
-from .models import Student
-from .models import Parent
-from .models import Teacher
-from .models import Timetable
-from .models import DailyRegister
-from .models import Sentemail
+from .models import Student, Parent, Teacher, Timetable, DailyRegister, Sentemail
+
 
 from django import forms
 from django.forms import inlineformset_factory
@@ -72,6 +68,21 @@ class SendemailForm(forms.ModelForm):
     class Meta:
         model = Sentemail
         fields = ['subject']
+        
+        
+# Form to register an absence.
+
+class GetSessionid(forms.ModelForm):
+    class Meta:
+        model = Timetable
+        fields = ['day', 'session', 'subject_name']
+class AbsenceForm(forms.ModelForm):
+    class Meta:
+        model = DailyRegister
+    
+        fields = 'date', 'reason_for_absence'
+    
+
         
     
         

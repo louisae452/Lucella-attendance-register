@@ -11,22 +11,15 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 
-from .models import Student
-from .models import Timetable
-from .models import Subject
-from .models import DailyRegister
-from .models import Email
-from .forms import StudentForm
-from .forms import UserForm
-from .forms import ParentForm
-from .forms import TeacherForm
-from .forms import GetregisterForm
+from .models import Student,Timetable, Subject, DailyRegister
+
+from .forms import StudentForm, UserForm, ParentForm, TeacherForm, GetregisterForm, RegisterFormSet, SendemailForm, GetSessionid, AbsenceForm
+
 from django.core.cache import cache
 
-#from .forms import RegisterForm
-from .forms import RegisterFormSet
+
 from datetime import date, datetime
-from .forms import SendemailForm
+
 
 # Create your views here.
 
@@ -293,7 +286,7 @@ def sendemail(request, student_code):
 def children_list(request):
     
     children = Student.objects.filter(parent_name=request.user)
-    print(f"DEBUG {children.count()}")
+
    
     return render(
         request,
@@ -308,10 +301,115 @@ def landing_router(request, *args, **kwargs):
             
         return children_list(request)
     elif request.user.groups.filter(name='teacher').exists():
-        return HomeView.as_view()(request, *args, **kwargs)
+        
+        return LandingView.as_view()(request, *args, **kwargs)
+    
+    
+# View to see child detail page
+def view_child(request, student_code):
+    child = Student.objects.get(student_code=student_code)
+    return render(
+        request,
+        "attendance/child_timetable.html",
+        {
+            'child': child,
+        }
+        
+    )
+# View to show childs timetable
+def child_timetable(request, student_code):
+    child = Student.objects.get(student_code=student_code)
+    timetablevalues = {}
+    if child.group == 1:
+        academicgroupA = ["English A", "Maths A", "Science A"]
+        academicrecordsA = Timetable.objects.filter(subject_name__subject_name__in=academicgroupA)
+        for record in academicrecordsA:
+            # avoids error when passing into next url
+            if record.day == 0:
+                key=f"M{record.session}"
+            else:
+                key=f"{record.day}{record.session}"
+            timetablevalues[key]=record
+    elif child.group == 0:
+        academicgroupB = ["English B", "Maths B", "Science B"]
+        academicrecordsB = Timetable.objects.filter(subject_name__subject_name__in=academicgroupB)
+        for record in academicrecordsB:
+            if record.day == 0:
+                key=f"M{record.session}"
+            else:
+                key=f"{record.day}{record.session}"
+            timetablevalues[key]=record
+    if child.sex == 3:
+        record = Timetable.objects.get(subject_name__subject_name="Football A")
+        if record.day == 0:
+            key=f"M{record.session}"
+        else:
+            key=f"{record.day}{record.session}"
+        timetablevalues[key]=record
+    elif child.sex == 2:
+        record = Timetable.objects.get(subject_name__subject_name="Athletics B")
+        if record.day == 0:
+            key=f"M{record.session}"
+        else:
+            key=f"{record.day}{record.session}"
+        timetablevalues[key]=record
+    if child.sex == 5:
+        record = Timetable.objects.get(subject_name__subject_name="Piano A")
+        if record.day == 0:
+            key=f"M{record.session}"
+        else:
+            key=f"{record.day}{record.session}"
+        timetablevalues[key]=record
+    elif child.music_option == 4:
+        record = Timetable.objects.get(subject_name__subject_name="Guitar B")
+        if record.day == 0:
+            key=f"M{record.session}"
+        else:
+            key=f"{record.day}{record.session}"
+        record.key = key
+        timetablevalues[key]=record
+        
+    return render(
+        request,
+        "attendance/child_timetable.html",
+        {
+            'child': child,
+            'timetablevalues': timetablevalues,
             
+        }
+    )
             
+                
+    
+
+
+
+
+
+
+
+# View to report an absence.
+def report_absence(request, student_code, session_id):
+   
+    child = Student.objects.get(student_code=student_code)
+    session = Timetable.objects.get(session_id=session_id)
+    
+    
+    
+    
+    
+    return render(
+        request,
+        "attendance/report_absence.html",
+        {
+            'child': child,
+            'session': session,
             
+        }
+    )
+    
+    
+    
     
     
     

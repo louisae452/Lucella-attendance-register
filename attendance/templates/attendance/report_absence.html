@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static %}
+{% load custom_tags %}
+
+
+{% block content %}
+{% if request.user|has_group:"parent" %}
+<div>
+    <h1>Report your child's absence</h1>
+    <h2>{{ child.student_name }} {{ child.student_surname }}</h1>
+</div>
+{% endif %}
+{% endblock %}
