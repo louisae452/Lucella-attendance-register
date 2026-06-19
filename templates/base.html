@@ -29,10 +29,19 @@
     </header>
     <main>
         <div id="content-container">
-            <!--
-            <p>Message if logged in</p>
-        -->
+
+        {% if messages %}
+            <div>
+                {% for message in messages %}
+                <div class="alert-box { message.tags }}">
+                    <p>{{ message }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
             {% block content %}
+            
             {% endblock content %}
         </div>
     </main>

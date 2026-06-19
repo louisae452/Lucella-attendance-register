@@ -38,9 +38,7 @@
         </table>
     </div>
     <div>
-        <a class="button" href="{% url 'absence' child.student_code %}">Report an absence</a>
-                <a class="button" href="">View timetable</a>
-                <a class="button" href="">View attendance record</a>
+        <a class="button" href="{% url 'childrecord' child.student_code %}">View attendance record</a>
     </div>
 </div>
 {% endif %}

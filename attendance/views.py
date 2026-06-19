@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.views import generic
 from django.views.generic import TemplateView
+from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required, permission_required
@@ -10,14 +11,9 @@ from django.core.mail import send_mail, EmailMultiAlternatives
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-
 from .models import Student,Timetable, Subject, DailyRegister
-
-from .forms import StudentForm, UserForm, ParentForm, TeacherForm, GetregisterForm, RegisterFormSet, SendemailForm, GetSessionid, AbsenceForm
-
+from .forms import StudentForm, UserForm, ParentForm, TeacherForm, GetregisterForm, RegisterFormSet, SendemailForm, AbsenceForm, GivereasonForm
 from django.core.cache import cache
-
-
 from datetime import date, datetime
 
 
@@ -46,7 +42,7 @@ def students_list(request):
         totaldays =  DailyRegister.objects.filter(student_code__student_code=student.student_code).count() 
         attendancepercentage = round(((presentdays/totaldays)*100), 2)
         student.attendancepercentage = attendancepercentage
-    return render(request, "attendance/students_list.html", {"students":students})
+    return render(request, "attendance/students_list.html", {"students": students,})
     #return object_list(request, template_name="attendance.students_list,html", queryset=students)
  
 #View to add a parent.
@@ -353,7 +349,7 @@ def child_timetable(request, student_code):
         else:
             key=f"{record.day}{record.session}"
         timetablevalues[key]=record
-    if child.sex == 5:
+    if child.music_option == 5:
         record = Timetable.objects.get(subject_name__subject_name="Piano A")
         if record.day == 0:
             key=f"M{record.session}"
@@ -378,36 +374,103 @@ def child_timetable(request, student_code):
             
         }
     )
-            
-                
-    
-
-
-
-
-
-
 
 # View to report an absence.
 def report_absence(request, student_code, session_id):
    
     child = Student.objects.get(student_code=student_code)
     session = Timetable.objects.get(session_id=session_id)
-    
-    
-    
-    
-    
+    report = AbsenceForm()
+    if request.method == "POST":
+        report = AbsenceForm(data=request.POST)
+        if report.is_valid():
+            absencedate = report.cleaned_data['date']
+            dayofweek = absencedate.weekday()
+            # Check the  date is the correct weekday.
+            if dayofweek == session.day:
+                # Check if that absence already exists. Redirect to attendance records if it does.
+                if DailyRegister.objects.filter(session_id=session, student_code__student_code=child.student_code, date=absencedate).exists():
+                    messages.warning(request, "Absence alreay recorded. Please, access it from the student's records.")
+                    return redirect('childdetail', student_code=student_code)
+                else:
+                    # Create new record with default values
+                    newreport = report.save(commit=False)
+                    newreport.session_id = session
+                    newreport.student_code = child
+                    newreport.mark = 1
+                    newreport.status = 1
+                    newreport.code = 3
+                    newreport.save()
+                    messages.success(request, "Absence successfully recorded.")
+                return redirect ('childdetail', student_code=student_code)
+            else:
+                # If the specified date is not the correct weekday.
+                messages.error(request, 'The date specified does not match a timetable slot!')
+                return redirect ('childdetail', student_code=student_code)
     return render(
         request,
         "attendance/report_absence.html",
         {
             'child': child,
             'session': session,
+            'report' : report,
             
         }
     )
+# View to show parents attendance record.
+def child_record(request, student_code):
     
+    childname = Student.objects.get(student_code=student_code).student_name
+    childsurname = Student.objects.get(student_code=student_code).student_surname
+    childcode = student_code
+    child_records = DailyRegister.objects.filter(student_code__student_code=student_code)
+    presentdays = DailyRegister.objects.filter(student_code__student_code=student_code, mark=0).count()
+    totaldays =  DailyRegister.objects.filter(student_code__student_code=student_code).count() 
+    attendancepercentage = round(((presentdays/totaldays)*100), 2)
+    # To show the subject rather than the __str__
+    for child in child_records:
+        subject = child.session_id.subject_name
+        
+        child.subject = subject
+    
+    return render(
+        request,
+        "attendance/child_record.html",
+        {
+            'childname': childname,
+            'childsurname': childsurname,
+            'childcode': childcode,
+            'attendancepercentage': attendancepercentage,
+            
+            'child_records': child_records
+        },
+    )
+# View to edit reason for past absence
+def give_reason(request, student_code, date, session_id):
+    child = Student.objects.get(student_code=student_code)
+    absence = DailyRegister.objects.get(session_id=session_id, date=date, student_code__student_code=student_code)
+    if request.method == "POST":
+        reasonform = GivereasonForm(data=request.POST, instance=absence)
+        if reasonform.is_valid():
+            reasonholder = reasonform.save(commit=False)
+            # changes status back to pending.
+            reasonholder.status = 1
+            reasonholder.save()
+        return redirect('childrecord', student_code=student_code)
+    reasonform = GivereasonForm(instance=absence)            
+    return render(
+        request,
+        "attendance/give_reason.html",
+        {
+            'child': child,
+            'absence': absence,
+            'reasonform': reasonform,
+            
+            
+        }
+    )
+
+
     
     
     

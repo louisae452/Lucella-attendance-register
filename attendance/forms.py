@@ -72,15 +72,16 @@ class SendemailForm(forms.ModelForm):
         
 # Form to register an absence.
 
-class GetSessionid(forms.ModelForm):
-    class Meta:
-        model = Timetable
-        fields = ['day', 'session', 'subject_name']
 class AbsenceForm(forms.ModelForm):
     class Meta:
         model = DailyRegister
-    
-        fields = 'date', 'reason_for_absence'
+        fields = ['date', 'reason_for_absence']
+# Form to give/edit reason for a past absence.
+class GivereasonForm(forms.ModelForm):
+    class Meta:
+        model = DailyRegister
+        fields = ['reason_for_absence']
+        
     
 
         

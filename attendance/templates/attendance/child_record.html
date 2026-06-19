@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+{% load custom_tags %}
+
+{% block content %}
+
+{% if request.user|has_group:"parent" %}
+<div >
+    <h2>{{childsurname }}  {{ childname }}</h2>
+    <h3>{{ childname}}'s attendance percentage is: {{ attendancepercentage }}%</h3>
+
+    <div class="form-container">
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Session</th>
+                <th>Mark</th>
+                <th>Status</th>
+                <th>Code</th>
+                <th>Reason for absence</th>        
+            </tr>    
+            {% for record in child_records %}
+            <tr>   
+                <td>{{ record.date }}</td>
+                <td>{{ record.subject }}</td>
+                <td>
+                {% if record.mark == 1 %}
+                <a href="{% url 'givereason' childcode record.date record.session_id_id %}">{{record.get_mark_display }}</a>
+                {% else %}
+                {{ record.get_mark_display }}
+                {% endif %}
+                </td>
+                <td>{{ record.get_status_display }}</td>
+                <td>{{ record.get_code_display }}</td>
+                <td>{{ record.reason_for_absence }}
+                    
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+<div>
+    <a class="button" href="">Email</a>
+    <a class="button" href="{% url 'students' %}">Student list</a>
+</div>
+
+{% endif %}
+{% endblock %}

@@ -82,8 +82,7 @@ class Timetable(models.Model):
         ordering = ['day', 'session', 'group']
     
     def __str__(self):
-        return f"{self.subject_name}"
-        #return f"{self.get_day_display()} {self.get_session_display()} Group: {self.get_group_display()}"
+        return f"{self.get_day_display()} {self.get_session_display()} Group: {self.get_group_display()}"
     
 # Model to record daily attendance.
 MARK = ((0, 'Present'), (1, 'Absent'), (2, ' '))
@@ -98,7 +97,10 @@ class DailyRegister(models.Model):
     # reason_for_absence = models.CharField(max_length=200, blank=True)
     status = models.IntegerField(choices=STATUS, blank=True, default='0')
     code = models.IntegerField(choices=ABSENCECODE, blank=True, default='3')
-    reason_for_absence = models.TextField(default=" ")
+    reason_for_absence = models.TextField( blank=True)
+    
+    def __str__(self):
+        return(f"{self.date}, {self.student_code}")
 
 # Model for emails.
 SUBJECT= ((0, 'Attendance below 90%'), (1, 'Attendance below 80%'), (2, 'Student missing'))

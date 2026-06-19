@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+{% load custom_tags %}
+
+{% block content %}
+
+{% if request.user|has_group:"parent" %}
+
+<div class="form-container">
+    <div class="reducesize">
+        <h1>{{ child.student_name }} {{ child.student_surname }}</h1>
+        <h2>{{ absence.date }} {{ absence.session_id }}</h2>
+        <form method="post">
+            {{ reasonform }}
+            {% csrf_token %}
+            <button class="button" type="submit" href="">Go to register</button>
+        </form>
+    </div>
+</div>
+{% else %}
+    <div>
+        <a class="button" href="{% url 'landing' %}">Main menu</a>
+    </div>
+{% endif %}
+{% endblock %}

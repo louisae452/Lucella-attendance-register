@@ -21,6 +21,8 @@ urlpatterns = [
     path('saveregister/', views.saveregister, name='saveregister'),
     path('child/<str:student_code>/', views.child_timetable, name='childdetail'),
     path('child/<str:student_code>/<int:session_id>/', views.report_absence, name='reportabsence'),
+    path('child/<str:student_code>/record/', views.child_record, name='childrecord'),
+    path('child/<str:student_code>/reocrd/<str:date>/<int:session_id>/', views.give_reason, name='givereason'),
     path('student/<str:student_code>/', views.student_detail, name='studentdetail'),
     path('email/<str:student_code>/', views.sendemail, name='sendemail'),
     
