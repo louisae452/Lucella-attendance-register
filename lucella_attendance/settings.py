@@ -17,7 +17,8 @@ if os.path.isfile('env.py'):
     import env
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
+TEMPLATES_DIR = [BASE_DIR / 'static']
+#TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 
 
 # Quick-start development settings - unsuitable for production
@@ -61,6 +62,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
@@ -149,8 +151,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIR =[BASE_DIR / 'static']
+STATIC_ROOT= BASE_DIR / 'staticfiles'
+
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+#STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
+#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
  # code fromm https://www.geeksforgeeks.org/python/setup-sending-email-in-django-project/
 
