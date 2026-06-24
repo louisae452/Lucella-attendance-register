@@ -19,8 +19,8 @@
             {% for student in students %}
             <tr>   
                 <td>{{ student.student_surname }}</td>
-                <td>{{ student.student_name }}</td>
-                <td><a href="{% url 'classdetail' subject.subject_name student.student_code %}">{{ student.attendance }}</a></td>        
+                <td><a href="{% url 'classdetail' subject.subject_name student.student_code %}">{{ student.student_name }}</a></td>
+                <td>{{ student.attendance }}</td>        
             </tr>
             {% endfor %}
         </table>

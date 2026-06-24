@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.views import generic
+from django.db.models import Count, Q
 from django.views.generic import TemplateView
 from django.contrib import messages
 from django.contrib.auth import get_user_model
@@ -523,13 +524,13 @@ def get_class(request):
             elif subject.set == 4 or subject.set == 5:
                 students = Student.objects.filter(music_option=subject.set)
             # get appropriate session values
-            sessionids = Timetable.objects.filter(subject_name__subject_name=subject.subject_name).values_list('session_id', flat=True)
-            print(sessionids)
+            sessionids = Timetable.objects.filter(subject_name__subject_name=group).order_by().values_list('id', flat=True).distinct()
+            students = students.annotate(
+                total_sessions=Count('dailyregister', filter=Q(dailyregister__session_id__in=sessionids)),
+                present_sessions = Count('dailyregister', filter=Q(dailyregister__session_id__in= sessionids, dailyregister__mark=0)),
+            )
             for student in students:
-                total_sessions=DailyRegister.objects.filter(student_code__student_code=student.student_code, session_id__in=sessionids)
-                present_sessions=DailyRegister.objects.filter(student_code__student_code=student.student_code, session_id__in=sessionids, mark=0)
-                student.attendance = round((present_sessions.count()/total_sessions.count()*100), 2)
-            
+                student.attendance =round((student.present_sessions/student.total_sessions)*100, 2)
             return render(
                 request,
                 "attendance/class_list.html",
@@ -549,7 +550,7 @@ def get_class(request):
 
 # View to see student detail for specific subject.
 def class_detail(request, subject_name, student_code):
-    sessionids = Timetable.objects.filter(subject_name__subject_name=subject_name).values_list('session_id', flat=True)
+    sessionids = Timetable.objects.filter(subject_name__subject_name=subject_name).values_list('id', flat=True).distinct()
     sessionslist = DailyRegister.objects.filter(student_code__student_code=student_code, session_id__in=sessionids)
     
     return render(

@@ -85,7 +85,7 @@ class Timetable(models.Model):
         return f"{self.get_day_display()} {self.get_session_display()} Group: {self.get_group_display()}"
     
 # Model to record daily attendance.
-MARK = ((0, 'Present'), (1, 'Absent'), (2, ' '))
+MARK = ((0, 'Present'), (1, 'Absent'), (2, 'Not recorded '))
 STATUS = ((0, 'N/A'), (1, 'Pending'), (2, 'Authorised'), (3, 'Unauthorised'))
 ABSENCECODE = ((0, 'Medical'), (1, 'Educational activity'), (2, 'Unauthorised'), (3, ' '))
 class DailyRegister(models.Model):
@@ -93,7 +93,7 @@ class DailyRegister(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date = models.DateField()
     student_code = models.ForeignKey(Student, on_delete=models.RESTRICT)
-    mark = models.IntegerField(choices=MARK, blank=True, default=2)
+    mark = models.IntegerField(choices=MARK, default=2)
     # reason_for_absence = models.CharField(max_length=200, blank=True)
     status = models.IntegerField(choices=STATUS, blank=True, default='0')
     code = models.IntegerField(choices=ABSENCECODE, blank=True, default='3')
