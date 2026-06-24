@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+{% load custom_tags %}
+
+{% block content %}
+
+{% if request.user|has_group:"teacher" %}
+<div >
+    <h2>{{ subject.subject_name }}</h2>
+
+    <div class="form-container">
+        <table>
+            <tr>
+                <th>Surname</th>
+                <th>Name</th>
+                <th>Percentage attendance</th>        
+            </tr>    
+            {% for student in students %}
+            <tr>   
+                <td>{{ student.student_surname }}</td>
+                <td>{{ student.student_name }}</td>
+                <td>{{ student.attendance }}</td>        
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+<div>
+    <a class="button" href="">Email</a>
+    <a class="button" href="{% url 'students' %}">Student list</a>
+</div>
+
+{% endif %}
+{% endblock %}

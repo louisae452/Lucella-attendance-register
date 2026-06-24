@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+{% load custom_tags %}
+
+{% block content %}
+
+{% if request.user|has_group:"admissions_officer" %}
+<div >
+    <h2>{{student.student_name }}  {{ student.student_surname }}</h2>
+    <h3>{{absence.date}} {{ absence.session_id }}</h3>
+    <h3>Reason for absence</h3>
+    <h4>{{ absence.reason_for_absence }}</h4>
+    <div class="form-container">
+        
+
+        <form method="post">
+                {{ review }}
+                {% csrf_token %}
+                <button class="button" type="submit">Save </button>
+            </form>
+
+    </div>
+</div>
+<div>
+    <a class="button" href="">Email</a>
+    <a class="button" href="">Student list</a>
+</div>
+
+{% endif %}
+{% endblock %}
+

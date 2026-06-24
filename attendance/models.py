@@ -57,7 +57,7 @@ SET = ((0, 'Junior'), (1, 'Senior'), (2, 'Female'), (3, 'Male'),
 
 class Subject(models.Model):
     
-    subject_name = models.CharField(max_length=100)
+    subject_name = models.CharField(max_length=100, unique=True)
     teacher_name = models.ForeignKey(User, on_delete=models.RESTRICT,
                                      limit_choices_to={'groups__name': "teacher"})
     room = models.IntegerField(choices=ROOM, blank=True)  
@@ -66,7 +66,7 @@ class Subject(models.Model):
     def __str__(self):
         return f"{self.subject_name}"
 
-
+# Model to show sessions.
 SESSION = ((0, 'MomoA'), (1, 'MoafA'), (2, 'TumoA'), (3, 'TuafA'), (4, 'WemoA'), (5, 'WeafA'), (6, 'ThmoA'), (7, 'ThafA'), (8, 'FrmoA'), (9, 'FrafA'), (10, 'MomoB'), (11, 'MoafB'), (12, 'TumoB'), (13, 'TuafB'), (14, 'WemoB'), (15, 'WeafB'), (16, 'ThmoB'), (17, 'ThafB'), (18, 'FrmoB'), (19, 'FrafB'))
 DAYS = ((0, "Monday"), (1, "Tuesday"), (2, "Wednesday"), (3, "Thursday"), (4,"Friday"))
 TIME = ((0, "Morning"), (1, "Afternoon")) 
@@ -99,8 +99,11 @@ class DailyRegister(models.Model):
     code = models.IntegerField(choices=ABSENCECODE, blank=True, default='3')
     reason_for_absence = models.TextField( blank=True)
     
+    class Meta:
+        ordering = ['date', 'student_code']
+    
     def __str__(self):
-        return(f"{self.date}, {self.student_code}")
+        return(f"{self.date}, {self.student_code}, {self.session_id}")
 
 # Model for emails.
 SUBJECT= ((0, 'Attendance below 90%'), (1, 'Attendance below 80%'), (2, 'Student missing'))

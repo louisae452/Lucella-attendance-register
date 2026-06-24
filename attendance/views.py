@@ -12,13 +12,21 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from .models import Student,Timetable, Subject, DailyRegister
-from .forms import StudentForm, UserForm, ParentForm, TeacherForm, GetregisterForm, RegisterFormSet, SendemailForm, AbsenceForm, GivereasonForm
+from .forms import StudentForm, UserForm, ParentForm, TeacherForm, GetregisterForm, RegisterFormSet, SendemailForm, AbsenceForm, GivereasonForm, PendingabsenceForm, GetclassForm
 from django.core.cache import cache
 from datetime import date, datetime
 
 
 # Create your views here.
+# Function to calculate percentage attendance.
+def get_percentage(students):
 
+    for student in students:
+        presentdays = DailyRegister.objects.filter(student_code__student_code=student.student_code, mark=0).count()
+        totaldays =  DailyRegister.objects.filter(student_code__student_code=student.student_code).count() 
+        attendancepercentage = round(((presentdays/totaldays)*100), 2)
+        student.attendancepercentage = attendancepercentage
+    return(students)
 
 # View to see home page.
 class HomeView(TemplateView):
@@ -469,10 +477,75 @@ def give_reason(request, student_code, date, session_id):
             
         }
     )
+    
+# View to see all pending absences
+def pending_absences(request):
+    pending = DailyRegister.objects.filter(status=1)
+        
+    return render(
+        request,
+        "attendance/pending_absences.html",
+        {
+            'pending': pending,
+        }
+    )
+
+# View to review individual pending absences
+def absence_detail(request, student_code, date, session_id):
+    student = Student.objects.get(student_code=student_code)
+    session = Timetable.objects.get(session_id=session_id)
+    absence = DailyRegister.objects.get(student_code__student_code=student_code, session_id=session_id, date=date)
+    review = PendingabsenceForm(instance=absence)
+    return render(
+        request,
+        "attendance/absence_detail.html",
+        {
+            'student': student,
+            'absence': absence,
+            'review': review,
+        }
+    )
+
+# View to get class list.
+def get_class(request):
+    if request.method == "POST":
+        classlist = GetclassForm(data=request.POST)
+        if classlist.is_valid():
+            group = classlist.cleaned_data['subject_name']
+            subject = Subject.objects.get(subject_name=group)     
+            if subject.set == 0 or subject.set == 1:
+                students = Student.objects.filter(group=subject.set)
+                print(students.count())
+            elif subject.set == 2 or subject.set == 3:
+                students = Student.objects.filter(sex=subject.set)
+            elif subject.set == 4 or subject.set == 5:
+                students = Student.objects.filter(music_option=subject.set)
+            # get appropriate session values
+            sessionids = list(Timetable.objects.filter(subject_name__subject_name=subject.subject_name))
+            print(sessionids)
+            for student in students:
+                total_sessions=DailyRegister.objects.filter(student_code__student_code=student.student_code, session_id__in=sessionids)
+                present_sessions=DailyRegister.objects.filter(student_code__student_code=student.student_code, session_id__in=sessionids, mark=0)
+                student.attendance = round((present_sessions.count()/total_sessions.count()*100), 2)
+            
+            return render(
+                request,
+                "attendance/class_list.html",
+                {
+                    'students': students,
+                    'subject': subject,
+                }
+            )
+    classlist = GetclassForm()
+    return render(
+        request,
+        "attendance/myclass.html",
+        {
+            'classlist': classlist,
+        }
+    )
 
 
-    
-    
-    
+
     
     

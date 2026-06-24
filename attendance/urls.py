@@ -8,7 +8,8 @@ urlpatterns = [
     path('', HomeView.as_view(), name='home'),
     path('student/', views.student_detail, name='studentdetail'),
     path('absence/<str:student_code>/', views.report_absence, name='absence'),
-    # ???
+    path('classlist/', views.get_class, name='classlist'),
+    path('myclass/', views.get_class, name='myclass'),
     path('daiyly_register/', views.get_register, name='dailyregister'),
     path('getregister', views.get_register, name='getregister'),
     path('landing/', views.landing_router, name='landing'),
@@ -22,8 +23,10 @@ urlpatterns = [
     path('child/<str:student_code>/', views.child_timetable, name='childdetail'),
     path('child/<str:student_code>/<int:session_id>/', views.report_absence, name='reportabsence'),
     path('child/<str:student_code>/record/', views.child_record, name='childrecord'),
-    path('child/<str:student_code>/reocrd/<str:date>/<int:session_id>/', views.give_reason, name='givereason'),
+    path('child/<str:student_code>/record/<str:date>/<int:session_id>/', views.give_reason, name='givereason'),
     path('student/<str:student_code>/', views.student_detail, name='studentdetail'),
+    path('<str:student_code>/<str:date>/<int:session_id>/', views.absence_detail, name='absencedetail'),
+    path('pending/', views.pending_absences, name='pending'),
     path('email/<str:student_code>/', views.sendemail, name='sendemail'),
     
    

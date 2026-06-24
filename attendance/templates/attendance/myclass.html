@@ -4,16 +4,17 @@
 
 {% block content %}
 
-{% if request.user|has_group:"admissions_officer" %}
+{% if request.user|has_group:"teacher" %}
 
 <div class="form-container">
     <div class="reducesize">
-        <h1>Enter the session's details.</h1>
+        <h1>Enter the class' details.</h1>
         <form method="post">
-            {{ getregisterform }}
+            {{ classlist }}
             {% csrf_token %}
-            <button class="button" type="submit">Go to register</button>
+            <button class="button" type="submit">Get my class</button>
         </form>
+        <a class="button" href="{% url 'landing' %}">Main menu</a>
     </div>
 </div>
 {% else %}

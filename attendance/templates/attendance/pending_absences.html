@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+{% load custom_tags %}
+
+{% block content %}
+
+<h2> Pending absences</h2>
+<div class="form-container">
+    {% if request.user|has_group:"admissions_officer" %}
+    
+    <table>
+        <tr>
+            <th>Code</th>
+            <th>Date</th>   
+            <th>Session_id</th>
+            <th>Mark</th>
+            <th>Status</th>
+            
+        </tr>
+        
+        {% for student in pending %}
+        <tr>
+            <td>{{ student.student_code }}</td>
+            <td><a href="{% url 'absencedetail' student.student_code.student_code student.date student.session_id_id %}">{{ student.date}}</a></td>    
+            <td>{{ student.session_id }}</td>
+            <td>{{ student.get_mark_display }}</td>
+            <td>{{ student.get_status_display }}</td>
+            
+        <tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</div>
+<div>
+    <a class="button" href="{% url 'landing' %}">Main menu</a>
+</div>
+{% endblock %}
