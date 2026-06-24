@@ -184,8 +184,13 @@ form label{
     font-size: 1.2em;
 }
 form {
-    width:50%
+    width:50%;
 }
 h2 {
     text-align:center;
+}
+
+/* Tables styling */
+.longer-column{
+    width: 250px;
 }

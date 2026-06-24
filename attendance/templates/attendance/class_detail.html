@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+{% load custom_tags %}
+
+{% block content %}
+
+{% if request.user|has_group:"teacher" %}
+<div >
+    <h2>{{subject_name }}</h2>
+    
+
+    <div class="form-container">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Session</th>
+                <th>Mark</th>
+                <th>Status</th>        
+            </tr>    
+            {% for session in sessionslist %}
+            <tr>   
+                <td>{{ session.student_code }}</td>
+                <td>{{ session.date }}</td>
+                <td class="longer-column">{{ session.session_id }}</td>
+                <td>{{ session.get_mark_display }}</td>
+                <td>{{ session.get_status_display }}</td>
+                
+                    
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+<div>
+    
+    <a class="button" href="{% url 'myclass' %}">Back to class list</a>
+</div>
+{% endif %}
+{% endblock %}

@@ -60,6 +60,12 @@ School staff will be able to see when a student has been reported as absent by t
 - As an Attendance Officer I want to be able to see a record of all students' attendance so that I can target students with critical attendance.
 - As an Attendance Officer I want to see all unclassified absences so that I can authorise/un-authorise them.
 
+## Fixed bugs.
+
+Student_detail stopped working. Was fixed by reorganising the url order, ensuring that paths with a fixed name were first on the list and variable based ones were last.
+
+
+
 ## Frameworks, packages and libraries.
 
 Git hub

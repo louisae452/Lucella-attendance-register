@@ -223,9 +223,11 @@ def saveregister(request):
    
 def student_detail(request, student_code):
     
+    
     studentname = Student.objects.get(student_code=student_code).student_name
     studentsurname = Student.objects.get(student_code=student_code).student_surname
     studentcode = student_code
+    print(f"test4 {studentsurname}")
     student_records = DailyRegister.objects.filter(student_code__student_code=student_code)
     
     
@@ -521,7 +523,7 @@ def get_class(request):
             elif subject.set == 4 or subject.set == 5:
                 students = Student.objects.filter(music_option=subject.set)
             # get appropriate session values
-            sessionids = list(Timetable.objects.filter(subject_name__subject_name=subject.subject_name))
+            sessionids = Timetable.objects.filter(subject_name__subject_name=subject.subject_name).values_list('session_id', flat=True)
             print(sessionids)
             for student in students:
                 total_sessions=DailyRegister.objects.filter(student_code__student_code=student.student_code, session_id__in=sessionids)
@@ -542,6 +544,20 @@ def get_class(request):
         "attendance/myclass.html",
         {
             'classlist': classlist,
+        }
+    )
+
+# View to see student detail for specific subject.
+def class_detail(request, subject_name, student_code):
+    sessionids = Timetable.objects.filter(subject_name__subject_name=subject_name).values_list('session_id', flat=True)
+    sessionslist = DailyRegister.objects.filter(student_code__student_code=student_code, session_id__in=sessionids)
+    
+    return render(
+        request,
+        "attendance/class_detail.html",
+        {
+            'sessionslist': sessionslist,
+            'subject_name': subject_name,
         }
     )
 

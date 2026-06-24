@@ -11,6 +11,7 @@
     <div class="form-container">
         <table>
             <tr>
+
                 <th>Surname</th>
                 <th>Name</th>
                 <th>Percentage attendance</th>        
@@ -19,7 +20,7 @@
             <tr>   
                 <td>{{ student.student_surname }}</td>
                 <td>{{ student.student_name }}</td>
-                <td>{{ student.attendance }}</td>        
+                <td><a href="{% url 'classdetail' subject.subject_name student.student_code %}">{{ student.attendance }}</a></td>        
             </tr>
             {% endfor %}
         </table>
