@@ -81,18 +81,8 @@ class PendingabsenceForm(forms.ModelForm):
         model = DailyRegister
         fields = ['status', 'code']
    
-#Form to get class list.
-#class GetclassForm(forms.ModelForm):
-    
-  #  class Meta:
-   #     model = Subject
-   #     fields = ['subject_name']
-    # Show the subjects as a dropdown menu:
-   # def __init__(self, *args, **kwargs):
-    #    super().__init__(*args, **kwargs)
-    #    subjects=Subject.objects.values_list('subject_name', flat=True).distinct()
-     #   self.fields['subject_name'].widget = forms.Select(choices=[(val, val) for val in subjects if val])
-    
+
+# Form to get the class list   
 class GetclassForm(forms.Form):
     subject_name = forms.ModelChoiceField(
         queryset = Subject.objects.all(),

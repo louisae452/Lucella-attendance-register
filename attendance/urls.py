@@ -21,6 +21,7 @@ urlpatterns = [
     path('teacherdata/', views.add_teacherdata, name='teacherdata'),
     path('saveregister/', views.saveregister, name='saveregister'),
     path('pending/', views.pending_absences, name='pending'),
+    
     path('child/<str:student_code>/', views.child_timetable, name='childdetail'),
     path('child/<str:student_code>/<int:session_id>/', views.report_absence, name='reportabsence'),
     path('child/<str:student_code>/record/', views.child_record, name='childrecord'),

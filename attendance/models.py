@@ -106,7 +106,7 @@ class DailyRegister(models.Model):
         return(f"{self.date}, {self.student_code}, {self.session_id}")
 
 # Model for emails.
-SUBJECT= ((0, 'Attendance below 90%'), (1, 'Attendance below 80%'), (2, 'Student missing'))
+SUBJECT= ((0, 'Attendance below 90%'), (1, 'Attendance below 80%'), (2, 'Student missing'), (3, 'Unauthorised absence'))
 class Email(models.Model):
     subject = models.IntegerField(choices=SUBJECT)
     text = models.TextField()

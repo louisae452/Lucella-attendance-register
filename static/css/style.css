@@ -194,3 +194,8 @@ h2 {
 .longer-column{
     width: 250px;
 }
+/* Titles--tidy up*/
+.inline{
+    display: flex;
+    flex-direction: row;
+}

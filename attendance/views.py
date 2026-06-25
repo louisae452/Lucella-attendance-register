@@ -12,7 +12,7 @@ from django.core.mail import send_mail, EmailMultiAlternatives
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-from .models import Student,Timetable, Subject, DailyRegister
+from .models import Student,Timetable, Subject, DailyRegister, Sentemail, Email
 from .forms import StudentForm, UserForm, ParentForm, TeacherForm, GetregisterForm, RegisterFormSet, SendemailForm, AbsenceForm, GivereasonForm, PendingabsenceForm, GetclassForm
 from django.core.cache import cache
 from datetime import date, datetime
@@ -496,8 +496,37 @@ def pending_absences(request):
 # View to review individual pending absences
 def absence_detail(request, student_code, date, session_id):
     student = Student.objects.get(student_code=student_code)
-    session = Timetable.objects.get(session_id=session_id)
+    #session = Timetable.objects.get(session_id=session_id)
     absence = DailyRegister.objects.get(student_code__student_code=student_code, session_id=session_id, date=date)
+    if request.method == "POST":
+        absenceform = PendingabsenceForm(data=request.POST, instance=absence)
+        if absenceform.is_valid():
+            absenceform.save()
+            if absenceform.instance.status == 3:
+                ####
+                parentname = Student.objects.get(student_code=student_code).parent_name
+                User = get_user_model()
+                parent = User.objects.get(username=parentname)
+                parentmail = parent.email
+                ####
+                email3=Email.objects.get(subject=3)
+                newemail = Sentemail.objects.create(student_code=student, subject=email3)
+                text = Email.objects.get(subject=3).text
+                subject = newemail.subject
+                # Write the email
+                text_info = {
+                    'studentname': student.student_name,
+                    'studentsurname': student.student_surname,
+                    'date': absenceform.instance.date,
+                    'session': absenceform.instance.session_id,
+                    'text': text,
+                }
+                html_content = render_to_string('attendance/subject3_email.html', text_info)
+                text_content = strip_tags(html_content)
+                message = EmailMultiAlternatives(subject, text_content, settings.EMAIL_HOST_USER, [parentmail])
+                message.attach_alternative(html_content, "text/html")
+                message.send()
+        return redirect('pending')
     review = PendingabsenceForm(instance=absence)
     return render(
         request,

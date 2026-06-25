@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+{% load custom_tags %}
+
+{% block content %}
+
+<div>
+    <h2> {{ studentname}} {{studentsurname}},</h2>
+    <h3>{{ date }}</h3>
+    <h3>{{ session }}</h3>
+    {{ text | safe}}
+</div>
+
+{% endblock %}
