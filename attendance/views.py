@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.views import generic
+from django.db import transaction
 from django.db.models import Count, Q
 from django.views.generic import TemplateView
 from django.contrib import messages
@@ -571,7 +572,59 @@ def class_detail(request, subject_name, student_code):
             'subject_name': subject_name,
         }
     )
-
+# View to see truanting students.
+@login_required
+def truanting_list(request):
+    today = date.today()
+    truantinglist = DailyRegister.objects.filter(date=today, mark=1, reason_for_absence='')
+    ######
+    if request.method == "POST":
+        # gget teh email.
+        email2 = get_object_or_404(Email, subject=2)
+        
+        User = get_user_model()
+        # Check all database records at once. abort if one missing.
+        with transaction.atomic():
+            
+            for record in truantinglist:
+               
+                student = record.student_code
+                parentname = student.parent_name
+                parent = User.objects.get(username=parentname)
+                parentmail = parent.email
+                ####
+                newemail = Sentemail.objects.create(student_code=student, subject=email2)
+            
+                subject = newemail.subject
+                # Write the email
+                text_info = {
+                    'studentname': student.student_name,
+                    'studentsurname': student.student_surname,
+                    'date': today,
+                    'session': record.session_id,
+                    'text': email2.text,
+                    }
+                html_content = render_to_string('attendance/subject3_email.html', text_info)
+                text_content = strip_tags(html_content)
+                message = EmailMultiAlternatives(subject, text_content, settings.EMAIL_HOST_USER, [parentmail])
+                message.attach_alternative(html_content, "text/html")
+                message.send()
+        return redirect('landing')
+        
+    
+    
+    
+    
+    
+    return render(
+        request,
+        "attendance/truanting.html",
+        {
+            'truantinglist': truantinglist,
+            'today': today,
+        }
+    )
+    
 
 
     

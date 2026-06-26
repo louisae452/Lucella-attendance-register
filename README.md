@@ -87,3 +87,4 @@ Heroku
 - Formsets [Geeksforgeeks]( https://www.geeksforgeeks.org/python/django-modelformsets/)
 - To send emails [Geeksforgeeks](https://www.geeksforgeeks.org/python/setup-sending-email-in-django-project/)
 - Annotate: (https://www.geeksforgeeks.org/python/aggregate-vs-annotate-in-django/)(https://www.geeksforgeeks.org/python/filter-objects-with-count-annotation-in-django/)
+- Atomic transactions [Geeksforgeeks](https://www.geeksforgeeks.org/python/transaction-atomic-with-django/)
