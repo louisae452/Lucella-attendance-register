@@ -14,7 +14,7 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from .models import Student,Timetable, Subject, DailyRegister, Sentemail, Email
-from .forms import StudentForm, UserForm, ParentForm, TeacherForm, GetregisterForm, RegisterFormSet, SendemailForm, AbsenceForm, GivereasonForm, PendingabsenceForm, GetclassForm
+from .forms import StudentForm, UserForm, ParentForm, TeacherForm, GetregisterForm, RegisterFormSet, SendemailForm, AbsenceForm, GivereasonForm, PendingabsenceForm, GetclassForm, RemoveForm
 from django.core.cache import cache
 from datetime import date, datetime
 
@@ -35,7 +35,7 @@ class LandingView(TemplateView):
 # View to see all students registered.
 @login_required
 def students_list(request):
-    students = Student.objects.all()
+    students = Student.objects.filter(deregistered=False)
     for student in students:
         presentdays = DailyRegister.objects.filter(student_code__student_code=student.student_code, mark=0).count()
         totaldays =  DailyRegister.objects.filter(student_code__student_code=student.student_code).count() 
@@ -149,11 +149,11 @@ def get_register (request):
                 currentset= get_object_or_404(Subject, subject_name=getregisterform.cleaned_data['subject_name']).set
                 # Get the Student records of students on current set
                 if currentset == 0 or currentset == 1:
-                    students = Student.objects.filter(group=currentset)
+                    students = Student.objects.filter(group=currentset, deregistered=False)
                 elif currentset == 2 or currentset == 3:
-                    students = Student.objects.filter(sex=currentset)
+                    students = Student.objects.filter(sex=currentset, deregistered=False)
                 elif currentset == 4 or currentset == 5:
-                    students = Student.objects.filter(music_option=currentset)
+                    students = Student.objects.filter(music_option=currentset, deregistered=False)
                 # If a DailyAttendance record for that student and session does not exists, create one with default values.
                 for student in students:
                     student_record = DailyRegister.objects.filter(session_id=currentsessionid, date=today, student_code=student).exists()
@@ -276,7 +276,7 @@ def sendemail(request, student_code):
 # View to show registered children.
 @login_required
 def children_list(request):
-    children = Student.objects.filter(parent_name=request.user)
+    children = Student.objects.filter(parent_name=request.user, deregistered=False)
     return render(
         request,
         "attendance/landing.html",
@@ -456,9 +456,7 @@ def give_reason(request, student_code, date, session_id):
         {
             'child': child,
             'absence': absence,
-            'reasonform': reasonform,
-            
-            
+            'reasonform': reasonform,       
         }
     )
     
@@ -528,12 +526,12 @@ def get_class(request):
             group = classlist.cleaned_data['subject_name']
             subject = get_object_or_404(Subject, subject_name=group)     
             if subject.set == 0 or subject.set == 1:
-                students = Student.objects.filter(group=subject.set)
+                students = Student.objects.filter(group=subject.set, deregistered=False)
                 print(students.count())
             elif subject.set == 2 or subject.set == 3:
-                students = Student.objects.filter(sex=subject.set)
+                students = Student.objects.filter(sex=subject.set, deregistered=False)
             elif subject.set == 4 or subject.set == 5:
-                students = Student.objects.filter(music_option=subject.set)
+                students = Student.objects.filter(music_option=subject.set, deregistered=False)
             # get appropriate session values
             sessionids = Timetable.objects.filter(subject_name__subject_name=group).order_by().values_list('id', flat=True).distinct()
             students = students.annotate(
@@ -579,7 +577,7 @@ def truanting_list(request):
     truantinglist = DailyRegister.objects.filter(date=today, mark=1, reason_for_absence='')
     ######
     if request.method == "POST":
-        # gget teh email.
+        # get teh email.
         email2 = get_object_or_404(Email, subject=2)
         
         User = get_user_model()
@@ -610,12 +608,6 @@ def truanting_list(request):
                 message.attach_alternative(html_content, "text/html")
                 message.send()
         return redirect('landing')
-        
-    
-    
-    
-    
-    
     return render(
         request,
         "attendance/truanting.html",
@@ -624,7 +616,29 @@ def truanting_list(request):
             'today': today,
         }
     )
-    
+
+# View to remove a student.
+@login_required
+def remove_student(request):
+    if request.method == "POST":
+        removeform = RemoveForm(data=request.POST)
+        if removeform.is_valid():
+            student = removeform.cleaned_data.get('student_code')
+            student.deregistered_on = date.today()
+            student.deregistered = True
+            student.save()
+            return redirect('landing')
+    removeform = RemoveForm()
+    return render(
+        request,
+        "attendance/remove_students.html",
+        {
+            'removeform': removeform,
+        }
+    )
+
+
+ 
 
 
     

@@ -20,6 +20,7 @@ urlpatterns = [
     path('student/<str:student_code>/', views.student_detail, name='studentdetail'),
     path('teacherdata/', views.add_teacherdata, name='teacherdata'),
     path('saveregister/', views.saveregister, name='saveregister'),
+    path('remove/', views.remove_student, name='remove'),
     path('pending/', views.pending_absences, name='pending'),
     path('truanting/', views.truanting_list, name='truanting'),
     

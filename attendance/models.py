@@ -28,9 +28,10 @@ class Student(models.Model):
     sex = models.IntegerField(choices=SEX, blank=False)
     group = models.IntegerField(choices=GROUP, blank=False)
     music_option = models.IntegerField(choices=MUSIC, blank=False)
-    option = models.IntegerField(choices=OPTION, blank=True)
+    option = models.IntegerField(choices=OPTION, blank=True, null=True)
     registered_on = models.DateTimeField(auto_now_add=True)
     deregistered = models.BooleanField(default=False)
+    deregistered_on = models.DateField(blank=True, null=True, default=None)
     parent_name = models.ForeignKey(User, on_delete=models.CASCADE, limit_choices_to={'groups__name': "parent"})
     
     class Meta:

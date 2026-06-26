@@ -89,6 +89,23 @@ class GetclassForm(forms.Form):
         empty_label="Choose a subject..",
         widget=forms.Select(attrs={'class': 'form-control'})
     )
+   
+   
+   
+# Form to remove a student.
+class RemoveForm(forms.Form):
+    # Force the field to render as a ChoiceField dropdown
+    student_code = forms.ModelChoiceField(
+        queryset = Student.objects.filter(deregistered=False),
+        widget = forms.Select(attrs={'class': 'form-control'}),
+        label = "Select student to remove",
+    )
+        
+        
+        
+        
+    
+    
         
     
         
