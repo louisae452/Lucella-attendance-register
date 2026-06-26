@@ -7,7 +7,6 @@
 {% if request.user|has_group:"admissions_officer" %}
 
     <div class="form-container">
-        
         <div class="reducesize">
             <h1> Teacher's additional information</h1>
             <form method="post">
@@ -17,7 +16,6 @@
                 <button class="button" type="submit">Save data</button>
             </form>
         </div>
-
     </div>
 {% else %}
 <div>

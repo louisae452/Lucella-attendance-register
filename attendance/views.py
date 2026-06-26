@@ -19,15 +19,6 @@ from datetime import date, datetime
 
 
 # Create your views here.
-# Function to calculate percentage attendance.
-def get_percentage(students):
-
-    for student in students:
-        presentdays = DailyRegister.objects.filter(student_code__student_code=student.student_code, mark=0).count()
-        totaldays =  DailyRegister.objects.filter(student_code__student_code=student.student_code).count() 
-        attendancepercentage = round(((presentdays/totaldays)*100), 2)
-        student.attendancepercentage = attendancepercentage
-    return(students)
 
 # View to see home page.
 class HomeView(TemplateView):
@@ -42,8 +33,6 @@ class LandingView(TemplateView):
 
 # View to see all students registered.
 @login_required
-# @permission_required("student.add_student", raise_exception=True)
-
 def students_list(request):
     students = Student.objects.all()
     for student in students:
@@ -52,14 +41,12 @@ def students_list(request):
         attendancepercentage = round(((presentdays/totaldays)*100), 2)
         student.attendancepercentage = attendancepercentage
     return render(request, "attendance/students_list.html", {"students": students,})
-    #return object_list(request, template_name="attendance.students_list,html", queryset=students)
+    
  
 #View to add a parent.
-#login_required
-
+@login_required
 def add_parent(request):
     userform = UserForm()
-    
     if request.method == "POST":
         userform = UserForm(data=request.POST)
         if userform.is_valid():
@@ -67,7 +54,6 @@ def add_parent(request):
             group = Group.objects.get(name="parent")
             newuser.groups.add(group)
             return redirect('parentdata')
-    
     return render(
         request,
         "attendance/new_parent.html",
@@ -75,7 +61,8 @@ def add_parent(request):
             'userform': userform,
         }
     )
-# View to add additional data for parents. 
+# View to add additional data for parents.
+@login_required 
 def add_parentdata(request):
     parentform = ParentForm()
     if request.method == "POST":
@@ -92,14 +79,14 @@ def add_parentdata(request):
     )
 
 # View to add a student
-
+@login_required
 def add_student(request):
-    studentform = StudentForm
     if request.method == "POST":
         studentform = StudentForm(data=request.POST)
         if studentform.is_valid():
             studentform.save()
             return redirect('landing')
+    studentform = StudentForm()    
     return render(
         request,
        "attendance/new_student.html",
@@ -109,9 +96,8 @@ def add_student(request):
    )
     
 #View to add a teacher.
+@login_required
 def add_teacher(request):
-    userform = UserForm()
-    
     if request.method == "POST":
         userform = UserForm(data=request.POST)
         if userform.is_valid():
@@ -119,7 +105,7 @@ def add_teacher(request):
             group = Group.objects.get(name="teacher")
             newuser.groups.add(group)
             return redirect('teacherdata')
-    
+    userform = UserForm()
     return render(
         request,
         "attendance/new_teacher.html",
@@ -129,6 +115,7 @@ def add_teacher(request):
     )
     
 # View to add additional data to teacher
+@login_required
 def add_teacherdata(request):
     teacherform = TeacherForm()
     if request.method == "POST":
@@ -148,7 +135,6 @@ def add_teacherdata(request):
 @never_cache
 def get_register (request):
     cache.clear()
-    #getregisterform =GetregisterForm()
     if request.method == "POST":
         getregisterform = GetregisterForm(data=request.POST)
         if getregisterform.is_valid():
@@ -157,9 +143,9 @@ def get_register (request):
             weekday = today.weekday()
             if getregisterform.cleaned_data['day'] == weekday:
                 # Find theTimetable record for the current session.
-                currentsessionid = Timetable.objects.get(day=getregisterform.cleaned_data['day'], session=getregisterform.cleaned_data['session'], subject_name=getregisterform.cleaned_data['subject_name'])
+                currentsessionid = get_object_or_404(Timetable, day=getregisterform.cleaned_data['day'], session=getregisterform.cleaned_data['session'], subject_name=getregisterform.cleaned_data['subject_name'])
                 # Find the set for the current session
-                currentset= Subject.objects.get(subject_name=getregisterform.cleaned_data['subject_name']).set
+                currentset= get_object_or_404(Subject, subject_name=getregisterform.cleaned_data['subject_name']).set
                 # Get the Student records of students on current set
                 if currentset == 0 or currentset == 1:
                     students = Student.objects.filter(group=currentset)
@@ -189,6 +175,7 @@ def get_register (request):
     )
     
 # View to save the day's register.
+@login_required
 def saveregister(request):
     id_list = request.session.get('filtered_new_records_ids',[])
     daily_records= DailyRegister.objects.filter(id__in=id_list)
@@ -221,17 +208,14 @@ def saveregister(request):
         }
         )
 # View to show student's detail (from teacher landing)
-   
+@login_required   
 def student_detail(request, student_code):
-    
-    
-    studentname = Student.objects.get(student_code=student_code).student_name
-    studentsurname = Student.objects.get(student_code=student_code).student_surname
+     
+    studentname = get_object_or_404(Student, student_code=student_code).student_name
+    studentsurname = get_object_or_404(Student, student_code=student_code).student_surname
     studentcode = student_code
     print(f"test4 {studentsurname}")
     student_records = DailyRegister.objects.filter(student_code__student_code=student_code)
-    
-    
     return render(
         request,
         "attendance/student_detail.html",
@@ -246,20 +230,21 @@ def student_detail(request, student_code):
     
     
 # View to  send email to parent.
+@login_required
 def sendemail(request, student_code):
     form = SendemailForm()
     studentcode =  student_code
-    studentname = Student.objects.get(student_code=student_code).student_name
-    studentsurname = Student.objects.get(student_code=student_code).student_surname
+    studentname = get_object_or_404(Student, student_code=student_code).student_name
+    studentsurname = get_object_or_404(Student, student_code=student_code).student_surname
     if request.method == 'POST':
-        parentname = Student.objects.get(student_code=student_code).parent_name
+        parentname = get_object_or_404(Student, student_code=student_code).parent_name
         User = get_user_model()
-        parent = User.objects.get(username=parentname)
+        parent = get_object_or_404(User, username=parentname)
         parentmail = parent.email
         form = SendemailForm(data=request.POST)
         if form.is_valid():
             sentemail = form.save(commit=False)
-            sentemail.student_code = Student.objects.get(student_code=student_code)
+            sentemail.student_code = get_object_or_404(Student, student_code=student_code)
             sentemail.save()
             subject = sentemail.subject
             text = sentemail.subject.text
@@ -284,17 +269,13 @@ def sendemail(request, student_code):
             'studentcode':studentcode,
             'studentname': studentname,
             'studentsurname': studentsurname,
-            
         }
     )        
 # Parents pages.
 # View to show registered children.
 @login_required
 def children_list(request):
-    
     children = Student.objects.filter(parent_name=request.user)
-
-   
     return render(
         request,
         "attendance/landing.html",
@@ -302,36 +283,34 @@ def children_list(request):
             'children': children,
         }
     )
-
+#Router to choose which viewto use for landing page.
 def landing_router(request, *args, **kwargs):
     if request.user.groups.filter(name='parent').exists():
-            
         return children_list(request)
     elif request.user.groups.filter(name='teacher').exists():
-        
         return LandingView.as_view()(request, *args, **kwargs)
-    
     
 # View to see child detail page
 def view_child(request, student_code):
-    child = Student.objects.get(student_code=student_code)
+    child = get_object_or_404(Student, student_code=student_code)
     return render(
         request,
         "attendance/child_timetable.html",
         {
             'child': child,
         }
-        
     )
+    
 # View to show childs timetable
+@login_required
 def child_timetable(request, student_code):
-    child = Student.objects.get(student_code=student_code)
+    child = get_object_or_404(Student, student_code=student_code)
     timetablevalues = {}
     if child.group == 1:
         academicgroupA = ["English A", "Maths A", "Science A"]
         academicrecordsA = Timetable.objects.filter(subject_name__subject_name__in=academicgroupA)
         for record in academicrecordsA:
-            # avoids error when passing into next url
+            # Avoids error when passing into next url(Will not take an index number starting wiht 0, ie 01)
             if record.day == 0:
                 key=f"M{record.session}"
             else:
@@ -347,28 +326,28 @@ def child_timetable(request, student_code):
                 key=f"{record.day}{record.session}"
             timetablevalues[key]=record
     if child.sex == 3:
-        record = Timetable.objects.get(subject_name__subject_name="Football A")
+        record = get_object_or_404(Timetable, subject_name__subject_name="Football A")
         if record.day == 0:
             key=f"M{record.session}"
         else:
             key=f"{record.day}{record.session}"
         timetablevalues[key]=record
     elif child.sex == 2:
-        record = Timetable.objects.get(subject_name__subject_name="Athletics B")
+        record = get_object_or_404(Timetable, subject_name__subject_name="Athletics B")
         if record.day == 0:
             key=f"M{record.session}"
         else:
             key=f"{record.day}{record.session}"
         timetablevalues[key]=record
     if child.music_option == 5:
-        record = Timetable.objects.get(subject_name__subject_name="Piano A")
+        record = get_object_or_404(Timetable, subject_name__subject_name="Piano A")
         if record.day == 0:
             key=f"M{record.session}"
         else:
             key=f"{record.day}{record.session}"
         timetablevalues[key]=record
     elif child.music_option == 4:
-        record = Timetable.objects.get(subject_name__subject_name="Guitar B")
+        record = get_object_or_404(Timetable, subject_name__subject_name="Guitar B")
         if record.day == 0:
             key=f"M{record.session}"
         else:
@@ -387,10 +366,10 @@ def child_timetable(request, student_code):
     )
 
 # View to report an absence.
+@login_required
 def report_absence(request, student_code, session_id):
-   
-    child = Student.objects.get(student_code=student_code)
-    session = Timetable.objects.get(session_id=session_id)
+    child = get_object_or_404(Student, student_code=student_code)
+    session = get_object_or_404(Timetable, session_id=session_id)
     report = AbsenceForm()
     if request.method == "POST":
         report = AbsenceForm(data=request.POST)
@@ -428,11 +407,12 @@ def report_absence(request, student_code, session_id):
             
         }
     )
-# View to show parents attendance record.
-def child_record(request, student_code):
     
-    childname = Student.objects.get(student_code=student_code).student_name
-    childsurname = Student.objects.get(student_code=student_code).student_surname
+# View to show parents their child's attendance record.
+@login_required
+def child_record(request, student_code):
+    childname = get_object_or_404(Student, student_code=student_code).student_name
+    childsurname = get_object_or_404(Student, student_code=student_code).student_surname
     childcode = student_code
     child_records = DailyRegister.objects.filter(student_code__student_code=student_code)
     presentdays = DailyRegister.objects.filter(student_code__student_code=student_code, mark=0).count()
@@ -441,9 +421,7 @@ def child_record(request, student_code):
     # To show the subject rather than the __str__
     for child in child_records:
         subject = child.session_id.subject_name
-        
         child.subject = subject
-    
     return render(
         request,
         "attendance/child_record.html",
@@ -454,12 +432,14 @@ def child_record(request, student_code):
             'attendancepercentage': attendancepercentage,
             
             'child_records': child_records
-        },
+        }
     )
+    
 # View to edit reason for past absence
+@login_required
 def give_reason(request, student_code, date, session_id):
-    child = Student.objects.get(student_code=student_code)
-    absence = DailyRegister.objects.get(session_id=session_id, date=date, student_code__student_code=student_code)
+    child = get_object_or_404(Student, student_code=student_code)
+    absence = get_object_or_404(DailyRegister, session_id=session_id, date=date, student_code__student_code=student_code)
     if request.method == "POST":
         reasonform = GivereasonForm(data=request.POST, instance=absence)
         if reasonform.is_valid():
@@ -482,9 +462,9 @@ def give_reason(request, student_code, date, session_id):
     )
     
 # View to see all pending absences
+@login_required
 def pending_absences(request):
     pending = DailyRegister.objects.filter(status=1)
-        
     return render(
         request,
         "attendance/pending_absences.html",
@@ -494,24 +474,24 @@ def pending_absences(request):
     )
 
 # View to review individual pending absences
+@login_required
 def absence_detail(request, student_code, date, session_id):
-    student = Student.objects.get(student_code=student_code)
+    student = get_object_or_404(Student, student_code=student_code)
     #session = Timetable.objects.get(session_id=session_id)
-    absence = DailyRegister.objects.get(student_code__student_code=student_code, session_id=session_id, date=date)
+    absence = get_object_or_404(DailyRegister, student_code__student_code=student_code, session_id=session_id, date=date)
     if request.method == "POST":
         absenceform = PendingabsenceForm(data=request.POST, instance=absence)
         if absenceform.is_valid():
             absenceform.save()
             if absenceform.instance.status == 3:
-                ####
-                parentname = Student.objects.get(student_code=student_code).parent_name
+                parentname = get_object_or_404(Student, student_code=student_code).parent_name
                 User = get_user_model()
-                parent = User.objects.get(username=parentname)
+                parent = get_object_or_404(User, username=parentname)
                 parentmail = parent.email
                 ####
-                email3=Email.objects.get(subject=3)
+                email3 = get_object_or_404(Email, subject=3)
                 newemail = Sentemail.objects.create(student_code=student, subject=email3)
-                text = Email.objects.get(subject=3).text
+                text = get_object_or_404(Email, subject=3).text
                 subject = newemail.subject
                 # Write the email
                 text_info = {
@@ -539,12 +519,13 @@ def absence_detail(request, student_code, date, session_id):
     )
 
 # View to get class list.
+@login_required
 def get_class(request):
     if request.method == "POST":
         classlist = GetclassForm(data=request.POST)
         if classlist.is_valid():
             group = classlist.cleaned_data['subject_name']
-            subject = Subject.objects.get(subject_name=group)     
+            subject = get_object_or_404(Subject, subject_name=group)     
             if subject.set == 0 or subject.set == 1:
                 students = Student.objects.filter(group=subject.set)
                 print(students.count())
@@ -578,10 +559,10 @@ def get_class(request):
     )
 
 # View to see student detail for specific subject.
+@login_required
 def class_detail(request, subject_name, student_code):
     sessionids = Timetable.objects.filter(subject_name__subject_name=subject_name).values_list('id', flat=True).distinct()
     sessionslist = DailyRegister.objects.filter(student_code__student_code=student_code, session_id__in=sessionids)
-    
     return render(
         request,
         "attendance/class_detail.html",
