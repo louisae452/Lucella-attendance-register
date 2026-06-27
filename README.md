@@ -75,6 +75,7 @@ Heroku
 - Gunicorn
 
 - To choose icons: [Font Awesome](https://fontawesome.com/).
+- To convert image to webp: [ToWebP](https://towebp.io/)
 
 
 - Django docs.

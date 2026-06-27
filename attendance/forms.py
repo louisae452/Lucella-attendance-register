@@ -6,11 +6,11 @@ from django.forms import inlineformset_factory
 from django.forms import modelformset_factory
 from django.contrib.auth.models import User
 
-
+# Form to add a new student
 class StudentForm(forms.ModelForm):
     class Meta:
         model = Student
-        fields = ('student_name', 'student_surname', 'student_code', 'parent_name', 'date_of_birth', 'sex', 'group', 'music_option', 'option',)
+        fields = ('student_name', 'student_surname', 'student_code', 'parent_name', 'date_of_birth', 'sex', 'group', 'music_option',)
         help_texts = {
             'student_code': 'The student code is the last two digits of the year of birth, month of birth, first two letters of surname followed by first two letters of name in capitals.',
         }          

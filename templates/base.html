@@ -7,16 +7,15 @@
 <html class="h-100" lang="en">
 
 <head>
-    <title>Lucella Attendance REgister</title>
+    <title>Lucella Attendance Register</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />   
-    <!-- Custom Css-->
-     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- Custom Css-->     
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
-
-</body>
+<body>
     <header>
         <div id="header">
-            <h1>Logo</h1>
+            <span>Logo</span>
             <h1>Lucella High school</h1> 
         </div>
         <div>
@@ -33,7 +32,7 @@
         {% if messages %}
             <div>
                 {% for message in messages %}
-                <div class="alert-box { message.tags }}">
+                <div class="alert-box {{ message.tags }}">
                     <p>{{ message }}</p>
                 </div>
                 {% endfor %}
@@ -46,13 +45,10 @@
         </div>
     </main>
     <footer>
-        <p>Contact: <i class="fa-solid fa-at"></i></p>
-        <p>Follow us: <i class="fa-brands fa-facebook-f"></i><i class="fa-brands fa-twitter"></i> </p>
+        <p>Contact: </p>
+        <p>Follow us:  </p>
     </footer>
 
-
-<!-- Font awesome -->
-<script src="https://kit.fontawesome.com/39f1e1f60d.js" crossorigin="anonymous"></script>
 
 
 </body>

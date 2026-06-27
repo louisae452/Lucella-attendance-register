@@ -21,7 +21,6 @@
                 <a class="button" href="{% url 'truanting' %}">Truanting students</a>
                 <a class="button" href="{% url 'myclass' %}">See my class</a>
             </div>
-            <div>
         {% elif request.user|has_group:"parent" %}
             <div>
                 <h1>Please, click on the required child's code</h1>

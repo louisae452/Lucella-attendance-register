@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 import os
+import sys
 import dj_database_url
 if os.path.isfile('env.py'):
     import env
@@ -28,8 +29,8 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = 'django-insecure-szp)me@dc@kjkca0^_99r02^v0uyqwwpwa0+(67f(v61)mchls'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
+DEBUG = True
+# ALLOWED_HOSTS = ['*']   # To allow localhost when DEBUG=False
 ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1']
 
 
@@ -37,6 +38,7 @@ ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -106,6 +108,13 @@ DATABASES = {
                               )
 }
 
+if 'test' in sys.argv:
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': ':memory:',
+        'OPTIONS': {},
+    }
+
 CSFR_TRUSTED_ORIGINS = [
     "https://*.codeinstitute-ide-net/",
     "http://*.herokuapp.com"
@@ -163,6 +172,8 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
  # code fromm https://www.geeksforgeeks.org/python/setup-sending-email-in-django-project/
+ 
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'

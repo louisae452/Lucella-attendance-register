@@ -24,7 +24,7 @@ class Student(models.Model):
     student_name = models.CharField(max_length=200)
     student_surname = models.CharField(max_length=200)
     date_of_birth = models.DateField()
-    student_code = models.CharField(max_length= 50, blank=True, unique=True)
+    student_code = models.CharField(max_length= 50, unique=True)
     sex = models.IntegerField(choices=SEX, blank=False)
     group = models.IntegerField(choices=GROUP, blank=False)
     music_option = models.IntegerField(choices=MUSIC, blank=False)

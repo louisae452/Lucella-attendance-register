@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 {% load static %}
-{% url 'account_login' as login_url %}
-{% url 'account_signup' as signup_url %}
-{% url 'account_logout' as logout_url %}
 
 {% block content %}
 <div id="home">
-    <div>
+    <img src="{% static 'images/background-picture.webp' %}" 
+         alt="Lucella High School Campus" 
+         class="hero-bg" 
+         fetchpriority="high">
+
+    <div class="hero-content">
         <h1 id="welcome"> Welcome to Lucella High School!</h1>
     </div>
     <div class="logins"> 
