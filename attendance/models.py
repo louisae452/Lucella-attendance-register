@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 # Model to store parents details.
 class Parent(models.Model):
+    """Creates a table of user parents. Requires userrs to be in group parent"""
     parent_name = models.OneToOneField(User, on_delete=models.RESTRICT, limit_choices_to={'groups__name': "parent"})
     phone_number= models.IntegerField()
     
@@ -21,6 +22,7 @@ GROUP = ((0, "Juniors"), (1, "Seniors"))
 MUSIC = ((4, "Beginners"), (5, "Advanced"))
 OPTION = ((0, "MJB"), (1, "MJA"), (2, "MSB"), (3, "MSA"), (4, "FJB"), (5, "FJA"), (6, "FSB"), (7, "FSA"), (8, "Undetermined"))
 class Student(models.Model):
+    """Creates a table with students data"""
     student_name = models.CharField(max_length=200)
     student_surname = models.CharField(max_length=200)
     date_of_birth = models.DateField()
@@ -43,6 +45,7 @@ class Student(models.Model):
 
 # Model to store teachers' details.
 class Teacher(models.Model):
+    """Creates a table of teacher users. Requires users to belong to group teacher"""
     teacher_name = models.OneToOneField(User, on_delete=models.RESTRICT, limit_choices_to={'groups__name': "teacher"})
     phone_number = models.IntegerField(blank=True)
     start_date = models.DateTimeField(auto_now_add=True)

@@ -30,11 +30,14 @@ class UserForm(forms.ModelForm):
         }
         
 class ParentForm(forms.ModelForm):
+    """ Creates a new parent. Requires parent to be user in parent group"""
     class Meta:
         model = Parent
         fields = ('parent_name', 'phone_number',)     
 
 class TeacherForm(forms.ModelForm):
+    """Creates a new teacher. Requires teacher to be in teacher group"""
+    phone_number = forms.IntegerField(required=True) 
     class Meta:
         model = Teacher
         fields = ('teacher_name', 'phone_number',)

@@ -3,7 +3,7 @@ from django.contrib.auth.models import Group as AuthGroup, User
 from django.contrib.auth import get_user_model
 
 
-from .forms import StudentForm, UserForm, ParentForm
+from .forms import StudentForm, UserForm, ParentForm, TeacherForm
 
 # Create your tests here.
 
@@ -265,7 +265,39 @@ class TestParentForm(TestCase):
         }
         parent_form = ParentForm(data)
         self.assertFalse(parent_form.is_valid()) 
-            
+
+class TestTeacherForm(TestCase):
+    """Tests TeacherForm. Requires teacher to be a user in group teacher"""
+    def setUp(self):
+        """Creates a teacher user."""
+        teacher_group, _ = AuthGroup.objects.get_or_create(name='teacher')
+        self.test_user = User. objects.create(username='MargaretMillicent', password='testpassword')
+        self.test_user.groups.add (teacher_group)
+    def test_form_is_valid(self):
+        """Tests TeadchrForm is validated if all fields completed correctly"""
+        data = {
+            'teacher_name': self.test_user,
+            'phone_number': '0987857473'
+        }
+        teacher_form = TeacherForm(data)
+        self.assertTrue(teacher_form.is_valid())
+    def test_form_is_not_validated_name(self):
+        """Tests TesacherForm is not validated if teacher_name is not a user in group teacher"""
+        data = {
+            'teacher_name': 'MiriamGonzalez',
+            'phone_number': '0987857473'
+        }
+        teacher_form = TeacherForm(data)
+        self.assertFalse(teacher_form.is_valid())
+    def test_form_is_not_validated_phone(self):
+        """Tests TeacherForm is not validated if teacher_phone is not correct"""
+        data = {
+            'teacher_name': self.test_user,
+            'phone_number': ''
+        }
+        teacher_form = TeacherForm(data)
+        self.assertFalse(teacher_form.is_valid()) 
+
         
 
         
