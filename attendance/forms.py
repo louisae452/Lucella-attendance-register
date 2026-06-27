@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 
 # Form to add a new student
 class StudentForm(forms.ModelForm):
+    """Form to add a new student. Requires parent to be a user with group parent"""
     class Meta:
         model = Student
         fields = ('student_name', 'student_surname', 'student_code', 'parent_name', 'date_of_birth', 'sex', 'group', 'music_option',)
@@ -17,6 +18,7 @@ class StudentForm(forms.ModelForm):
 
                   
 class UserForm(forms.ModelForm):
+    """Form to add a new user."""
     first_name = forms.CharField(max_length=150, required=True)
     last_name = forms.CharField(max_length=150, required=True)
     email = forms.EmailField(required=True)

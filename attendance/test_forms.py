@@ -3,7 +3,7 @@ from django.contrib.auth.models import Group as AuthGroup, User
 from django.contrib.auth import get_user_model
 
 
-from .forms import StudentForm, UserForm
+from .forms import StudentForm, UserForm, ParentForm
 
 # Create your tests here.
 
@@ -233,6 +233,41 @@ class TestUserForm(TestCase):
         }
         user_form = UserForm(data)
         self.assertFalse(user_form.is_valid())
+        
+class TestParentForm(TestCase):
+    """Tests ParentForm. Requires parent to be a user in group parent"""
+    def setUp(self):
+        """Creates a parent user."""
+        parent_group, _ = AuthGroup.objects.get_or_create(name='parent')
+        self.test_user = User. objects.create(username='FlorenceFox', password='testpassword')
+        self.test_user.groups.add (parent_group)
+    def test_form_is_valid(self):
+        """Tests ParentForm is validated if all fields completed correctly"""
+        data = {
+            'parent_name': self.test_user,
+            'phone_number': '0987857473'
+        }
+        parent_form = ParentForm(data)
+        self.assertTrue(parent_form.is_valid())
+    def test_form_is_not_validated_name(self):
+        """Tests ParentForm is not validated if parent_name is not a user in group parent"""
+        data = {
+            'parent_name': 'MiriamGonzalez',
+            'phone_number': '0987857473'
+        }
+        parent_form = ParentForm(data)
+        self.assertFalse(parent_form.is_valid())
+    def test_form_is_not_validated_phone(self):
+        """Tests ParentForm is not validated if parent_phone is not correct"""
+        data = {
+            'parent_name': self.test_user,
+            'phone_number': ''
+        }
+        parent_form = ParentForm(data)
+        self.assertFalse(parent_form.is_valid()) 
+            
+        
+
         
         
         
