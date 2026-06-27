@@ -52,6 +52,7 @@ class GetregisterForm(forms.ModelForm):
 
 # Form to do the register
 class RegisterForm(forms.ModelForm):
+    """Creates a form with the student name already in filled in"""
     class Meta:
         model = DailyRegister
         fields=['student_code', 'mark']

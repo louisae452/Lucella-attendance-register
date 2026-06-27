@@ -1,8 +1,8 @@
 from django.test import TestCase
 from django.contrib.auth.models import Group as AuthGroup, User
 
-from .models import Subject
-from .forms import StudentForm, UserForm, ParentForm, TeacherForm, GetregisterForm
+from .models import Subject, Student
+from .forms import StudentForm, UserForm, ParentForm, TeacherForm, GetregisterForm, RegisterForm
 
 # Create your tests here.
 
@@ -341,8 +341,47 @@ class TestGetregisterForm(TestCase):
         }
         getregister_form = GetregisterForm(data)
         self.assertFalse(getregister_form.is_valid())
-               
 
+class TestRegisterForm(TestCase):
+    """Tests RegisterForm""" 
+    def test_student_code_is_disabled(self):
+        """Tests that student_code is disabled on initialisation"""
+        register_form = RegisterForm()
+        self.assertTrue(register_form.fields['student_code'].disabled)
+    def setUp(self):
+        """Creates a student instance. Requires parent instance"""
+        parent_group, _ = AuthGroup.objects.get_or_create(name='parent')
+        self.test_user = User. objects.create(username='FlorenceFox', password='testpassword')
+        self.test_user.groups.add (parent_group)
+        self.test_student = Student.objects.create(student_code='0609PITE', date_of_birth="2006-09-12",sex=3, group=0,music_option=4, parent_name=self.test_user)
+    def test_form_is_valid(self):
+        """Test RegisterForm is validated if data entered correctly"""
+        data = {
+            'mark': 1,
+        }
+        initial_data = {
+            'student_code': self.test_student.pk,
+        }
+        register_form = RegisterForm(data, initial=initial_data)
+        self.assertTrue(register_form.is_valid())
+    def test_form_is_not_valid_code(self):
+        """Tests RegisterForm is not validated if student_code is not initial value"""
+        data = {
+            'student_code': self.test_student.pk,
+            'mark': 1,
+        }
+        register_form = RegisterForm(data)
+        self.assertFalse(register_form.is_valid())
+    def test_form_is_not_valid_mark(self):
+        """Tests RegisterForm is not validated if mark in not filled correctly"""               
+        data = {
+            'mark': 5,
+        }
+        initial_data = {
+            'student_code': self.test_student.pk,
+        }
+        register_form = RegisterForm(data, initial=initial_data)
+        self.assertFalse(register_form.is_valid())
         
         
         
