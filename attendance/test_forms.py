@@ -1,9 +1,9 @@
 from django.test import TestCase
 from django.contrib.auth.models import Group as AuthGroup, User
 from django.contrib.auth import get_user_model
-from .models import Parent
 
-from .forms import StudentForm
+
+from .forms import StudentForm, UserForm
 
 # Create your tests here.
 
@@ -160,6 +160,81 @@ class TestStudentForm(TestCase):
         if not student_form.is_valid():
             print("\nForm Errors:", student_form.errors.as_json())
         self.assertFalse(student_form.is_valid())
+
+class TestUserForm(TestCase):
+    """ Tests the UserForm used to add new users"""
+    def test_is_valid(self):
+        """Tests form is validated if all fields completed"""
+        data = {
+            'username': "PeterSmith",
+            'first_name': "Peter",
+            'last_name': "Smith",
+            'email': "peter@lucella.com",
+            'password': "mypassword",
+        }
+        user_form = UserForm(data)
+        self.assertTrue(user_form.is_valid())
+    def test_is_not_valid_username(self):
+        """Tests form is not validated if there is not a username"""
+        data = {
+            'username': "",
+            'first_name': "Peter",
+            'last_name': "Smith",
+            'email': "peter@lucella.com",
+            'password': "mypassword",
+        }
+        user_form = UserForm(data)
+        self.assertFalse(user_form.is_valid())
+        
+    def test_is_not_valid_name(self):
+        """Tests form is not validated if there is not a name"""
+        data = {
+            'username': "PeterSmith",
+            'first_name': "",
+            'last_name': "Smith",
+            'email': "peter@lucella.com",
+            'password': "mypassword",
+        }
+        user_form = UserForm(data)
+        self.assertFalse(user_form.is_valid())
+        
+    def test_is_not_valid_surname(self):
+        """Tests form is not validated if there is not a surname"""
+        data = {
+            'username': "PeterSmith",
+            'first_name': "Peter",
+            'last_name': "",
+            'email': "peter@lucella.com",
+            'password': "mypassword",
+        }
+        user_form = UserForm(data)
+        self.assertFalse(user_form.is_valid())
+        
+    def test_is_not_valid_email(self):
+        """Tests form is not validated if there is no email"""
+        data = {
+            'username': "PeterSmith",
+            'first_name': "Peter",
+            'last_name': "Smith",
+            'email': "",
+            'password': "mypassword",
+        }
+        user_form = UserForm(data)
+        self.assertFalse(user_form.is_valid())
+        
+    def test_is_not_valid_password(self):
+        """Tests form is not validated if there is not a password"""
+        data = {
+            'username': "PeterSmith",
+            'first_name': "Peter",
+            'last_name': "Smith",
+            'email': "peter@lucella.com",
+            'password': "",
+        }
+        user_form = UserForm(data)
+        self.assertFalse(user_form.is_valid())
+        
+        
         
        
     
