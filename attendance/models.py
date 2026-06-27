@@ -60,7 +60,7 @@ SET = ((0, 'Junior'), (1, 'Senior'), (2, 'Female'), (3, 'Male'),
        (4, 'Beginner'), (5, 'Advanced'))
 
 class Subject(models.Model):
-    
+    """Creates a table of subject data"""    
     subject_name = models.CharField(max_length=100, unique=True)
     teacher_name = models.ForeignKey(User, on_delete=models.RESTRICT,
                                      limit_choices_to={'groups__name': "teacher"})
@@ -76,6 +76,7 @@ DAYS = ((0, "Monday"), (1, "Tuesday"), (2, "Wednesday"), (3, "Thursday"), (4,"Fr
 TIME = ((0, "Morning"), (1, "Afternoon")) 
 TIMETABLEGROUP = ((0, "A"), (1, "B"))     
 class Timetable(models.Model):
+    """Creates a table showing the days and times the different subjects run"""
     session_id = models.IntegerField(choices=SESSION, blank=True, unique=True)
     day = models.IntegerField(choices=DAYS, blank=True, default=0)
     session = models.IntegerField(choices=TIME, blank=True)

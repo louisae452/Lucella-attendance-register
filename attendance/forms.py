@@ -43,7 +43,7 @@ class TeacherForm(forms.ModelForm):
         fields = ('teacher_name', 'phone_number',)
 
 class GetregisterForm(forms.ModelForm):
-    
+    """Creates the filter to find students expected to be in a session"""
     class Meta:
         model = Timetable
         fields = ('day', 'session', 'subject_name')

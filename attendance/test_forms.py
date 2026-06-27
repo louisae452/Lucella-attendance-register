@@ -1,9 +1,8 @@
 from django.test import TestCase
 from django.contrib.auth.models import Group as AuthGroup, User
-from django.contrib.auth import get_user_model
 
-
-from .forms import StudentForm, UserForm, ParentForm, TeacherForm
+from .models import Subject
+from .forms import StudentForm, UserForm, ParentForm, TeacherForm, GetregisterForm
 
 # Create your tests here.
 
@@ -298,7 +297,51 @@ class TestTeacherForm(TestCase):
         teacher_form = TeacherForm(data)
         self.assertFalse(teacher_form.is_valid()) 
 
-        
+class TestGetregisterForm(TestCase):
+    """Test GetregisterForm"""
+    def setUp(self):
+        """Creates a teacher user and a subject instance"""
+        teacher_group, _ = AuthGroup.objects.get_or_create(name='teacher')
+        self.test_user = User. objects.create(username='MargaretMillicent', password='testpassword')
+        self.test_user.groups.add (teacher_group)
+        self.test_subject = Subject.objects.create(subject_name='Maths A', teacher_name=self.test_user, set=1, room=1)
+    def test_form_is_valid(self):
+        """Tests GetregisterForm is validated if fields filled correctly"""
+        data = {
+            'day': 0,
+            'session': 0,
+            'subject_name': self.test_subject.pk,   
+        }
+        getregister_form = GetregisterForm(data)
+        self.assertTrue(getregister_form.is_valid())
+    def test_form_is_not_valid_day(self):
+        """Tests GetregisterForm is not validated if day is not correct"""
+        data = {
+            'day': 7,
+            'session': 0,
+            'subject_name': self.test_subject.pk,   
+        }
+        getregister_form = GetregisterForm(data)
+        self.assertFalse(getregister_form.is_valid())
+    def test_form_is_not_valid_session(self):
+        """Tests GetregisterForm is not validated if session is not correct"""
+        data = {
+            'day': 0,
+            'session': 4,
+            'subject_name': self.test_subject.pk,   
+        }
+        getregister_form = GetregisterForm(data)
+        self.assertFalse(getregister_form.is_valid())
+    def test_form_is_not_valid_subject(self):
+        """Tests GetregisterForm is not validated if subject_name is not correct"""
+        data = {
+            'day': 0,
+            'session': 0,
+            'subject_name': "",   
+        }
+        getregister_form = GetregisterForm(data)
+        self.assertFalse(getregister_form.is_valid())
+               
 
         
         
