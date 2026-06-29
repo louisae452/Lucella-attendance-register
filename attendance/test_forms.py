@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.contrib.auth.models import Group as AuthGroup, User
 
 from .models import Subject, Student, Email, DailyRegister, Timetable
-from .forms import StudentForm, UserForm, ParentForm, TeacherForm, GetregisterForm, RegisterForm, SendemailForm, AbsenceForm, GivereasonForm
+from .forms import StudentForm, UserForm, ParentForm, TeacherForm, GetregisterForm, RegisterForm, SendemailForm, AbsenceForm, GivereasonForm, PendingabsenceForm
 
 # Create your tests here.
 
@@ -452,12 +452,59 @@ class TestGivereasonForm(TestCase):
         givereason_form = GivereasonForm(data, instance=self.test_register)
         self.assertTrue(givereason_form.is_valid())
     def test_form_is_not_valid_reason(self):
-        """Tests GivereasonForm is not vslidated when field is left empty"""
+        """Tests GivereasonForm is not valSidated when field is left empty"""
         data = {
             'reason_for_absence': ''
         }
         givereason_form = GivereasonForm(data, instance=self.test_register)
         self.assertFalse(givereason_form.is_valid())
+        
+class TestPendingabsenceForm(TestCase):
+    """Tests PendingabsenceForm"""
+    def setUp(self):
+        """Creates student, teacher, subject, timetable and dailyregister instances."""
+        parent_group, _ = AuthGroup.objects.get_or_create(name='parent')
+        self.test_user = User. objects.create(username='FlorenceFox', password='testpassword')
+        self.test_user.groups.add (parent_group)
+        self.test_student = Student.objects.create(student_code='0609PITE', date_of_birth="2006-09-12",sex=3, group=0,music_option=4, parent_name=self.test_user)
+        teacher_group, _ = AuthGroup.objects.get_or_create(name='teacher')
+        self.test_teacheruser = User. objects.create(username='MargaretMillicent', password='testpassword')
+        self.test_teacheruser.groups.add (teacher_group)
+        self.test_subject = Subject.objects.create(subject_name='Maths A', teacher_name=self.test_teacheruser, set=1, room=1)
+        self.test_session = Timetable.objects.create(session_id=2, day=1, session=0, group=1, subject_name=self.test_subject)
+        self.test_register = DailyRegister.objects.create(session_id=self.test_session, date='2026-06-16', student_code=self.test_student)
+    def test_form_is_valid(self):
+        """Tests PendingabsenceForm is validated if form is filled correctly"""
+        data = {
+            'status': 1,
+            'code': 0,
+        }
+        pendingabsence_form = PendingabsenceForm(data, instance=self.test_register)
+        self.assertTrue(pendingabsence_form.is_valid())
+    def test_form_is_not_valid_instance(self):
+        """Tests PendingabsenceForm is not validated if an instance is not provided"""
+        data = {
+            'status': 1,
+            'code': 0,
+        }
+        with self.assertRaises(ValueError):
+            PendingabsenceForm(data)
+    def test_form_is_not_valid_status(self):
+        """Tests PendingabsenceForm is not validated if status is not provided"""
+        data = {
+            'status': '5',
+            'code': 0,
+        }
+        pendingabsence_form = PendingabsenceForm(data, instance=self.test_register)
+        self.assertFalse(pendingabsence_form.is_valid())
+    def test_form_is_not_valid_code(self):
+        """Tests PendingabsenceForm is not validated if code is not provided"""
+        data = {
+            'status': 1,
+            'code': '6',
+        }
+        pendingabsence_form = PendingabsenceForm(data, instance=self.test_register)
+        self.assertFalse(pendingabsence_form.is_valid())
         
               
         

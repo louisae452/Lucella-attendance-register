@@ -94,6 +94,12 @@ class PendingabsenceForm(forms.ModelForm):
     class Meta:
         model = DailyRegister
         fields = ['status', 'code']
+    def __init__(self, *args, **kwargs):
+        instance = kwargs.get('instance')
+        if not instance or not instance.pk:
+            raise ValueError("A valid instanceis required")
+        super().__init__(*args, **kwargs)
+        
    
 
 # Form to get the class list   
