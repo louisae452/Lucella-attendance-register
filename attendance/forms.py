@@ -73,9 +73,14 @@ class SendemailForm(forms.ModelForm):
 # Form to register an absence.
 
 class AbsenceForm(forms.ModelForm):
+    """Creates a form to report an absence in the future"""
+    reason_for_absence = forms.CharField( required=True, widget=forms.Textarea)
     class Meta:
         model = DailyRegister
         fields = ['date', 'reason_for_absence']
+        help_texts = {
+            'date': 'Please, use this format; YYYY-MM-DD',
+        }
 # Form to give/edit reason for a past absence.
 class GivereasonForm(forms.ModelForm):
     class Meta:

@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.contrib.auth.models import Group as AuthGroup, User
 
 from .models import Subject, Student, Email
-from .forms import StudentForm, UserForm, ParentForm, TeacherForm, GetregisterForm, RegisterForm, SendemailForm
+from .forms import StudentForm, UserForm, ParentForm, TeacherForm, GetregisterForm, RegisterForm, SendemailForm, AbsenceForm
 
 # Create your tests here.
 
@@ -402,12 +402,33 @@ class TestSendemailForm(TestCase):
         }
         sendemail_form = SendemailForm(data)
         self.assertFalse(sendemail_form.is_valid())
-        
-           
 
+class TestAbsenceForm(TestCase):
+    """Tests AbsenceForm"""
+    def test_form_is_valid(self):
+        """Tests AbsenceForm is validated if data entered correctly"""
+        data = {
+            'date': '2026-07-19',
+            'reason_for_absence': 'Not in',
+        }  
+        absence_form = AbsenceForm(data)
+        self.assertTrue(absence_form.is_valid())
+    def test_fom_is_not_valid_date(self):
+        """Tests AbsenceForm is not validated if the date is not entered in the correct format"""
+        data = {
+            'date': '19-04-2026',
+            'reason_for_absence': 'Not in',
+        }  
+        absence_form = AbsenceForm(data)
+        self.assertFalse(absence_form.is_valid())
+    def test_form_is_not_valid_reason(self):
+        """Tests AbsenceForm is not validated if a reason is not entered"""
+        data = {
+            'date': '2026-07-19',
+            'reason_for_absence': '',
+        }  
+        absence_form = AbsenceForm(data)
+        self.assertFalse(absence_form.is_valid())
+              
         
         
-        
-       
-    
-    
