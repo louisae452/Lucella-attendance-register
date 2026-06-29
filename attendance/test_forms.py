@@ -1,8 +1,8 @@
 from django.test import TestCase
 from django.contrib.auth.models import Group as AuthGroup, User
 
-from .models import Subject, Student
-from .forms import StudentForm, UserForm, ParentForm, TeacherForm, GetregisterForm, RegisterForm
+from .models import Subject, Student, Email
+from .forms import StudentForm, UserForm, ParentForm, TeacherForm, GetregisterForm, RegisterForm, SendemailForm
 
 # Create your tests here.
 
@@ -382,6 +382,29 @@ class TestRegisterForm(TestCase):
         }
         register_form = RegisterForm(data, initial=initial_data)
         self.assertFalse(register_form.is_valid())
+        
+class TestSendemailForm(TestCase):
+    """Tests SendemailForm"""
+    def setUp(self):
+        """Creates an email instance"""
+        self.test_email = Email.objects.create(subject=2, text="Hello")
+    def test_form_is_valid(self):
+        """Tests SendemailForm is validated if data entered correctly"""
+        data = {
+            'subject': self.test_email,
+        }
+        sendemail_form = SendemailForm(data)
+        self.assertTrue(sendemail_form.is_valid()) 
+    def test_form_is_not_valid_subject(self):
+        """Tests SendemailForm is not validated if subject is not correct"""
+        data = {
+            'subject': 'Good morning',
+        }
+        sendemail_form = SendemailForm(data)
+        self.assertFalse(sendemail_form.is_valid())
+        
+           
+
         
         
         
