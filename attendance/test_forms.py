@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.contrib.auth.models import Group as AuthGroup, User
 
 from .models import Subject, Student, Email, DailyRegister, Timetable
-from .forms import StudentForm, UserForm, ParentForm, TeacherForm, GetregisterForm, RegisterForm, SendemailForm, AbsenceForm, GivereasonForm, PendingabsenceForm, GetclassForm
+from .forms import StudentForm, UserForm, ParentForm, TeacherForm, GetregisterForm, RegisterForm, SendemailForm, AbsenceForm, GivereasonForm, PendingabsenceForm, GetclassForm, RemoveForm
 
 # Create your tests here.
 
@@ -535,6 +535,38 @@ class TestGetclassForm(TestCase):
         }
         getclass_form = GetclassForm(data)
         self.assertFalse(getclass_form.is_valid())
+        
+class TestRemoveForm(TestCase):
+    """Tests RemoveForm. Requires instance of registered and deregistered studetns."""
+    def setUp(self):
+        """Creates instances of registered and deregisterd students. Requires parent."""
+        parent_group, _ = AuthGroup.objects.get_or_create(name='parent')
+        self.test_user = User. objects.create(username='FlorenceFox', password='testpassword')
+        self.test_user.groups.add (parent_group)
+        self.test_student1 = Student.objects.create(student_code='0609PITE', date_of_birth="2006-09-12",sex=3, group=0,music_option=4, parent_name=self.test_user, deregistered=True)
+        self.test_student2 = Student.objects.create(student_code='0609PICE', date_of_birth="2006-09-12",sex=3, group=0,music_option=4, parent_name=self.test_user, deregistered=False)
+    def test_queriset_excludes_dergistered(self):
+        """Checks that deregistered students are not on queryset""" 
+        remove_form = RemoveForm()
+        queryset = remove_form.fields['student_code'].queryset
+        self.assertIn(self.test_student2, queryset)
+        self.assertNotIn(self.test_student1, queryset)
+    def test_form_is_valid(self):
+        """Tests RemoveForm is validated when a registered student selected"""
+        data = {
+            'student_code': self.test_student2,
+        }
+        remove_form = RemoveForm(data)
+        self.assertTrue(remove_form.is_valid())
+    def test_form_is_not_valid(self):
+        """Tests RemoveForm is not validated when a deregistered student selected"""
+        data = {
+            'student_code': self.test_student1,
+        }
+        remove_form = RemoveForm(data)
+        self.assertFalse(remove_form.is_valid())
+    
+        
         
               
         
