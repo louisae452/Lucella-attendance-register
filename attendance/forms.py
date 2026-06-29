@@ -96,6 +96,7 @@ class GivereasonForm(forms.ModelForm):
         
 # Form to review pending absences.
 class PendingabsenceForm(forms.ModelForm):
+    """Allows Attendance Officer to review absences"""
     class Meta:
         model = DailyRegister
         fields = ['status', 'code']
@@ -109,6 +110,7 @@ class PendingabsenceForm(forms.ModelForm):
 
 # Form to get the class list   
 class GetclassForm(forms.Form):
+    """Allows teacher to select a subject"""
     subject_name = forms.ModelChoiceField(
         queryset = Subject.objects.all(),
         empty_label="Choose a subject..",

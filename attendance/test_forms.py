@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.contrib.auth.models import Group as AuthGroup, User
 
 from .models import Subject, Student, Email, DailyRegister, Timetable
-from .forms import StudentForm, UserForm, ParentForm, TeacherForm, GetregisterForm, RegisterForm, SendemailForm, AbsenceForm, GivereasonForm, PendingabsenceForm
+from .forms import StudentForm, UserForm, ParentForm, TeacherForm, GetregisterForm, RegisterForm, SendemailForm, AbsenceForm, GivereasonForm, PendingabsenceForm, GetclassForm
 
 # Create your tests here.
 
@@ -431,7 +431,7 @@ class TestAbsenceForm(TestCase):
         self.assertFalse(absence_form.is_valid())
 
 class TestGivereasonForm(TestCase):
-    """Tests GivereasonForm"""
+    """Tests GivereasonForm. Requires DailyRegister instance"""
     def setUp(self):
         """Creates student, teacher, subject, timetable aned dailyregister instances."""
         parent_group, _ = AuthGroup.objects.get_or_create(name='parent')
@@ -467,7 +467,7 @@ class TestGivereasonForm(TestCase):
         self.assertFalse(givereason_form.is_valid())
         
 class TestPendingabsenceForm(TestCase):
-    """Tests PendingabsenceForm"""
+    """Tests PendingabsenceForm . Requires Dailyregister instance"""
     def setUp(self):
         """Creates student, teacher, subject, timetable and dailyregister instances."""
         parent_group, _ = AuthGroup.objects.get_or_create(name='parent')
@@ -512,6 +512,29 @@ class TestPendingabsenceForm(TestCase):
         }
         pendingabsence_form = PendingabsenceForm(data, instance=self.test_register)
         self.assertFalse(pendingabsence_form.is_valid())
+        
+class TestGetclassForm(TestCase):
+    """Tests GetclassForm (requires subject instance)"""
+    def setUp(self):
+        """Creates an instance of teacher and subject"""
+        teacher_group, _ = AuthGroup.objects.get_or_create(name='teacher')
+        self.test_teacheruser = User. objects.create(username='MargaretMillicent', password='testpassword')
+        self.test_teacheruser.groups.add (teacher_group)
+        self.test_subject = Subject.objects.create(subject_name='Maths A', teacher_name=self.test_teacheruser, set=1, room=1)
+    def test_form_is_valid(self):
+        """Tests GetclassForm is validated when a valid instance is selected"""
+        data = {
+            'subject_name': self.test_subject,
+        }
+        getclass_form = GetclassForm(data)
+        self.assertTrue(getclass_form.is_valid())
+    def test_form_is_not_valid(self):
+        """Tests GetclassForm is not validated when an invalid instance is enterered"""
+        data = {
+            'subject_name': "",
+        }
+        getclass_form = GetclassForm(data)
+        self.assertFalse(getclass_form.is_valid())
         
               
         
