@@ -63,7 +63,7 @@ class Subject(models.Model):
     """Creates a table of subject data"""    
     subject_name = models.CharField(max_length=100, unique=True)
     teacher_name = models.ForeignKey(User, on_delete=models.RESTRICT,
-                                     limit_choices_to={'groups__name': "teacher"})
+                                     limit_choices_to={'groups__name': "teacher"}, blank=True)
     room = models.IntegerField(choices=ROOM, blank=True)  
     set = models.IntegerField(choices=SET, blank=True)
     

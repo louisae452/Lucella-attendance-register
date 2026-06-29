@@ -83,6 +83,8 @@ class AbsenceForm(forms.ModelForm):
         }
 # Form to give/edit reason for a past absence.
 class GivereasonForm(forms.ModelForm):
+    """Allows to update a past absence"""
+    reason_for_absence = forms.CharField( required=True, widget=forms.Textarea)
     class Meta:
         model = DailyRegister
         fields = ['reason_for_absence']
