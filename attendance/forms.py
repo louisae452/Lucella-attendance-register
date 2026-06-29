@@ -65,6 +65,7 @@ RegisterFormSet = modelformset_factory(DailyRegister, form=RegisterForm, extra=0
 
 # Create form to send email.
 class SendemailForm(forms.ModelForm):
+    "Selects an email to be sent"
     class Meta:
         model = Sentemail
         fields = ['subject']
