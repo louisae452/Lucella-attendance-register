@@ -451,6 +451,13 @@ class TestGivereasonForm(TestCase):
         }
         givereason_form = GivereasonForm(data, instance=self.test_register)
         self.assertTrue(givereason_form.is_valid())
+    def test_form_is_not_valid_instance(self):
+        """Tests GivereasonForm is not validated if an instance is not provided"""
+        data = {
+            'reason_for_absence': 'Not in'
+        }
+        with self.assertRaises(ValueError):
+            GivereasonForm(data)    
     def test_form_is_not_valid_reason(self):
         """Tests GivereasonForm is not valSidated when field is left empty"""
         data = {
