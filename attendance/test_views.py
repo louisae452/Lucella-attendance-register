@@ -3,7 +3,7 @@ from django.contrib.auth.models import User, Group, AnonymousUser
 from django.urls import reverse
 from django.test import TestCase, RequestFactory
 from .views import landing_router, LandingView
-from .models import Student
+from .models import Student, Subject, Timetable, DailyRegister
 
 class TestHomeview(TestCase):
     """Tests Homeview loads succesfully"""
@@ -106,6 +106,52 @@ class TestChildrenlist(TestCase):
         self.assertIn(self.test_child1, children_in_context)
         self.assertNotIn(self.test_child2, children_in_context)
         self.assertNotIn(self.test_child3, children_in_context)
+        
+class TestStudentlist(TestCase):
+    """Tests    """
+    def setUp(self):
+        """ 
+        Sets up url.
+        Sets up teacher user
+        Sets up a registered and deregistered students (Require parent user)
+        Sets up daily register records for registered student (Require teacher user, Timetable and Session instance)
+        """
+        self.url = reverse('students')
+        # Teacher user
+        teacher_group, _ = Group.objects.get_or_create(name='teacher')
+        self.teacher_user = User.objects.create_user(username = 'MiriamGonzalez', password='mypassword')
+        self.teacher_user.groups.add (teacher_group)
+        #Registered and deregistered students
+        self.test_user = User.objects.create_user(username="FrederikFox", password="mypassword")
+        parent_group, _ = Group.objects.get_or_create(name='parent')
+        self.test_user.groups.add (parent_group)
+        self.test_child1 = Student.objects.create(student_code='0609PITE', date_of_birth="2006-09-12",sex=3, group=0,music_option=4, parent_name=self.test_user, deregistered=False)
+        self.test_child2 = Student.objects.create(student_code='0609PIDE', date_of_birth="2006-09-12",sex=3, group=0,music_option=4, parent_name=self.test_user, deregistered=True) 
+        # DailyRegisters records for self.test_child1
+        self.test_subject = Subject.objects.create(subject_name='Maths A', teacher_name=self.teacher_user, set=1, room=1)
+        self.test_session = Timetable.objects.create(session_id=2, day=1, session=0, group=1, subject_name=self.test_subject)
+        self.test_register1 = DailyRegister.objects.create(session_id=self.test_session, date='2026-06-16', student_code=self.test_child1, mark=1)
+        self.test_register2 = DailyRegister.objects.create(session_id=self.test_session, date='2026-06-23', student_code=self.test_child1, mark=0)
+        
+    def test_unauthentificated_user_is_redirected(self):
+        """Unauthenticated users cannot access the students page."""
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 302)
+    def test_registered_students_on_list(self):
+        """
+            Checks teacher users can access the page
+            Checks only registered students appear on the list
+            """
+        self.client.login(username='MiriamGonzalez', password='mypassword')
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "attendance/students_list.html")
+        students_in_context = response.context['students']
+        self.assertIn(self.test_child1, students_in_context)
+        self.assertNotIn(self.test_child2, students_in_context)
+        
+        
+        
         
         
     

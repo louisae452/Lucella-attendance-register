@@ -22,17 +22,23 @@ from datetime import date, datetime
 
 # Create your views here.
 class HomeView(TemplateView):
-    """Renders homepage.
-    **Template:**
-    `attendance/home.html`  
+    """
+        Renders homepage.
+        
+        **Template:**
+        
+        `attendance/home.html`  
     """
     template_name = "attendance/home.html"
     
 @method_decorator(login_required, name='dispatch')
 class LandingView(TemplateView):
-    """Renders landing page.
-    **Template:**
-    `attendance/landing.html`
+    """
+        Renders landing page.
+        
+        **Template:**
+        
+        `attendance/landing.html`
     """
     template_name = "attendance/landing.html"
 
@@ -40,12 +46,28 @@ class LandingView(TemplateView):
 # View to see all students registered.
 @login_required
 def students_list(request):
+    """
+        Renders list of all registered students.
+        
+        **Context**
+        
+        ``students``
+        queryset of registered students,
+        
+        **Template**
+        "attendance/students_lsit.html"
+
+    """
     students = Student.objects.filter(deregistered=False)
+    students = students.annotate(
+                total_sessions=Count('dailyregister'),
+                present_sessions = Count('dailyregister', filter=Q(dailyregister__mark=0)),
+            )
     for student in students:
-        presentdays = DailyRegister.objects.filter(student_code__student_code=student.student_code, mark=0).count()
-        totaldays =  DailyRegister.objects.filter(student_code__student_code=student.student_code).count() 
-        attendancepercentage = round(((presentdays/totaldays)*100), 2)
-        student.attendancepercentage = attendancepercentage
+        if student.total_sessions > 0:
+            student.attendancepercentage = round((student.present_sessions/student.total_sessions)*100, 2)
+        else:
+            student.attendancepercentage = 0.0
     return render(request, "attendance/students_list.html", {"students": students,})
     
  
