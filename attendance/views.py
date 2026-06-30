@@ -7,6 +7,7 @@ from django.views.generic import TemplateView
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
+from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required, permission_required
 from django.views.decorators.cache import never_cache
 from django.core.mail import send_mail, EmailMultiAlternatives
@@ -20,19 +21,14 @@ from datetime import date, datetime
 
 
 # Create your views here.
-
-# View to see home page.
 class HomeView(TemplateView):
     """Renders homepage.
     **Template:**
-    `attendance/home.html`
-    
+    `attendance/home.html`  
     """
     template_name = "attendance/home.html"
     
-
-
-# View to landing page.
+@method_decorator(login_required, name='dispatch')
 class LandingView(TemplateView):
     """Renders landing page.
     **Template:**
@@ -293,12 +289,19 @@ def children_list(request):
             'children': children,
         }
     )
-#Router to choose which viewto use for landing page.
+
 def landing_router(request, *args, **kwargs):
+    """
+        Routes the landing view depending on user group
+        Prioritises teacher group over parent group
+    """
     if request.user.groups.filter(name='parent').exists():
         return children_list(request)
     elif request.user.groups.filter(name='teacher').exists():
         return LandingView.as_view()(request, *args, **kwargs)
+    else:
+        return redirect('home')
+    
     
 # View to see child detail page
 def view_child(request, student_code):
