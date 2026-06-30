@@ -56,6 +56,7 @@ INSTALLED_APPS = [
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/landing/'
 LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = 'account_login'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -64,7 +65,6 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
@@ -115,7 +115,7 @@ if 'test' in sys.argv:
         'OPTIONS': {},
     }
 
-CSFR_TRUSTED_ORIGINS = [
+CSRF_TRUSTED_ORIGINS = [
     "https://*.codeinstitute-ide-net/",
     "http://*.herokuapp.com"
 ]
@@ -139,7 +139,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-ACOUNT_EMAI_VERIFICATION = 'none'
+ACOUNT_EMAIL_VERIFICATION = 'none'
 
 
 
