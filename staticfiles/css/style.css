@@ -1,0 +1,219 @@
+
+
+
+
+/* Base.html styling */
+
+body {
+   min-width: 100%;
+   margin: 0;
+}
+/*Push footer to end of page. */
+main {
+    display: flex;
+    flex-direction: column;
+    
+    
+}
+
+header {
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+    min-height: 20vh;
+    background-color:blueviolet;
+    contain: layout paint;
+    
+}
+#header {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    margin: 10px;  
+}
+#header h1 {
+    margin: 10px;
+}
+
+   
+footer {
+    background-color:blueviolet;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;   
+}
+/* Place background */
+#content-container {
+    min-height: 80vh;
+    
+    background-color: rgb(232, 226, 230);
+}
+/* Not needed? 
+#content-container p {
+    text-align: right;
+    margin: 20px;
+} */
+
+
+/*End of base.html styling */
+
+/* Home html styling */
+#home {
+    position: relative;
+    min-height: 80vh;
+    
+    
+    
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.hero-content {
+    position: relative;
+    z-index: 2; /* Pulls text above the image layer */
+    margin-top: auto;
+    margin-bottom: auto; /* Centers welcome content vertically */
+}
+
+
+#welcome {
+    
+    font-size: 3em;
+    text-align: center;
+    margin: 10px;
+
+}
+.logins {
+    height: 70%;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    display: flex;
+    align-items: end;  
+    z-index:2
+}
+
+
+.button {
+    width: 100px;
+    height: 50px;
+    border-radius: 5px;
+    background-color:rgb(99, 49, 72);
+    color:aquamarine;
+    margin: 50px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    
+
+    
+}
+/* End of home.html styling */
+
+/* students_lsit.html styling */
+td, th {
+    width: 100px;
+    text-align: left;
+}
+/* End of students_list.html styling */
+
+/* Authentication pages styling */
+.pagecontent {
+    display:flex;
+    
+    justify-content: center;
+    margin: 20px;
+}
+
+.authpage {
+    display:flex;
+    flex-direction: column;
+    
+    text-align: center;
+}
+.formcenter {
+    display: flex;
+    justify-content: center;
+}
+.formleft {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
+form label {
+    text-align: left;
+}
+/* End of authenticatn pages styling */
+/* Add new parent and student pages styling */
+/*
+.centercontent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+.formfield {
+    display:flex;
+    flex-direction: column;
+}
+.buttonfield {
+    display:flex;
+    justify-content: center;
+}
+.helptext {
+    color:rgb(97, 183, 155);
+}
+*/
+/* parentdata */
+.helptext {
+    color:rgb(97, 183, 155);
+}
+
+.reducesize div {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}/*
+.custom-form input {
+    width: 100px;
+}
+.custom-form select {
+    width: 100px;
+}*/
+.reducesize {
+    display: flex;
+    width:50%;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    
+   
+}  
+.form-container {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+    
+}  
+form label{
+    font-size: 1.2em;
+}
+form {
+    width:50%;
+}
+h2 {
+    text-align:center;
+}
+
+/* Tables styling */
+.longer-column{
+    width: 250px;
+}
+/* Titles--tidy up*/
+.inline{
+    display: flex;
+    flex-direction: row;
+}

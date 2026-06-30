@@ -23,12 +23,21 @@ from datetime import date, datetime
 
 # View to see home page.
 class HomeView(TemplateView):
+    """Renders homepage.
+    **Template:**
+    `attendance/home.html`
+    
+    """
     template_name = "attendance/home.html"
     
 
 
 # View to landing page.
 class LandingView(TemplateView):
+    """Renders landing page.
+    **Template:**
+    `attendance/landing.html`
+    """
     template_name = "attendance/landing.html"
 
 

@@ -171,6 +171,8 @@ STORAGES = {
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+
+
  # code fromm https://www.geeksforgeeks.org/python/setup-sending-email-in-django-project/
  
 
@@ -181,3 +183,5 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'lucellahighschool@gmail.com'
 EMAIL_HOST_PASSWORD = 'qbij gkcg jwok zbfk'
+
+
