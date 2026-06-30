@@ -2,7 +2,8 @@ import pytest
 from django.contrib.auth.models import User, Group, AnonymousUser
 from django.urls import reverse
 from django.test import TestCase, RequestFactory
-from attendance.views import landing_router, LandingView
+from .views import landing_router, LandingView
+from .models import Student
 
 class TestHomeview(TestCase):
     """Tests Homeview loads succesfully"""
@@ -67,13 +68,44 @@ class TestLandingview(TestCase):
         self.assertTrue(response.url.startswith("/accounts/login/"))
     def test_user_gets_access(self):
         """ Tests a teacher user gets access to landing page"""
-        login_successful = self.client.login(username='MiriamGonzalez', password='mypassword', backend='allauth.account.auth_backends.AuthenticationBackend')
+        login_successful = self.client.login(username='MiriamGonzalez', password='mypassword')
         self.assertTrue(login_successful, "Test failed")
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "attendance/landing.html")
-        
-        
 
+class TestChildrenlist(TestCase):
+    """Tests that parents are directed to landing page"""
+    def setUp(self):
+        """
+            Creates an instance of a parent user with a registered child and a degegistered child.
+            Creates a different instance of a parent user with a differet child.
+            Sets up url
+            """
+        self.test_user = User.objects.create_user(username="FrederikFox", password="mypassword")
+        parent_group, _ = Group.objects.get_or_create(name='parent')
+        self.test_user.groups.add (parent_group)
+        self.test_child1 = Student.objects.create(student_code='0609PITE', date_of_birth="2006-09-12",sex=3, group=0,music_option=4, parent_name=self.test_user, deregistered=False)
+        self.test_child2 = Student.objects.create(student_code='0609PIDE', date_of_birth="2006-09-12",sex=3, group=0,music_option=4, parent_name=self.test_user, deregistered=True) 
+        self.test_user1 = User.objects.create_user(username="MidgePeterson", password="mypassword1")
+        parent_group, _ = Group.objects.get_or_create(name='parent')
+        self.test_user1.groups.add (parent_group)
+        self.test_child3 = Student.objects.create(student_code='060PESR', date_of_birth="2006-09-12",sex=3, group=0,music_option=4, parent_name=self.test_user1, deregistered=False)
+        self.url = reverse('landing')
+    def test_unauthentificateduser_is_redirected(self):
+        """Unauthenticated users cannot access the landing page."""
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 302)
+    def test_only_registered_children_on_list(self):
+        """Tests only the registered children belonging to parent user appear on list"""
+        self.client.login(username='FrederikFox', password='mypassword')
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "attendance/landing.html")
+        children_in_context = response.context['children']
+        self.assertIn(self.test_child1, children_in_context)
+        self.assertNotIn(self.test_child2, children_in_context)
+        self.assertNotIn(self.test_child3, children_in_context)
+        
         
     

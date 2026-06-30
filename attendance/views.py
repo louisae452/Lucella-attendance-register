@@ -281,6 +281,18 @@ def sendemail(request, student_code):
 # View to show registered children.
 @login_required
 def children_list(request):
+    """
+        Displays a list of all the registered children belonging to a parent user.
+        
+        **Context**
+        
+        ``children``
+            Queryset of the registered children belonging to the parent user.
+        
+        **Template**
+        
+        "attendance/landing.html"
+    """
     children = Student.objects.filter(parent_name=request.user, deregistered=False)
     return render(
         request,

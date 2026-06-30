@@ -350,7 +350,7 @@ class TestRegisterForm(TestCase):
         self.assertTrue(register_form.fields['student_code'].disabled)
     def setUp(self):
         """Creates a student instance. Requires parent instance"""
-        parent_group, _ = AuthGroup.objects.get_or_create(name='parent')
+        parent_group, _  = AuthGroup.objects.get_or_create(name='parent')
         self.test_user = User. objects.create(username='FlorenceFox', password='testpassword')
         self.test_user.groups.add (parent_group)
         self.test_student = Student.objects.create(student_code='0609PITE', date_of_birth="2006-09-12",sex=3, group=0,music_option=4, parent_name=self.test_user)
