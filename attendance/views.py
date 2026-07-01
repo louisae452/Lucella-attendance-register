@@ -7,8 +7,9 @@ from django.views.generic import TemplateView
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
+from django.core.exceptions import PermissionDenied
 from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.views.decorators.cache import never_cache
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.conf import settings
@@ -21,13 +22,19 @@ from datetime import date, datetime
 
 
 # Create your views here.
+def in_admissions(user):
+    if user.is_authenticated and user.groups.filter(name='admissions_officer').exists():
+        return True
+    raise PermissionDenied
+
+
 class HomeView(TemplateView):
     """
         Renders homepage.
         
         **Template:**
         
-        `attendance/home.html`  
+        :template:`attendance/home.html`  
     """
     template_name = "attendance/home.html"
     
@@ -38,7 +45,7 @@ class LandingView(TemplateView):
         
         **Template:**
         
-        `attendance/landing.html`
+        :template:`attendance/landing.html`
     """
     template_name = "attendance/landing.html"
 
@@ -55,8 +62,8 @@ def students_list(request):
         queryset of registered students,
         
         **Template**
-        "attendance/students_lsit.html"
-
+        :template:`attendance/students_lsit.html`
+        S
     """
     students = Student.objects.filter(deregistered=False)
     students = students.annotate(
@@ -72,25 +79,39 @@ def students_list(request):
     
  
 #View to add a parent.
-@login_required
+@user_passes_test(in_admissions)
 def add_parent(request):
-    userform = UserForm()
+    """ 
+    Adds a new parent user
+    
+    **Context**
+    
+    ``userform``
+        An instance of :form:`attnedance.UerForm``
+    
+    **Template:**
+    
+    :template:`attendance.new_parent.html`
+    """
     if request.method == "POST":
         userform = UserForm(data=request.POST)
         if userform.is_valid():
             newuser = userform.save()
             group = Group.objects.get(name="parent")
             newuser.groups.add(group)
+            messages.success(request, 'Parent added successfully')
             return redirect('parentdata')
-    return render(
-        request,
-        "attendance/new_parent.html",
-        {
-            'userform': userform,
-        }
+    else:
+        userform = UserForm()    
+        return render(
+            request,
+            "attendance/new_parent.html",
+            {
+                'userform': userform,
+            }
     )
 # View to add additional data for parents.
-@login_required 
+@user_passes_test(in_admissions)
 def add_parentdata(request):
     parentform = ParentForm()
     if request.method == "POST":
