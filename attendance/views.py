@@ -50,7 +50,7 @@ class LandingView(TemplateView):
     template_name = "attendance/landing.html"
 
 
-# View to see all students registered.
+
 @login_required
 def students_list(request):
     """
@@ -78,7 +78,7 @@ def students_list(request):
     return render(request, "attendance/students_list.html", {"students": students,})
     
  
-#View to add a parent.
+
 @user_passes_test(in_admissions)
 def add_parent(request):
     """ 
@@ -110,7 +110,7 @@ def add_parent(request):
                 'userform': userform,
             }
     )
-# View to add additional data for parents.
+
 @user_passes_test(in_admissions)
 def add_parentdata(request):
     """ 
@@ -140,9 +140,21 @@ def add_parentdata(request):
         }
     )
 
-# View to add a student
-@login_required
+@user_passes_test(in_admissions)
 def add_student(request):
+    """ 
+    Adds a new student
+    
+    **Context**
+    
+    ``studentform``
+        An instance of :form:`attnedance.StudentForm``
+    
+    **Template:**
+    
+    :template:`attendance.new_student.html`
+    """
+    
     if request.method == "POST":
         studentform = StudentForm(data=request.POST)
         if studentform.is_valid():
