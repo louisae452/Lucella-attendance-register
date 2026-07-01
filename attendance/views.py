@@ -171,7 +171,9 @@ def add_student(request):
     
 #View to add a teacher.
 @user_passes_test(in_admissions)
-     """ 
+   
+def add_teacher(request):
+    """ 
     Adds a new teacher user
     
     **Context**
@@ -183,7 +185,6 @@ def add_student(request):
     
     :template:`attendance.new_teacher.html`
     """
-def add_teacher(request):
     if request.method == "POST":
         userform = UserForm(data=request.POST)
         if userform.is_valid():
@@ -201,8 +202,20 @@ def add_teacher(request):
     )
     
 # View to add additional data to teacher
-@login_required
+@user_passes_test(in_admissions)
 def add_teacherdata(request):
+    """
+    Adds extra data to teacher user
+    
+    **Context**
+    
+    ``teacherform``
+        An instance of :form:`attnedance.TeacherForm``
+    
+    **Template:**
+    
+    :template:`attendance.teacherdata.html`
+    """
     teacherform = TeacherForm()
     if request.method == "POST":
         teacherform = TeacherForm(data=request.POST)

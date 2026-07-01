@@ -323,6 +323,43 @@ class TestAddteacher(TestCase):
         response = self.client.post(reverse('newteacher'), data=post_data)
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, reverse('teacherdata'))
+        
+class TestTeacherdata(TestCase):
+    """Tests add_teacherdata. Requires admissions_officer user"""
+    def setUp(self):
+        """Sets url. Creates admissions_officer and teacher users"""
+        self.url = reverse('teacherdata')
+        admissions_group, _ = Group.objects.get_or_create(name='admissions_officer')
+        self.admissions_user = User.objects.create_user(username='Headmaster', password='mypassword')
+        self.admissions_user.groups.add(admissions_group)
+        teacher_group, _ = Group.objects.get_or_create(name='teacher')
+        self.teacher_user = User.objects.create_user(username = 'MiriamGonzalez', password='mypassword')
+        self.teacher_user.groups.add (teacher_group)
+    def test_unauthorised_user_is_rejected(self):
+        """Tests an unauthorised user is not given access to page"""
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 403)
+    def test_user_wrong_group_rejected(self):
+        """Tests a user that is not admissions_officer is rejected"""
+        self.client.login(username='MiriamGonzalez', password='mypassword')
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 403)
+    def test_admissions_officer_accepted(self):
+        """Tests the admissions_officer user is accepted"""
+        self.client.login(username='Headmaster', password='mypassword')
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+    def test_form_is_submitted(self):
+        """Tests form is submitted correctly"""
+        post_data = {
+            'teacher_name': self.teacher_user.id,
+            'phone_number': '0987857473'
+        }
+        self.client.login(username='Headmaster', password='mypassword')
+        response = self.client.post(reverse('teacherdata'), data=post_data)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse('landing'))
+    
             
     
     
