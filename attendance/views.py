@@ -87,7 +87,7 @@ def add_parent(request):
     **Context**
     
     ``userform``
-        An instance of :form:`attnedance.UerForm``
+        An instance of :form:`attendance.UserForm``
     
     **Template:**
     
@@ -113,12 +113,25 @@ def add_parent(request):
 # View to add additional data for parents.
 @user_passes_test(in_admissions)
 def add_parentdata(request):
-    parentform = ParentForm()
+    """ 
+    Adds a extra data to parent user
+    
+    **Context**
+    
+    ``parentform``
+        An instance of :form:`attnedance.ParentForm``
+    
+    **Template:**
+    
+    :template:`attendance.parentdata.html`
+    """
     if request.method == "POST":
         parentform = ParentForm(data=request.POST)
         if parentform.is_valid():
             parentform.save()
+            messages.success(request, 'Data added successfully')
             return redirect('landing')
+    parentform = ParentForm()    
     return render(
         request,
         "attendance/parentdata.html",

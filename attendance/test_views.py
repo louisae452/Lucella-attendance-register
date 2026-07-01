@@ -191,6 +191,54 @@ class TestAddparent(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, reverse('parentdata'))
         
+class TestAddparentdata(TestCase):
+    """Tests add_parentdata(). Requires user to be admissions_officer"""
+    def setUp(self):
+        """
+            Sets url
+            Creates addmissions_officer user
+            Creates teacher user
+            Creates parent user
+        """
+        self.url = reverse('parentdata')
+        teacher_group, _ = Group.objects.get_or_create(name='teacher')
+        self.teacher_user = User.objects.create_user(username = 'MiriamGonzalez', password='mypassword')
+        self.teacher_user.groups.add (teacher_group)
+        admissions_group, _ = Group.objects.get_or_create(name='admissions_officer')
+        self.admissions_user = User.objects.create_user(username='Headmaster', password='mypassword')
+        self.admissions_user.groups.add(admissions_group)
+        parent_group, _ =Group.objects.get_or_create(name='parent')
+        self.parent_user = User.objects.create_user(username = 'LauraSmith', password='mypassword')
+        self.parent_user.groups.add(parent_group)
+    def test_non_user_rejected(self):
+        """Tests non users have not access to the page"""
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 403)
+    def test_user_wrong_group_rejected(self):
+        """Tests a user that is not admissions_officer is rejected"""
+        self.client.login(username='MiriamGonzalez', password='mypassword')
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 403)
+    def test_admissions_officer_accepted(self):
+        """Tests the admissions_officer user is accepted"""
+        self.client.login(username='Headmaster', password='mypassword')
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+    def test_successful_form_submission(self):
+        "Tests data is submitted correctly"
+        post_data = {
+            'parent_name': self.parent_user.id,
+            'phone_number': '089765454',
+        }
+        self.client.login(username='Headmaster', password='mypassword')
+        response = self.client.post(reverse('parentdata'), data=post_data)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse('landing'))
+        
+        
+    
+        
+        
         
         
         
