@@ -1,4 +1,6 @@
 import pytest
+from datetime import date
+from unittest.mock import patch
 from django.contrib.auth.models import User, Group, AnonymousUser
 from django.urls import reverse
 from django.test import TestCase, RequestFactory
@@ -359,14 +361,31 @@ class TestTeacherdata(TestCase):
         response = self.client.post(reverse('teacherdata'), data=post_data)
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, reverse('landing'))
-    
-            
-    
-    
-        
-        
-        
-        
+
+class TestGetregister(TestCase):
+    """Tests get_register(). Requires teacher user"""
+    def setUp(self):
+        """Sets url. Creates teacher and regular user"""
+        self.url = reverse('dailyregister')
+        teacher_group, _ = Group.objects.get_or_create(name='teacher')
+        self.teacher_user = User.objects.create_user(username = 'MiriamGonzalez', password='mypassword')
+        self.teacher_user.groups.add (teacher_group)
+        self.regular_user =User.objects.create_user(username='JuanSoto', password='mypassword')
+        self.test_subject = Subject.objects.create(subject_name='Maths A', teacher_name=self.teacher_user, set=1, room=1)
+    def test_unauthorised_user_is_rejected(self):
+        """Tests an unauthorised user is not given access to page"""
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 403)
+    def test_regular_user_rejected(self):
+        """Tests a user that is not teacher is rejected"""
+        self.client.login(username='JuanSoto', password='mypassword')
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 403)
+    def test_teacher_user_accepted(self):
+        """Tests the admissions_officer user is accepted"""
+        self.client.login(username='MiriamGonzalez', password='mypassword')
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
     
         
         

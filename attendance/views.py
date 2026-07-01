@@ -26,6 +26,10 @@ def in_admissions(user):
     if user.is_authenticated and user.groups.filter(name='admissions_officer').exists():
         return True
     raise PermissionDenied
+def in_teacher(user):
+    if user.is_authenticated and user.groups.filter(name='teacher').exists():
+        return True
+    raise PermissionDenied
 
 
 class HomeView(TemplateView):
@@ -62,8 +66,8 @@ def students_list(request):
         queryset of registered students,
         
         **Template**
-        :template:`attendance/students_lsit.html`
-        S
+        :template:`attendance/students_list.html`
+        
     """
     students = Student.objects.filter(deregistered=False)
     students = students.annotate(
@@ -210,7 +214,7 @@ def add_teacherdata(request):
     **Context**
     
     ``teacherform``
-        An instance of :form:`attnedance.TeacherForm``
+        An instance of :form:`attendance.TeacherForm``
     
     **Template:**
     
@@ -232,7 +236,21 @@ def add_teacherdata(request):
     
 # View to get class register
 @never_cache
+@user_passes_test(in_teacher)
 def get_register (request):
+    """
+        Collects information about the session in course to produce register.
+        
+        **Context**
+        
+        ``getregisterform``
+            An instance of :form:`attendance.GetregisterForm`,
+        
+        **Template**
+        
+        :template:`attendance/get_register.html`
+        
+    """
     cache.clear()
     if request.method == "POST":
         getregisterform = GetregisterForm(data=request.POST)
