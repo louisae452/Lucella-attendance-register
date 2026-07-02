@@ -35,6 +35,10 @@ def in_teacher(user):
     if user.is_authenticated and user.groups.filter(name='teacher').exists():
         return True
     raise PermissionDenied
+def in_parent(user):
+    if user.is_authenticated and user.groups.filter(name='parent').exists():
+        return True
+    raise PermissionDenied
 
 
 class HomeView(TemplateView):
@@ -466,6 +470,7 @@ def landing_router(request, *args, **kwargs):
     
     
 # View to see child detail page
+
 def view_child(request, student_code):
     child = get_object_or_404(Student, student_code=student_code)
     return render(
@@ -584,7 +589,7 @@ def report_absence(request, student_code, session_id):
     )
     
 # View to show parents their child's attendance record.
-@login_required
+@user_passes_test(in_parent)
 def child_record(request, student_code):
     childname = get_object_or_404(Student, student_code=student_code).student_name
     childsurname = get_object_or_404(Student, student_code=student_code).student_surname
@@ -611,8 +616,24 @@ def child_record(request, student_code):
     )
     
 # View to edit reason for past absence
-@login_required
+@user_passes_test(in_parent)
 def give_reason(request, student_code, date, session_id):
+    """
+        Allows parent to enter a reason for a student's absence
+        
+        **Context**
+        
+        ``child``
+            An instance of a student
+        ``absence``
+            An instance of dailyregister
+        ``reasonform``
+            An instance of :form:`attendance.GivereasonForm`
+        
+        **Template**
+        
+        "attendance/give_reason.html"
+    """  
     child = get_object_or_404(Student, student_code=student_code)
     absence = get_object_or_404(DailyRegister, session_id=session_id, date=date, student_code__student_code=student_code)
     if request.method == "POST":

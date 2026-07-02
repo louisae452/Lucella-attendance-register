@@ -486,11 +486,39 @@ class TestSendemail(TestCase):
         self.url = reverse('sendemail', kwargs={'student_code': self.test_student.student_code})
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)        
-        
-        
-        
-        
-        
-        
-        
-    
+
+class TestReason(TestCase):
+    """Tests givereason(). Requires parent user"""
+    def setUp(self):
+        """
+        Creates regular user and parent user
+        Creates student instance
+        Creates teacher, subject, timetable and dailyregister instances
+        Sets up url
+        """
+        self.regular_user =User.objects.create_user(username='JuanSoto', password='mypassword')
+        parent_group, _ = Group.objects.get_or_create(name='parent')
+        self.parent_user = User.objects.create_user(username="MidgePeterson", password="mypassword")
+        self.parent_user.groups.add (parent_group)
+        self.test_student = Student.objects.create(student_code='0609PITE', date_of_birth="2006-09-12",sex=3, group=0, music_option=4, parent_name=self.parent_user, deregistered=False)
+        teacher_group, _ = Group.objects.get_or_create(name='teacher')
+        self.teacher_user = User.objects.create_user(username = 'MiriamGonzalez', password='mypassword')
+        self.teacher_user.groups.add (teacher_group)
+        self.test_subject = Subject.objects.create(subject_name='Maths A', teacher_name=self.teacher_user, set=1, room=1)
+        self.test_timetable = Timetable.objects.create(session_id=3, day=2, session=1, group=1, subject_name=self.test_subject)
+        self.test_record = DailyRegister.objects.create(date='2026-06-23', session_id=self.test_timetable, student_code=self.test_student, mark=1, status=2)
+        self.url = reverse('givereason', kwargs={'student_code': self.test_student.student_code, 'date':self.test_record.date, 'session_id':self.test_record.session_id.pk})
+    def test_unauthorised_user_is_rejected(self):
+        """Tests an unauthorised user is not given access to page"""
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 403)
+    def test_teacher_user_rejected(self):
+        """Tests a teacher user is rejected"""
+        self.client.login(username='MiriamGonzalez', password='mypassword')
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 403)
+    def test_parent_user_accepted(self):
+        """Tests the attendance_officer user is accepted"""
+        self.client.login(username='MidgePeterson', password='mypassword')
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)        
