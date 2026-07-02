@@ -621,8 +621,29 @@ def report_absence(request, student_code, session_id):
 # View to show parents their child's attendance record.
 @user_passes_test(in_parent)
 def child_record(request, student_code):
-    childname = get_object_or_404(Student, student_code=student_code).student_name
-    childsurname = get_object_or_404(Student, student_code=student_code).student_surname
+    """
+        Displays individual student's attendance record
+        
+        **Context**
+        
+        ``childname``
+           Student's name
+        ``childsurname``
+            Student's surname
+        ``childcode``
+            Student's code
+        ``attendance percentage``
+            Student's attendance percentage
+       ``childrecords``
+            queryset with all the student's DailyRegister records
+        
+        **Template**
+        
+        "attendance/child_record.html"
+    """
+    student = get_object_or_404(Student, student_code=student_code)
+    childname = student.student_name
+    childsurname = student.student_surname
     childcode = student_code
     child_records = DailyRegister.objects.filter(student_code__student_code=student_code)
     presentdays = DailyRegister.objects.filter(student_code__student_code=student_code, mark=0).count()
