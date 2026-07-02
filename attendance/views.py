@@ -793,8 +793,20 @@ def absence_detail(request, student_code, date, session_id):
     )
 
 # View to get class list.
-@login_required
+@user_passes_test(in_teacher)
 def get_class(request):
+    """
+        Displays a list of all students in a specific class
+        
+        **Context**
+        
+        ``classlist``
+            instsnce of :form:attendance.GetclassForm
+        
+        **Template**
+        
+        "attendance/myclass.html"
+    """  
     if request.method == "POST":
         classlist = GetclassForm(data=request.POST)
         if classlist.is_valid():

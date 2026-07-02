@@ -632,6 +632,30 @@ class TestAbsencedetail(TestCase):
         self.client.login(username='JuanSoto', password='mypassword')
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 404)
+        
+class TestGetclass(TestCase):
+    """Test get_class(). Requires teacher user"""
+    def setUp(self):
+        "Creates a regular and teacher user. Sets url"
+        self.regular_user =User.objects.create_user(username='JuanSoto', password='mypassword')
+        teacher_group, _ = Group.objects.get_or_create(name='teacher')
+        self.teacher_user = User.objects.create_user(username = 'MiriamGonzalez', password='mypassword')
+        self.teacher_user.groups.add (teacher_group)
+        self.url = reverse('myclass')
+    def test_unauthorised_user_is_rejected(self):
+        """Tests an unauthorised user is not given access to page"""
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 403)
+    def test_regular_user_rejected(self):
+        """Tests a regular user is rejected"""
+        self.client.login(username='JuanSoto', password='mypassword')
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 403)
+    def test_teacher_user_accepted(self):
+        """Tests the teacher user is accepted"""
+        self.client.login(username='MiriamGonzalez', password='mypassword')
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
 
     
     
