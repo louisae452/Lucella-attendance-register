@@ -188,7 +188,7 @@ def add_teacher(request):
     **Context**
     
     ``userform``
-        An instance of :form:`attnedance.UserForm``
+        An instance of :form:`attendance.UserForm``
     
     **Template:**
     
@@ -350,7 +350,6 @@ def student_detail(request, student_code):
         :template:`attendance/student_detail.html`
         
     """
-    
     student =  get_object_or_404(Student, student_code=student_code)
     studentname = student.student_name
     studentsurname = student.student_surname
@@ -367,28 +366,44 @@ def student_detail(request, student_code):
             'student_records': student_records
         },
     )
-    
-    
-# View to  send email to parent.
-@login_required
+
+@user_passes_test(in_attendance) 
 def sendemail(request, student_code):
-    form = SendemailForm()
+    """
+        Sends an email to a parent.
+        
+        **Context**
+        ``userform``
+            An instance of :form:`attendance.SenemailForm``
+        ``studentcode``
+            Sudent_code of the student,
+        ``studentname``
+            The name of the student,
+        ``studentsurname``
+            The surname of the student,
+        
+        **Template**
+        
+        :template:`attendance/sendemail.html`
+    """
+        
+    student = get_object_or_404(Student, student_code=student_code)
     studentcode =  student_code
-    studentname = get_object_or_404(Student, student_code=student_code).student_name
-    studentsurname = get_object_or_404(Student, student_code=student_code).student_surname
+    studentname = student.student_name
+    studentsurname = student.student_surname
     if request.method == 'POST':
-        parentname = get_object_or_404(Student, student_code=student_code).parent_name
+        parentname = student.parent_name
         User = get_user_model()
         parent = get_object_or_404(User, username=parentname)
         parentmail = parent.email
         form = SendemailForm(data=request.POST)
         if form.is_valid():
             sentemail = form.save(commit=False)
-            sentemail.student_code = get_object_or_404(Student, student_code=student_code)
+            sentemail.student_code = student
             sentemail.save()
             subject = sentemail.subject
             text = sentemail.subject.text
-            #Write the email
+            # Write the email
             text_info = {
                 'studentname': studentname,
                 'studentsurname': studentsurname,
@@ -401,12 +416,13 @@ def sendemail(request, student_code):
             message.send()
             #send_mail(subject, html_content, settings.EMAIL_HOST_USER, [parentmail] )
             return redirect('landing')
+    form = SendemailForm()
     return render(
         request,
         "attendance/sendemail.html",
         {
-            'form':form,
-            'studentcode':studentcode,
+            'form': form,
+            'studentcode': studentcode,
             'studentname': studentname,
             'studentsurname': studentsurname,
         }

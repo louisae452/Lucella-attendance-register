@@ -452,7 +452,40 @@ class TestStudentdetail(TestCase):
         self.url = reverse('studentdetail', kwargs={'student_code': self.test_student.student_code})
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
-            
+        
+class TestSendemail(TestCase):
+    """Tests sendemail(). Requires admissions_officer user"""
+    def setUp(self):
+        """Creates teacher and admissions_officer user
+            Creates parent and student instances
+            Sets up url
+        """
+        teacher_group, _ = Group.objects.get_or_create(name='teacher')
+        self.teacher_user = User.objects.create_user(username = 'MiriamGonzalez', password='mypassword')
+        self.teacher_user.groups.add (teacher_group)
+        attendance_group, _ = Group.objects.get_or_create(name='attendance_officer')
+        self.attendance_user =User.objects.create_user(username='JuanSoto', password='mypassword')
+        self.attendance_user.groups.add(attendance_group)
+        parent_group, _ = Group.objects.get_or_create(name='parent')
+        self.parent_user = User.objects.create_user(username="MidgePeterson", password="mypassword1")
+        self.parent_user.groups.add (parent_group)
+        self.test_student = Student.objects.create(student_code='0609PITE', date_of_birth="2006-09-12",sex=3, group=0, music_option=4, parent_name=self.parent_user, deregistered=False)    
+        self.url = reverse('sendemail', kwargs={'student_code': self.test_student})
+    def test_unauthorised_user_is_rejected(self):
+        """Tests an unauthorised user is not given access to page"""
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 403)
+    def test_teacher_user_rejected(self):
+        """Tests a teacher user is rejected"""
+        self.client.login(username='MiriamGonzalez', password='mypassword')
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 403)
+    def test_attendance_user_accepted(self):
+        """Tests the attendance_officer user is accepted"""
+        self.client.login(username='JuanSoto', password='mypassword')
+        self.url = reverse('sendemail', kwargs={'student_code': self.test_student.student_code})
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)        
         
         
         
