@@ -491,12 +491,11 @@ class TestReason(TestCase):
     """Tests givereason(). Requires parent user"""
     def setUp(self):
         """
-        Creates regular user and parent user
+        Creates parent user
         Creates student instance
         Creates teacher, subject, timetable and dailyregister instances
         Sets up url
         """
-        self.regular_user =User.objects.create_user(username='JuanSoto', password='mypassword')
         parent_group, _ = Group.objects.get_or_create(name='parent')
         self.parent_user = User.objects.create_user(username="MidgePeterson", password="mypassword")
         self.parent_user.groups.add (parent_group)
@@ -518,7 +517,28 @@ class TestReason(TestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 403)
     def test_parent_user_accepted(self):
-        """Tests the attendance_officer user is accepted"""
+        """Tests the user is accepted"""
         self.client.login(username='MidgePeterson', password='mypassword')
         response = self.client.get(self.url)
-        self.assertEqual(response.status_code, 200)        
+        self.assertEqual(response.status_code, 200)    
+
+class TestChildtimetable(TestCase):  
+    """Tests child_timetabel. Requires parent user""" 
+    def setUp(self):
+        """Creates regular user, parent and student. Sets up url"""
+        self.regular_user =User.objects.create_user(username='JuanSoto', password='mypassword')
+        parent_group, _ = Group.objects.get_or_create(name='parent')
+        self.parent_user = User.objects.create_user(username="MidgePeterson", password="mypassword")
+        self.parent_user.groups.add (parent_group)
+        self.test_student = Student.objects.create(student_code='0609PITE', date_of_birth="2006-09-12",sex=3, group=1, music_option=5, parent_name=self.parent_user, deregistered=False)
+        self.url = reverse('childdetail', kwargs={'student_code': self.test_student.student_code})
+    def test_unauthorised_user_is_rejected(self):
+        """Tests an unauthorised user is not given access to page"""
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 403)
+    def test_regular_user_rejected(self):
+        """Tests a regular user is rejected"""
+        self.client.login(username='JuanSoto', password='mypassword')
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 403)
+    

@@ -470,20 +470,34 @@ def landing_router(request, *args, **kwargs):
     
     
 # View to see child detail page
-
-def view_child(request, student_code):
-    child = get_object_or_404(Student, student_code=student_code)
-    return render(
-        request,
-        "attendance/child_timetable.html",
-        {
-            'child': child,
-        }
-    )
+@user_passes_test(in_parent)
+#def view_child(request, student_code):
+ #   child = get_object_or_404(Student, student_code=student_code)
+  #  return render(
+ #       request,
+ #       "attendance/child_timetable.html",
+ #       {
+ #           'child': child,
+ #       }
+ #   )
     
 # View to show childs timetable
-@login_required
+@user_passes_test(in_parent)
 def child_timetable(request, student_code):
+    """
+        Displays selected child's timetable
+        
+        **Context**
+        
+        ``child``
+           An instance of student 
+        ``timetablevaalues``
+            A dictionary of session:subject_name values
+        
+        **Template**
+        
+        "attendance/Child_timmetable.html"
+    """
     child = get_object_or_404(Student, student_code=student_code)
     timetablevalues = {}
     if child.group == 1:
