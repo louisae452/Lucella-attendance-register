@@ -708,12 +708,35 @@ class TestTruantinglist(TestCase):
         self.client.login(username='JuanSoto', password='mypassword')
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 403)
+    def test_attendance_user_accepted(self):
+        """Tests the attendance_officer user is accepted"""
+        self.client.login(username='MiriamGonzalez', password='mypassword')
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+
+class TestRemovestudent(TestCase):
+    """Tests remove_student(). Requires admissions_officer permission"""
+    def setUp(self):
+        """Creates regular and admissions_officer users. Sets url"""
+        self.regular_user =User.objects.create_user(username='JuanSoto', password='mypassword')
+        admissions_group, _ = Group.objects.get_or_create(name='admissions_officer')
+        self.admissions_user = User.objects.create_user(username = 'MiriamGonzalez', password='mypassword')
+        self.admissions_user.groups.add (admissions_group)
+        self.url = reverse('remove')
+    def test_unauthorised_user_is_rejected(self):
+        """Tests an unauthorised user is not given access to page"""
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 403)
+    def test_regular_user_rejected(self):
+        """Tests a regular user is rejected"""
+        self.client.login(username='JuanSoto', password='mypassword')
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 403)
     def test_admissions_user_accepted(self):
         """Tests the admisssions_officer user is accepted"""
         self.client.login(username='MiriamGonzalez', password='mypassword')
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
-        
     
     
            

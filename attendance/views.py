@@ -887,7 +887,7 @@ def truanting_list(request):
         
         **Template**
         
-        "attendance/truanting_lsit.html"
+        "attendance/truanting_list.html"
     """  
     today = date.today()
     truantinglist = DailyRegister.objects.filter(date=today, mark=1, reason_for_absence='')
@@ -928,8 +928,21 @@ def truanting_list(request):
     )
 
 # View to remove a student.
-@login_required
+@user_passes_test(in_admissions)
 def remove_student(request):
+    """
+        Allows Admissions Officer to deregister a student
+        
+        **Context**
+        
+        `removeform``
+            an instance of :form:'attendance.RemoveForm'
+        
+        
+        **Template**
+        
+        "attendance/remove_students.html"
+    """  
     if request.method == "POST":
         removeform = RemoveForm(data=request.POST)
         if removeform.is_valid():
