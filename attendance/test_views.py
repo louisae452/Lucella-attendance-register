@@ -656,7 +656,39 @@ class TestGetclass(TestCase):
         self.client.login(username='MiriamGonzalez', password='mypassword')
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
-
+        
+class TestClassdetail(TestCase):
+    """Tests class_detail(). Requires teacher permission"""
+    def setUp(self):
+        """
+        Creates regular and teacher users.
+        Creates parent, student and subject instances
+        Sets url
+        """
+        self.regular_user =User.objects.create_user(username='JuanSoto', password='mypassword')
+        teacher_group, _ = Group.objects.get_or_create(name='teacher')
+        self.teacher_user = User.objects.create_user(username = 'MiriamGonzalez', password='mypassword')
+        self.teacher_user.groups.add (teacher_group)
+        parent_group, _ = Group.objects.get_or_create(name='parent')
+        self.parent_user = User.objects.create_user(username="CarlosRomero", password="mypassword")
+        self.parent_user.groups.add (parent_group)
+        self.test_student = Student.objects.create(student_code='0609PITE', date_of_birth="2006-09-12", sex=3, group=1, music_option=5, parent_name=self.parent_user, deregistered=False)
+        self.test_subject = Subject.objects.create(subject_name='Maths A', teacher_name=self.teacher_user, set=1, room=1)
+        self.url = reverse('classdetail', kwargs={'subject_name': self.test_subject.subject_name, 'student_code': self.test_student.student_code})
+    def test_unauthorised_user_is_rejected(self):
+        """Tests an unauthorised user is not given access to page"""
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 403)
+    def test_regular_user_rejected(self):
+        """Tests a regular user is rejected"""
+        self.client.login(username='JuanSoto', password='mypassword')
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 403)
+    def test_teacher_user_accepted(self):
+        """Tests the teacher user is accepted"""
+        self.client.login(username='MiriamGonzalez', password='mypassword')
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
     
     
            

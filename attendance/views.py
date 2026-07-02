@@ -845,8 +845,22 @@ def get_class(request):
     )
 
 # View to see student detail for specific subject.
-@login_required
+@user_passes_test(in_teacher)
 def class_detail(request, subject_name, student_code):
+    """
+        Displays to an specific subject of an individual student
+        
+        **Context**
+        
+        ``sessionlist``
+            queryset of DailyRegister
+        ``subjectname``
+            name of the subject
+        
+        **Template**
+        
+        "attendance/class_detail.html"
+    """  
     sessionids = Timetable.objects.filter(subject_name__subject_name=subject_name).values_list('id', flat=True).distinct()
     sessionslist = DailyRegister.objects.filter(student_code__student_code=student_code, session_id__in=sessionids)
     return render(
