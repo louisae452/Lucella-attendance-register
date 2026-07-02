@@ -26,6 +26,11 @@ def in_admissions(user):
     if user.is_authenticated and user.groups.filter(name='admissions_officer').exists():
         return True
     raise PermissionDenied
+def in_attendance(user):
+    if user.is_authenticated and user.groups.filter(name='attendance_officer').exists():
+        return True
+    raise PermissionDenied
+    
 def in_teacher(user):
     if user.is_authenticated and user.groups.filter(name='teacher').exists():
         return True
@@ -233,8 +238,7 @@ def add_teacherdata(request):
             'teacherform': teacherform,
         }
     )
-    
-# View to get class register
+
 @never_cache
 @user_passes_test(in_teacher)
 def get_register (request):
@@ -292,7 +296,7 @@ def get_register (request):
     )
     
 # View to save the day's register.
-@login_required
+@user_passes_test(in_teacher)
 def saveregister(request):
     id_list = request.session.get('filtered_new_records_ids',[])
     daily_records= DailyRegister.objects.filter(id__in=id_list)
@@ -325,14 +329,33 @@ def saveregister(request):
         }
         )
 # View to show student's detail (from teacher landing)
-@login_required   
+@user_passes_test(in_attendance) 
 def student_detail(request, student_code):
-     
-    studentname = get_object_or_404(Student, student_code=student_code).student_name
-    studentsurname = get_object_or_404(Student, student_code=student_code).student_surname
+    """
+        Shows attendance records of one student.
+        
+        **Context**
+        
+        ``studentname``
+            The name of the student,
+        ``studentsurname``
+            The surname of the student,
+        ``studentcode``
+            Sudent_code of the student,
+        ``student_records'
+            queryset of all the DailyRegister records of the student,
+        
+        **Template**
+        
+        :template:`attendance/student_detail.html`
+        
+    """
+    
+    student =  get_object_or_404(Student, student_code=student_code)
+    studentname = student.student_name
+    studentsurname = student.student_surname
     studentcode = student_code
-    print(f"test4 {studentsurname}")
-    student_records = DailyRegister.objects.filter(student_code__student_code=student_code)
+    student_records = DailyRegister.objects.filter(student_code=student)
     return render(
         request,
         "attendance/student_detail.html",
@@ -389,7 +412,7 @@ def sendemail(request, student_code):
         }
     )        
 # Parents pages.
-# View to show registered children.
+
 @login_required
 def children_list(request):
     """
