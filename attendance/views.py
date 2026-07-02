@@ -496,7 +496,7 @@ def child_timetable(request, student_code):
         
         **Template**
         
-        "attendance/Child_timmetable.html"
+        "attendance/child_timmetable.html"
     """
     child = get_object_or_404(Student, student_code=student_code)
     timetablevalues = {}
@@ -560,11 +560,26 @@ def child_timetable(request, student_code):
     )
 
 # View to report an absence.
-@login_required
+@user_passes_test(in_parent)
 def report_absence(request, student_code, session_id):
+    """
+        Allows parent to report a future absence
+        
+        **Context**
+        
+        ``child``
+           An instance of Student 
+        ``session``
+            An instance of Timetable
+       ``report``
+        An instance of :form:`attendance.AbsenceForm`
+        
+        **Template**
+        
+        "attendance/report_absence.html"
+    """
     child = get_object_or_404(Student, student_code=student_code)
     session = get_object_or_404(Timetable, session_id=session_id)
-    report = AbsenceForm()
     if request.method == "POST":
         report = AbsenceForm(data=request.POST)
         if report.is_valid():
@@ -591,6 +606,7 @@ def report_absence(request, student_code, session_id):
                 # If the specified date is not the correct weekday.
                 messages.error(request, 'The date specified does not match a timetable slot!')
                 return redirect ('childdetail', student_code=student_code)
+    report = AbsenceForm()
     return render(
         request,
         "attendance/report_absence.html",

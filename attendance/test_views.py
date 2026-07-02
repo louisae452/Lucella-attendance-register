@@ -541,4 +541,26 @@ class TestChildtimetable(TestCase):
         self.client.login(username='JuanSoto', password='mypassword')
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 403)
+
+class TestReportabsence(TestCase):
+    """Tests report_abscence. Requires parent user."""
+    def setUp(self):
+        """Creates regular user. Sets up url"""
+        self.regular_user =User.objects.create_user(username='JuanSoto', password='mypassword')
+        parent_group, _ = Group.objects.get_or_create(name='parent')
+        self.parent_user = User.objects.create_user(username="MidgePeterson", password="mypassword")
+        self.parent_user.groups.add (parent_group)
+        self.test_student = Student.objects.create(student_code='0609PITE', date_of_birth="2006-09-12",sex=3, group=1, music_option=5, parent_name=self.parent_user, deregistered=False)
+        self.url = reverse('reportabsence', kwargs={'student_code': self.test_student.student_code, 'session_id':3})
+    def test_unauthorised_user_is_rejected(self):
+        """Tests an unauthorised user is not given access to page"""
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 403)
+    def test_regular_user_rejected(self):
+        """Tests a regular user is rejected"""
+        self.client.login(username='JuanSoto', password='mypassword')
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 403)
+        
+        
     
