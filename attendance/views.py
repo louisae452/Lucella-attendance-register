@@ -731,8 +731,25 @@ def pending_absences(request):
     )
 
 # View to review individual pending absences
-@login_required
+@user_passes_test(in_attendance)
 def absence_detail(request, student_code, date, session_id):
+    """
+        Allows to review and individual pending absence.
+        Sends email to parent when absence is deemed unauthorised
+        
+        **Context**
+        
+        ``student``
+            An instance of Student
+        ``absence``
+            An instance of DailyRegister
+        ``review`` 
+            An instance of |:form:`attendance.PendingabsenceForm
+        
+        **Template**
+        
+        "attendance/absence_detail.html"
+    """  
     student = get_object_or_404(Student, student_code=student_code)
     #session = Timetable.objects.get(session_id=session_id)
     absence = get_object_or_404(DailyRegister, student_code__student_code=student_code, session_id=session_id, date=date)
