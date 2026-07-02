@@ -689,6 +689,31 @@ class TestClassdetail(TestCase):
         self.client.login(username='MiriamGonzalez', password='mypassword')
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
+        
+class TestTruantinglist(TestCase):
+    """Tests truanting_list(). Requires attendance_officer user"""
+    def setUp(self):
+        """Creates regular and attendance_officer user. Sets url"""
+        self.regular_user =User.objects.create_user(username='JuanSoto', password='mypassword')
+        attendance_group, _ = Group.objects.get_or_create(name='attendance_officer')
+        self.attendance_user = User.objects.create_user(username = 'MiriamGonzalez', password='mypassword')
+        self.attendance_user.groups.add (attendance_group)
+        self.url = reverse('truanting')
+    def test_unauthorised_user_is_rejected(self):
+        """Tests an unauthorised user is not given access to page"""
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 403)
+    def test_regular_user_rejected(self):
+        """Tests a regular user is rejected"""
+        self.client.login(username='JuanSoto', password='mypassword')
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 403)
+    def test_admissions_user_accepted(self):
+        """Tests the admisssions_officer user is accepted"""
+        self.client.login(username='MiriamGonzalez', password='mypassword')
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        
     
     
            
