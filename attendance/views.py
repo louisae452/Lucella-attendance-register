@@ -707,8 +707,20 @@ def give_reason(request, student_code, date, session_id):
     )
     
 # View to see all pending absences
-@login_required
+@user_passes_test(in_attendance)
 def pending_absences(request):
+    """
+        Displays a list of all pending absences
+        
+        **Context**
+        
+        ``pending``
+            queryset of all pending instances in DailyRegister
+        
+        **Template**
+        
+        "attendance/pending_absences.html"
+    """  
     pending = DailyRegister.objects.filter(status=1)
     return render(
         request,
