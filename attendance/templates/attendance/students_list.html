@@ -3,7 +3,7 @@
 {% load custom_tags %}
 
 {% block content %}
-{% if request.user|has_group:"attendance_officer" %}
+{% if request.user|has_group:"teacher" %}
 <div class="form-container">
     <table>
         <tr>

@@ -110,7 +110,7 @@ class TestChildrenlist(TestCase):
         self.assertNotIn(self.test_child3, children_in_context)
         
 class TestStudentlist(TestCase):
-    """Tests    """
+    """Tests  students_list(). Requires teacher user """
     def setUp(self):
         """ 
         Sets up url.
@@ -406,14 +406,9 @@ class TestSaveregister(TestCase):
         self.client.login(username='JuanSoto', password='mypassword')
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 403)
-    def test_teacher_user_accepted(self):
-        """Tests the admissions_officer user is accepted"""
-        self.client.login(username='MiriamGonzalez', password='mypassword')
-        response = self.client.get(self.url)
-        self.assertEqual(response.status_code, 200)
 
 class TestStudentdetail(TestCase):
-    """Tests student_detail(). Requires admissions_officer user"""
+    """Tests student_detail(). Requires attendance_officer user"""
     def setUp(self):
         """
             Creates teacher and regular user

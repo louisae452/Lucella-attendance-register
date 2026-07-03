@@ -23,19 +23,23 @@ from datetime import date, datetime
 
 # Create your views here.
 def in_admissions(user):
+    """Denies permission to users not in admissions_officer group"""
     if user.is_authenticated and user.groups.filter(name='admissions_officer').exists():
         return True
     raise PermissionDenied
 def in_attendance(user):
+    """Denies permission to users not in attendance_officer group"""
     if user.is_authenticated and user.groups.filter(name='attendance_officer').exists():
         return True
     raise PermissionDenied
     
 def in_teacher(user):
+    """Denies permission to users not in teacher group"""
     if user.is_authenticated and user.groups.filter(name='teacher').exists():
         return True
     raise PermissionDenied
 def in_parent(user):
+    """Denies permission to users not in parent group"""
     if user.is_authenticated and user.groups.filter(name='parent').exists():
         return True
     raise PermissionDenied
@@ -64,7 +68,7 @@ class LandingView(TemplateView):
 
 
 
-@login_required
+@user_passes_test(in_teacher)
 def students_list(request):
     """
         Renders list of all registered students.
@@ -95,16 +99,16 @@ def students_list(request):
 @user_passes_test(in_admissions)
 def add_parent(request):
     """ 
-    Adds a new parent user
-    
-    **Context**
-    
-    ``userform``
-        An instance of :form:`attendance.UserForm``
-    
-    **Template:**
-    
-    :template:`attendance.new_parent.html`
+        Adds a new parent user
+        
+        **Context**
+        
+        ``userform``
+            An instance of :form:`attendance.UserForm``
+        
+        **Template:**
+        
+        :template:`attendance.new_parent.html`
     """
     if request.method == "POST":
         userform = UserForm(data=request.POST)
@@ -127,16 +131,16 @@ def add_parent(request):
 @user_passes_test(in_admissions)
 def add_parentdata(request):
     """ 
-    Adds a extra data to parent user
-    
-    **Context**
-    
-    ``parentform``
-        An instance of :form:`attnedance.ParentForm``
-    
-    **Template:**
-    
-    :template:`attendance.parentdata.html`
+        Adds a extra data to parent user
+        
+        **Context**
+        
+        ``parentform``
+            An instance of :form:`attnedance.ParentForm``
+        
+        **Template:**
+        
+        :template:`attendance.parentdata.html`
     """
     if request.method == "POST":
         parentform = ParentForm(data=request.POST)
@@ -156,16 +160,16 @@ def add_parentdata(request):
 @user_passes_test(in_admissions)
 def add_student(request):
     """ 
-    Adds a new student
-    
-    **Context**
-    
-    ``studentform``
-        An instance of :form:`attnedance.StudentForm``
-    
-    **Template:**
-    
-    :template:`attendance.new_student.html`
+        Adds a new student
+        
+        **Context**
+        
+        ``studentform``
+            An instance of :form:`attnedance.StudentForm``
+        
+        **Template:**
+        
+        :template:`attendance.new_student.html`
     """
     
     if request.method == "POST":
@@ -187,16 +191,16 @@ def add_student(request):
    
 def add_teacher(request):
     """ 
-    Adds a new teacher user
-    
-    **Context**
-    
-    ``userform``
-        An instance of :form:`attendance.UserForm``
-    
-    **Template:**
-    
-    :template:`attendance.new_teacher.html`
+        Adds a new teacher user
+        
+        **Context**
+        
+        ``userform``
+            An instance of :form:`attendance.UserForm``
+        
+        **Template:**
+        
+        :template:`attendance.new_teacher.html`
     """
     if request.method == "POST":
         userform = UserForm(data=request.POST)
@@ -218,16 +222,16 @@ def add_teacher(request):
 @user_passes_test(in_admissions)
 def add_teacherdata(request):
     """
-    Adds extra data to teacher user
-    
-    **Context**
-    
-    ``teacherform``
-        An instance of :form:`attendance.TeacherForm``
-    
-    **Template:**
-    
-    :template:`attendance.teacherdata.html`
+        Adds extra data to teacher user
+        
+        **Context**
+        
+        ``teacherform``
+            An instance of :form:`attendance.TeacherForm``
+        
+        **Template:**
+        
+        :template:`attendance.teacherdata.html`
     """
     teacherform = TeacherForm()
     if request.method == "POST":
@@ -302,6 +306,24 @@ def get_register (request):
 # View to save the day's register.
 @user_passes_test(in_teacher)
 def saveregister(request):
+    """
+        Allows teacher to save the day's register
+        
+        **Context**
+        
+        ``date``
+            Today's date
+        ``sessionid``
+            session_id for the session
+        ``register``
+            An instance of :form:'attendance.RegisterFormSet`
+        
+        **Template**
+        
+        :template:`attendance/get_register.html`
+        
+    """
+    
     id_list = request.session.get('filtered_new_records_ids',[])
     daily_records= DailyRegister.objects.filter(id__in=id_list)
     # Get todays date
@@ -443,9 +465,9 @@ def children_list(request):
         ``children``
             Queryset of the registered children belonging to the parent user.
         
-        **Template**
+        **Template:**
         
-        "attendance/landing.html"
+        :template:`attendance/landing.html`
     """
     children = Student.objects.filter(parent_name=request.user, deregistered=False)
     return render(
@@ -494,9 +516,9 @@ def child_timetable(request, student_code):
         ``timetablevaalues``
             A dictionary of session:subject_name values
         
-        **Template**
+        **Template:**
         
-        "attendance/child_timmetable.html"
+        :template:`attendance/child_timmetable.html`
     """
     child = get_object_or_404(Student, student_code=student_code)
     timetablevalues = {}
@@ -574,9 +596,9 @@ def report_absence(request, student_code, session_id):
        ``report``
         An instance of :form:`attendance.AbsenceForm`
         
-        **Template**
+        **Template:**
         
-        "attendance/report_absence.html"
+        :tempalte:`attendance/report_absence.html`
     """
     child = get_object_or_404(Student, student_code=student_code)
     session = get_object_or_404(Timetable, session_id=session_id)
@@ -637,9 +659,9 @@ def child_record(request, student_code):
        ``childrecords``
             queryset with all the student's DailyRegister records
         
-        **Template**
+        **Template:**
         
-        "attendance/child_record.html"
+        :template:`attendance/child_record.html`
     """
     student = get_object_or_404(Student, student_code=student_code)
     childname = student.student_name
@@ -681,9 +703,9 @@ def give_reason(request, student_code, date, session_id):
         ``reasonform``
             An instance of :form:`attendance.GivereasonForm`
         
-        **Template**
+        **Template:**
         
-        "attendance/give_reason.html"
+        :template:`attendance/give_reason.html`
     """  
     child = get_object_or_404(Student, student_code=student_code)
     absence = get_object_or_404(DailyRegister, session_id=session_id, date=date, student_code__student_code=student_code)
@@ -717,9 +739,9 @@ def pending_absences(request):
         ``pending``
             queryset of all pending instances in DailyRegister
         
-        **Template**
+        **Template:**
         
-        "attendance/pending_absences.html"
+        :template:`attendance/pending_absences.html`
     """  
     pending = DailyRegister.objects.filter(status=1)
     return render(
@@ -746,9 +768,9 @@ def absence_detail(request, student_code, date, session_id):
         ``review`` 
             An instance of |:form:`attendance.PendingabsenceForm
         
-        **Template**
+        **Template:**
         
-        "attendance/absence_detail.html"
+        :tempalte:`attendance/absence_detail.html`S
     """  
     student = get_object_or_404(Student, student_code=student_code)
     #session = Timetable.objects.get(session_id=session_id)
@@ -762,7 +784,6 @@ def absence_detail(request, student_code, date, session_id):
                 User = get_user_model()
                 parent = get_object_or_404(User, username=parentname)
                 parentmail = parent.email
-                ####
                 email3 = get_object_or_404(Email, subject=3)
                 newemail = Sentemail.objects.create(student_code=student, subject=email3)
                 text = get_object_or_404(Email, subject=3).text
@@ -803,9 +824,9 @@ def get_class(request):
         ``classlist``
             instance of :form:attendance.GetclassForm
         
-        **Template**
+        **Template:**
         
-        "attendance/myclass.html"
+        :template:`attendance/myclass.html`
     """  
     if request.method == "POST":
         classlist = GetclassForm(data=request.POST)
@@ -857,9 +878,9 @@ def class_detail(request, subject_name, student_code):
         ``subjectname``
             name of the subject
         
-        **Template**
+        **Template:**
         
-        "attendance/class_detail.html"
+        :template:`attendance/class_detail.html`
     """  
     sessionids = Timetable.objects.filter(subject_name__subject_name=subject_name).values_list('id', flat=True).distinct()
     sessionslist = DailyRegister.objects.filter(student_code__student_code=student_code, session_id__in=sessionids)
@@ -885,9 +906,9 @@ def truanting_list(request):
         ``today``
             today's list
         
-        **Template**
+        **Template:**
         
-        "attendance/truanting_list.html"
+        :template:`attendance/truanting_list.html`
     """  
     today = date.today()
     truantinglist = DailyRegister.objects.filter(date=today, mark=1, reason_for_absence='')
@@ -939,9 +960,9 @@ def remove_student(request):
             an instance of :form:'attendance.RemoveForm'
         
         
-        **Template**
+        **Template:**
         
-        "attendance/remove_students.html"
+        :template:`attendance/remove_students.html`
     """  
     if request.method == "POST":
         removeform = RemoveForm(data=request.POST)
