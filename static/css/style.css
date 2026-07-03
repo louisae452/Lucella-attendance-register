@@ -1,29 +1,16 @@
-
-
-
-
 /* Base.html styling */
 
-body {
-   min-width: 100%;
-   margin: 0;
-}
 /*Push footer to end of page. */
 main {
     display: flex;
     flex-direction: column;
-    
-    
 }
-
 header {
     display: flex;
     align-items: center;
-    max-width: 100%;
+    max-width: 100vw;
     min-height: 20vh;
     background-color:blueviolet;
-    contain: layout paint;
-    
 }
 #header {
     display: flex;
@@ -34,8 +21,10 @@ header {
 #header h1 {
     margin: 10px;
 }
-
-   
+body {
+   min-width: 100vw;
+   margin: 0;
+}
 footer {
     background-color:blueviolet;
     display: flex;
@@ -59,23 +48,17 @@ footer {
 
 /* Home html styling */
 #home {
-    position: relative;
     min-height: 80vh;
-    
-    
-    
+    background: url(../images/background-picture.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
     margin: 0px;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
-}
-.hero-content {
-    position: relative;
-    z-index: 2; /* Pulls text above the image layer */
-    margin-top: auto;
-    margin-bottom: auto; /* Centers welcome content vertically */
-}
+    
 
+}
 
 #welcome {
     
@@ -91,7 +74,6 @@ footer {
     bottom: 10px;
     display: flex;
     align-items: end;  
-    z-index:2
 }
 
 
