@@ -15,8 +15,13 @@
             <button class="button" type="submit">Save</button>
         </form>
     </div>
+    <div>
+        <a class="button" href="{% url 'landing' %}">Main menu</a>
+    </div>
 </div>
+
 {% else %}
+    <p>Sorry, you don't have the required permission</p>
     <div>
         <a class="button" href="{% url 'landing' %}">Main menu</a>
     </div>

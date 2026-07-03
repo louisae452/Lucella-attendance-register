@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<h2> Pending absences</h2>
+<h2 class="textcenter"> Pending absences</h2>
 <div class="form-container">
     {% if request.user|has_group:"admissions_officer" %}
     
@@ -20,9 +20,9 @@
         
         {% for student in pending %}
         <tr>
-            <td>{{ student.student_code }}</td>
+            <td class="medium-column">{{ student.student_code }}</td>
             <td><a href="{% url 'absencedetail' student.student_code.student_code student.date student.session_id_id %}">{{ student.date}}</a></td>    
-            <td>{{ student.session_id }}</td>
+            <td class="longer-column">{{ student.session_id }}</td>
             <td>{{ student.get_mark_display }}</td>
             <td>{{ student.get_status_display }}</td>
             

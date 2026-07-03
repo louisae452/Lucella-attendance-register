@@ -8,12 +8,14 @@
 
 <head>
     <title>Lucella Attendance REgister</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />   
+    <meta name="viewport" content="width=device-width, initial-scale=1" /> 
+    {% block meta_description %}  
+    <meta name=""description" content="Home page">
+    {% endblock %}
     <!-- Custom Css-->
      <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
-</body>
     <header>
         <div id="header">
             <h1>Logo</h1>
@@ -46,8 +48,8 @@
         </div>
     </main>
     <footer>
-        <p>Contact: <i class="fa-solid fa-at"></i></p>
-        <p>Follow us: <i class="fa-brands fa-facebook-f"></i><i class="fa-brands fa-twitter"></i> </p>
+        <p>Contact: <a href="mailto:lucellahighschool@gmail.com">  lucellahighschool@gmailcom</a></p>
+        <p>Follow us: <a href="https://facebook.com" target="_blank" rel="noopener no referrer"><i class="fa-brands fa-facebook-f"></i></a><a href="https://x.com" target="_blank" rel="noopener no referrer"><i class="fa-brands fa-twitter"></i></a> </p>
     </footer>
 
 

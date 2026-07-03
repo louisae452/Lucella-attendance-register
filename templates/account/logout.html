@@ -9,12 +9,10 @@
         <div class="authpage">
             <div>
                 <h1>{% trans "Sign Out" %}</h1>
-            
-            
                 <p>{% trans 'Are you sure you want to sign out?' %}<p>
             </div>
-            <div class="">
-                <form class="formcenter"method="post" action="{% url 'account_logout'%}"> 
+            <div >
+                <form class="formcleft"method="post" action="{% url 'account_logout'%}"> 
                  {% csrf_token %}
                 <button class="button" type="submit">{% trans 'Sign Out' %}</button>
             </div>        

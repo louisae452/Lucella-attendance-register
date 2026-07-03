@@ -17,7 +17,11 @@
             </form>
         </div>
     </div>
+    <div>
+    <a class="button" href="{% url 'landing' %}">Main menu</a>
+</div>
 {% else %}
+<p>Sorry, you don't have the required permissions</p>
 <div>
     <a class="button" href="{% url 'landing' %}">Main menu</a>
 </div>

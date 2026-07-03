@@ -7,13 +7,14 @@
 {% if request.user|has_group:"parent" %}
 
 <div class="form-container">
+
     <div class="reducesize">
         <h1>{{ child.student_name }} {{ child.student_surname }}</h1>
         <h2>{{ absence.date }} {{ absence.session_id }}</h2>
-        <form method="post">
+        <form class="" method="post">
             {{ reasonform }}
             {% csrf_token %}
-            <button class="button" type="submit" href="">Go to register</button>
+            <button class="button" type="submit" href="">Save</button>
         </form>
     </div>
 </div>

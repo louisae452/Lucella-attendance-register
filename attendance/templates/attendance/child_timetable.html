@@ -7,9 +7,9 @@
 {% if request.user|has_group:"parent" %}
 <div>
     <h1>Report your child's absence</h1>
-    <h2>{{ child.student_name }} {{ child.student_surname }}</h1>
-    <p>Please, click on the session your child will be missing. Report every session they wil be missing.</p>
-    <div>
+    <h2 class="textcenter">{{ child.student_name }} {{ child.student_surname }}</h1>
+    <p class="textcenter">Please, click on the session your child will be missing. Report every session they wil be missing.</p>
+    <div class="form-container">
         <table>
             <tr>
                 <th> </th>
@@ -37,8 +37,9 @@
             </tr>
         </table>
     </div>
-    <div>
+    <div class="buttons-page">
         <a class="button" href="{% url 'childrecord' child.student_code %}">View attendance record</a>
+        <a class="button" href="{% url 'landing' %}">Main menu</a>
     </div>
 </div>
 {% endif %}

@@ -10,7 +10,7 @@
 <div>
     {% if user.is_authenticated %}
         {% if request.user|has_group:"teacher" %}
-            <div>
+            <div class="buttons-page">
                 <a class="button" href="{% url 'students' %}">Student list</a>
                 <a class="button" href="{% url 'newparent' %}">Add parent</a>
                 <a class="button" href="{% url 'newstudent' %}">Add student</a>
@@ -22,9 +22,10 @@
                 <a class="button" href="{% url 'myclass' %}">See my class</a>
             </div>
         {% elif request.user|has_group:"parent" %}
-            <div>
-                <h1>Please, click on the required child's code</h1>
-                
+            <div class="form-container">
+                <h1>Please, click on the required child's code</h1> 
+            </div>
+            <div class="form-container">
                 <table>
                     <tr>
                         <th>Code</th>

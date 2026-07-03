@@ -14,11 +14,14 @@
             {% csrf_token %}
             <button class="button" type="submit">Get my class</button>
         </form>
+    </div>
         <a class="button" href="{% url 'landing' %}">Main menu</a>
     </div>
+    
 </div>
 {% else %}
     <div>
+        <p>Sorry, you don't have the required permissions</p>
         <a class="button" href="{% url 'landing' %}">Main menu</a>
     </div>
 {% endif %}

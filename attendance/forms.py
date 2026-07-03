@@ -80,7 +80,7 @@ class AbsenceForm(forms.ModelForm):
         model = DailyRegister
         fields = ['date', 'reason_for_absence']
         help_texts = {
-            'date': 'Please, use this format; YYYY-MM-DD',
+            'date': 'Please, use this format:<br> YYYY-MM-DD',
         }
 # Form to give/edit reason for a past absence.
 class GivereasonForm(forms.ModelForm):

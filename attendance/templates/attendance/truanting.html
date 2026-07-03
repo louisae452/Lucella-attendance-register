@@ -6,25 +6,19 @@
 
 {% if request.user|has_group:"attendance_officer" %}
 <div >
-    <h2>{{ today }}</h2>
-    <h2>Truanting students</h2>
+    <h2 class="textcenter">{{ today }}</h2>
+    <h2 class="textcenter">Truanting students</h2>
 
     <div class="form-container">
         <table>
             <tr>
                 <th>Name</th>
-                <th>Session</th>
-                
-                    
-            </tr>
-                
+                <th>Session</th> 
+            </tr> 
             {% for student in truantinglist %}
-            <tr>
-                    
-                <td>{{ student.student_code}}</td>
-                <td class="longer-column">{{ student.session_id }}</td>
-                
-                    
+            <tr>  
+                <td class="medium-column">{{ student.student_code}}</td>
+                <td class="longer-column">{{ student.session_id }}</td> 
             <tr>
             {% endfor %}
         </table>
