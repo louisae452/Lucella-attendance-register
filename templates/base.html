@@ -7,11 +7,16 @@
 <html class="h-100" lang="en">
 
 <head>
-    <title>Lucella Attendance REgister</title>
+    <title>Lucella Attendance Register</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" /> 
     {% block meta_description %}  
-    <meta name=""description" content="Home page">
+    <meta name="description" content="Home page">
     {% endblock %}
+    <!-- Favicon. -->
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicon/apple-touch-icon.png' %}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon/favicon-32x32.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon/favicon-16x16.png' %}">
+  <link rel="manifest" href="/site.webmanifest">
     <!-- Custom Css-->
      <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
@@ -21,7 +26,7 @@
             <h1>Logo</h1>
             <h1>Lucella High school</h1> 
         </div>
-        <div>
+        <div id= "login">
             {% if user.is_authenticated %}
             <div class="login">
                 <a class="button" href="{% url 'account_logout' %}">Log out</a>
@@ -48,8 +53,8 @@
         </div>
     </main>
     <footer>
-        <p>Contact: <a href="mailto:lucellahighschool@gmail.com">  lucellahighschool@gmailcom</a></p>
-        <p>Follow us: <a href="https://facebook.com" target="_blank" rel="noopener no referrer"><i class="fa-brands fa-facebook-f"></i></a><a href="https://x.com" target="_blank" rel="noopener no referrer"><i class="fa-brands fa-twitter"></i></a> </p>
+        <p>Contact: <a href="mailto:lucellahighschool@gmail.com">  lucellahighschool@gmail.com</a></p>
+        <p> <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook-f"></i></a><a href="https://x.com" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-twitter"></i></a> </p>
     </footer>
 
 
