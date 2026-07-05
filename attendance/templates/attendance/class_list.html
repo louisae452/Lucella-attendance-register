@@ -20,15 +20,15 @@
             <tr>   
                 <td>{{ student.student_surname }}</td>
                 <td><a href="{% url 'classdetail' subject.subject_name student.student_code %}">{{ student.student_name }}</a></td>
-                <td>{{ student.attendance }}</td>        
+                <td class="redalert">{{ student.attendance }}</td>        
             </tr>
             {% endfor %}
         </table>
     </div>
 </div>
 <div>
-    <a class="button" href="">Email</a>
-    <a class="button" href="{% url 'students' %}">Student list</a>
+    
+    <a class="button" href="{% url 'landing' %}">Main menu</a>
 </div>
 
 {% endif %}

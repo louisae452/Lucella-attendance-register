@@ -8,6 +8,8 @@
     --barely-there-green: #f8fef8;
     --mid-green: #dffce0;
     --forest-green: #064407;
+    --red-alert: #FF4433;
+    --orange-alert: #b49e7ac9;
 }
 
 
@@ -20,6 +22,7 @@
    height: 100%;
    margin: 0;
    padding: 0;
+   overflow-x: hidden;
 }
 body {
     display: flex;
@@ -30,6 +33,7 @@ main {
     display: flex;
     flex-grow : 1;
     align-items: center;
+    width: 100%
 
 }
 #content-container {
@@ -85,6 +89,28 @@ form label {
 }
 .greentext {
     color: var(--forest-green);
+}
+/* turn around message when phone in portrait*/
+.turn-message {
+    display: flex;
+    place-self: center;
+    position: absolute;
+    top: 15vh;
+    z-index: 3;
+    width: 70%;
+    height: 60%;
+    background-color: var(--purple);
+    align-items: center;
+    text-align: center;
+    font-size: 2em;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 20px;
+    visibility: hidden;
+    
+}
+.turn-message h1 {
+    color: var(--mid-green);
 }
 
 
@@ -312,6 +338,8 @@ form  input, form select {
     form {
         width: 100%;
     }
+    .turn-message {
+        visibility: visible;
     
 }
 

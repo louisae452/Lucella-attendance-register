@@ -23,13 +23,17 @@
             <td>{{ student.get_sex_display }}</td>
             <td>{{ student.get_group_display }}</td>
             <td>{{ student.get_music_option_display }}</td>
-            <td>{{ student.attendancepercentage }}</td>
+            <td class="redalert">{{ student.attendancepercentage }}</td>
         <tr>
         {% endfor %}
     </table>
     {% endif %}
-</div>
+    </div>
+    
 <div>
+<div class="turn-message" id="turn-message">
+    <h1>Please, <br>turn your device <br>round!</h1>
+</div>    
     <a class="button" href="{% url 'landing' %}">Main menu</a>
 </div>
 {% endblock %}
