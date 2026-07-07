@@ -176,6 +176,7 @@ def add_student(request):
         studentform = StudentForm(data=request.POST)
         if studentform.is_valid():
             studentform.save()
+            messages.success(request, 'Student added successfully')
             return redirect('landing')
     studentform = StudentForm()    
     return render(
@@ -208,6 +209,7 @@ def add_teacher(request):
             newuser = userform.save()
             group = Group.objects.get(name="teacher")
             newuser.groups.add(group)
+            messages.success(request, "Teacher added successfully")
             return redirect('teacherdata')
     userform = UserForm()
     return render(
@@ -238,6 +240,7 @@ def add_teacherdata(request):
         teacherform = TeacherForm(data=request.POST)
         if teacherform.is_valid():
             teacherform.save()
+            messages.success('Data added successfully')
             return redirect('landing')
     return render(
         request,
@@ -440,7 +443,7 @@ def sendemail(request, student_code):
             message = EmailMultiAlternatives(subject, text_content, settings.EMAIL_HOST_USER, [parentmail])
             message.attach_alternative(html_content, "text/html")
             message.send()
-            #send_mail(subject, html_content, settings.EMAIL_HOST_USER, [parentmail] )
+            messages.success(request, 'Email sent successfully')
             return redirect('landing')
     form = SendemailForm()
     return render(
@@ -489,20 +492,7 @@ def landing_router(request, *args, **kwargs):
         return LandingView.as_view()(request, *args, **kwargs)
     else:
         return redirect('home')
-    
-    
-# View to see child detail page
-@user_passes_test(in_parent)
-#def view_child(request, student_code):
- #   child = get_object_or_404(Student, student_code=student_code)
-  #  return render(
- #       request,
- #       "attendance/child_timetable.html",
- #       {
- #           'child': child,
- #       }
- #   )
-    
+
 # View to show childs timetable
 @user_passes_test(in_parent)
 def child_timetable(request, student_code):
@@ -716,6 +706,7 @@ def give_reason(request, student_code, date, session_id):
             # changes status back to pending.
             reasonholder.status = 1
             reasonholder.save()
+            messages.success(request, 'Absence saved successfullyS')
         return redirect('childrecord', student_code=student_code)
     reasonform = GivereasonForm(instance=absence)            
     return render(

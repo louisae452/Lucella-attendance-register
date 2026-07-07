@@ -14,7 +14,10 @@ class StudentForm(forms.ModelForm):
         fields = ('student_name', 'student_surname', 'student_code', 'parent_name', 'date_of_birth', 'sex', 'group', 'music_option',)
         help_texts = {
             'student_code': 'The student code is the last two digits of the year of birth, month of birth, first two letters of surname followed by first two letters of name in capitals.',
-        }          
+        }
+        widgets = {
+            'parent_name': forms.Select(attrs={'class': 'choicebox'}),
+        }           
 
                   
 class UserForm(forms.ModelForm):
@@ -33,7 +36,10 @@ class ParentForm(forms.ModelForm):
     """ Creates a new parent. Requires parent to be user in parent group"""
     class Meta:
         model = Parent
-        fields = ('parent_name', 'phone_number',)     
+        fields = ('parent_name', 'phone_number',)
+        widgets = {
+            'parent_name': forms.Select(attrs={'class': 'choicebox'}),
+        }     
 
 class TeacherForm(forms.ModelForm):
     """Creates a new teacher. Requires teacher to be in teacher group"""
@@ -41,12 +47,20 @@ class TeacherForm(forms.ModelForm):
     class Meta:
         model = Teacher
         fields = ('teacher_name', 'phone_number',)
+        widgets = {
+            'teacher_name': forms.Select(attrs={'class': 'choicebox'}),
+        }  
 
 class GetregisterForm(forms.ModelForm):
     """Creates the filter to find students expected to be in a session"""
     class Meta:
         model = Timetable
         fields = ('day', 'session', 'subject_name')
+        widgets = {
+            'day': forms.Select(attrs={'class': 'choicebox'}),
+            'session': forms.Select(attrs={'class': 'choicebox'}),
+            'subject_name': forms.Select(attrs={'class': 'choicebox'}),
+        }  
              
 
 
@@ -56,9 +70,13 @@ class RegisterForm(forms.ModelForm):
     class Meta:
         model = DailyRegister
         fields=['student_code', 'mark']
-    def __init__(self, *for_args, **kwars):
-        super().__init__(*for_args, **kwars)
+        widgets = {
+            'mark': forms.Select(attrs={'class': 'choicebox'}),
+        }  
+    def __init__(self, *for_args, **kwargs):
+        super().__init__(*for_args, **kwargs)
         self.fields['student_code'].disabled = True
+        
         
 #create formset class:
 RegisterFormSet = modelformset_factory(DailyRegister, form=RegisterForm, extra=0)    
@@ -69,6 +87,9 @@ class SendemailForm(forms.ModelForm):
     class Meta:
         model = Sentemail
         fields = ['subject']
+        widgets = {
+            'subject': forms.Select(attrs={'class': 'choicebox'}),
+        }
         
         
 # Form to register an absence.
@@ -92,7 +113,7 @@ class GivereasonForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         instance = kwargs.get('instance')
         if not instance or not instance.pk:
-            raise ValueError("A valid instanceis required")
+            raise ValueError("A valid instance is required")
         super().__init__(*args, **kwargs)
         
 # Form to review pending absences.
@@ -101,6 +122,11 @@ class PendingabsenceForm(forms.ModelForm):
     class Meta:
         model = DailyRegister
         fields = ['status', 'code']
+        widgets = {
+            'status': forms.Select(attrs={'class': 'choicebox'}),
+            'code': forms.Select(attrs={'class': 'choicebox'}),
+        }
+        
     def __init__(self, *args, **kwargs):
         instance = kwargs.get('instance')
         if not instance or not instance.pk:
@@ -115,7 +141,7 @@ class GetclassForm(forms.Form):
     subject_name = forms.ModelChoiceField(
         queryset = Subject.objects.all(),
         empty_label="Choose a subject..",
-        widget=forms.Select(attrs={'class': 'form-control'})
+        widget=forms.Select(attrs={'class': 'form-control choicebox'})
     )
 # Form to remove a student.
 class RemoveForm(forms.Form):

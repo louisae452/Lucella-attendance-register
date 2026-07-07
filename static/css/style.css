@@ -182,7 +182,7 @@ tr {
     margin-bottom: 5px;
 }
 .longer-column {
-    width: 200px;
+    width: 210px;
 }
 .medium-column {
     width: 150px;
@@ -219,6 +219,7 @@ td a:link, td a:visited {
     display:flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     margin: 20px;
     
 }  
@@ -249,15 +250,30 @@ td a:link, td a:visited {
     color: var(--forest-green);
 }
 form {
+    display: flex;
     width:70%;
+    justify-content: center;
+    flex-direction: column;
+
+
+}
+form div {
+    width: 70%;
+    align-self: center;
 }
 form label {
     text-align: left;
     font-size: 1.2em;
+    width: 100px;
 }
 form  input, form select {
     border-color: var(--forest-green);
-    border-width: thin;
+    border-width: medium;
+    border-radius: 5px;
+    margin: 10px;
+    height: 30px;
+    color: var(--forest-green);
+    background-color:transparent;
 
 }
 .box {
@@ -268,13 +284,136 @@ form  input, form select {
     border-radius: 5px;
      
 }
+.inlinebutton {
+    display: grid;
+    grid-template-columns: auto auto;
+}
 
+
+
+/* Code written to  override the browser's blue color in dropdown menus. With AI */
+/* 1. OVERALL MAIN CONTAINER */
+.choices:has(.choicebox) {
+    width: 300px !important;          
+    margin-bottom: 15px;
+    height: 30px !important;
+    border: 2px solid var(--forest-green) !important; 
+    border-radius: 6px !important;        
+    background-color: var(--barely-there-pink) !important; 
+    box-sizing: border-box !important;
+    position: relative;
+}
+/* 2. INNER CONTAINER */
+.choices:has(.choicebox) .choices__inner {
+    background-color: transparent !important; 
+    border: none !important;              
+    height: 100% !important;
+    min-height: 100% !important;          
+    display: flex !important;
+    align-items: center !important; /* Forces perfect vertical centering */
+    justify-content: flex-start !important;
+    padding: 0 0 0 10px !important; /* Left indent spacing */
+    overflow: visible !important;
+    position: relative !important;
+    box-sizing: border-box !important;
+}
+/* 3. FORCE CLOSED TEXT VISIBILITY & PERFECTLY CENTERTEXT */
+.choices:has(.choicebox) .choices__list--single {
+    padding: 0 !important;
+    margin: 0 !important;
+    width: calc(100% - 30px) !important; /* Leaves room on the right side for a dropdown arrow */
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    transform: translateY(-1.5px) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    line-height: normal !important; /* Restores standard bounding box behavior */
+    height: auto !important;
+    box-sizing: border-box !important;
+}
+.choices:has(.choicebox) .choices__list--single .choices__item,
+.choices:has(.choicebox) .choices__list--single .choices__item.is-placeholder,
+.choices:has(.choicebox) .choices__list--single .choices__placeholder,
+.choices:has(.choicebox) [data-item][data-type="select-one"] {
+    color: var(--purple) !important;            
+    font-size: 16px !important;           
+    font-weight: normal !important;
+    line-height: 1 !important; 
+    padding: 0 !important;
+    margin: 0 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: inline-block !important; /* Keeps text inline within the flex layout */
+    background: transparent !important;
+    -webkit-text-fill-color: var(--purple) !important;
+}
+/* 4. DROPDOWN LIST MENU OPTIONS */
+.choices:has(.choicebox) .choices__list--dropdown {
+    background-color: var(--barely-there-pink) !important;
+    border: 2px solid var(--forest-green) !important;
+    border-radius: 6px !important;        
+    margin-top: 5px !important;           
+    left: -2px !important; 
+    width: 300px !important;
+    box-sizing: border-box !important;   
+    z-index: 999 !important;
+}
+/* Keep dropdown menu item text separate from closed box text */
+.choices:has(.choicebox) .choices__list--dropdown .choices__item {
+    color: var(-purple) !important; 
+    -webkit-text-fill-color: var(--purple) !important;
+    font-size: 14px;
+    font-weight: normal;
+}
+/* Hover/Highlight color states */
+.choices:has(.choicebox) .choices__list--dropdown .choices__item--selectable.is-highlighted {
+    background-color: var(--pink) !important; 
+    color: var(--purple) !important;            
+    -webkit-text-fill-color: var(--purple) !important;
+}
+/* 5. STOP INPUT BOX FROM OVERWRITING OR BLOCKING THE CLOSED TEXT */
+.choices:has(.choicebox) input.choices__input {
+    position: absolute !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    pointer-events: none !important;
+}
+
+/* End of AI code */
 /* End of forms stylying */
 
-
-
-
-
+/* Timetables info */
+.info {
+    position: relative;
+    margin:20px;
+}
+.timetablea, .timetableb {
+    position: absolute;
+    top: 15vh;
+    right: 10px;
+    z-index: 3;
+    background-color: var(--pink);
+    padding: 5px;
+    border-radius: 5px;
+}
+.timetable-top {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+.hide-button, .info-button {
+    width: 50px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: var(--dark-purple);
+    color: var(--barely-there-green);
+}
+.hidden {
+    visibility: hidden;
+}
 
 /* Whee Do I put this? */
 .textcenter {

@@ -60,6 +60,85 @@ School staff will be able to see when a student has been reported as absent by t
 - As an Attendance Officer I want to be able to see a record of all students' attendance so that I can target students with critical attendance.
 - As an Attendance Officer I want to see all unclassified absences so that I can authorise/un-authorise them.
 
+## Design
+
+Since its conception, Lucella High School Attendance Regiter has been designed to be used in an office environment and as such, its design reflects the need for it to show information in a clear way, free of distractions and with easy navigation.
+
+As such, navigation panels are clear on what they do, and unnecesary distractions have been kept away. It is possible to return to the main landing page from all pages.
+
+Lucella High School is part of the Piggy Before The Infection Started. For this reason, the design has been kept consistent with the series trademark's colour scheme.
+
+Fonts have been kept simple and professional.
+
+## Access to the site.
+
+Lucella High School Attendance Register is intended to be used only by registered users. It has two main type of users, parents of a student and staff members. Furthermore, users cannot register themselves as they require to be members of the organisation. On registration of a parent or teacher as a user by the Admissions Officer, they will be given the appropriate password.
+
+On login onto the site, users will be redirected to one of two landing pages so that parents will never get access to the staff's side of the site, and staff will not get access to the parents' side of the site. Staff who are also parents would require two different login credentials.
+
+On the staff's pages, three types of permissions have been given, teacher, Admissions Officer and Attendance officer. All users have teacher access, with the Admissions Officer and Attendance Officer having additional access to the funtionality referring to their roles.
+
+## Features
+
+On arriving to the home page, users are directed to log in.
+
+PICTURE
+
+Teachers are directed to the landing teacher page, which presents them with a menu of activities.
+
+PICTURE
+
+Student list shows a list of all the studnents. Only the Attendance Officer has access to this page.
+
+PCITURE + REFUSED PICTURE
+
+From that page, the attendance officer can email the appropriate parent.
+
+PICTURES
+
+Add parent button creates a parent user. On saving, it allows to enter the parent's additional information.
+
+PCTURES X 3
+
+The add student button adds a new student once their parent has been registered as a user.
+
+PICTURES X2
+
+The add teacher button allows the Admissions Officer to add a new teacher. On saving, a new page to enter additional data for the teacher opens.
+
+PICTURES X 3S
+
+The register button allows a teacher to input the session's details to get their register up.
+
+NEED TO DO BOX BEFORE TAKING PICTURES.
+
+Pending absences pulls out a list of all the pending absences so that the Attendance Officer can review them. Clicking on a student pulls out the record for the absence.
+
+PICTURES X 3
+
+Truanting students
+
+
+Get my class allows the teacher to see the overal attendance of their students in a class, ass well as see the attendance record of an individual student.
+
+PICTUE X 4
+
+
+
+
+
+
+
+
+## The logic
+
+## Testing
+
+## Deployment
+
+## Languages used
+
+
 ## Fixed bugs.
 
 Student_detail stopped working. Was fixed by reorganising the url order, ensuring that paths with a fixed name were first on the list and variable based ones were last.
@@ -73,7 +152,9 @@ Heroku
 
 - Django 
 - Gunicorn
+- Witenoise
 
+- To override the browser's default blue colour in dropdown menues: Choice.js
 - To choose icons: [Font Awesome](https://fontawesome.com/).
 - To convert image to webp: [ToWebP](https://towebp.io/)
 
@@ -89,3 +170,7 @@ Heroku
 - To send emails [Geeksforgeeks](https://www.geeksforgeeks.org/python/setup-sending-email-in-django-project/)
 - Annotate: (https://www.geeksforgeeks.org/python/aggregate-vs-annotate-in-django/)(https://www.geeksforgeeks.org/python/filter-objects-with-count-annotation-in-django/)
 - Atomic transactions [Geeksforgeeks](https://www.geeksforgeeks.org/python/transaction-atomic-with-django/)
+
+## Media
+
+## Acknoledgements

@@ -5,6 +5,10 @@
 {% block content %}
 
 {% if request.user|has_group:"teacher" %}
+<div class="info">
+    <button class="info-button" id="buttona">A</button>
+    <button class="info-button" id="buttonb">B</button>
+</div> 
 
 <div class="form-container">
     <div class="reducesize">
@@ -12,13 +16,84 @@
         <form method="post">
             {{ getregisterform }}
             {% csrf_token %}
-            <button class="button" type="submit">Go to register</button>
+            <div >
+                <button class="button" type="submit">Go to register</button>
+                
+            </div>
         </form>
+        
     </div>
     <div>
         <a class="button" href="{% url 'landing' %}">Main menu</a>
     </div>
 </div>
+     
+    
+    <div class="timetablea hidden" id="timetablea">
+        <div class="timetable-top">
+        <h2>Group A</h2>
+        <button class="hide-button" id="hidea">Hide</button>
+        </div>
+        <table>
+            <tr>
+                <th></th>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday</th>
+                <th>Friday</th>
+            </tr>
+            <tr>
+                <th>Morning</th>
+                <td>Maths A</td>
+                <td>Science A</td>
+                <td>Football A</td>
+                <td>Englsih A</td>
+                <td>Maths A</td>
+            </tr>
+            <tr>
+                <th>Afternoon</th>
+                <td>English A</td>
+                <td>Piano A</td>
+                <td>Maths A</td>
+                <td>Science A</td>
+                <td>English A</td>
+            </tr>
+        </table>
+    </div>
+    <div class="timetableb hidden" id="timetableb">
+        <div class="timetable-top">
+            <h2>Group B</h2>
+            <button class="hide-button" id="hideb">Hide</button>
+        </div>
+         <table>
+            <tr>
+                <th></th>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday</th>
+                <th>Friday</th>
+            </tr>
+            <tr>
+                <th>Morning</th>
+                <td>English B</td>
+                <td>Maths B</td>
+                <td>Athletics B</td>
+                <td>Science B</td>
+                <td>English B</td>
+            </tr>
+            <tr>
+                <th>Afternoon/th>
+                <td>Maths B</td>
+                <td>Guitar B</td>
+                <td>Science B</td>
+                <td>Maths B</td>
+                <td>Science B</td>
+            </tr>
+        </table>
+    </div>  
+
 {% else %}
     <div>
         <a class="button" href="{% url 'landing' %}">Main menu</a>

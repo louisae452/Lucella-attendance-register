@@ -14,7 +14,7 @@
 
             {% csrf_token %}
             {{ register.management_form }}
-            <table|>
+            <table>
                 {% for form in register %}
                 <tr>
                     {{ form.id }}
