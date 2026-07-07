@@ -29,7 +29,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = 'django-insecure-szp)me@dc@kjkca0^_99r02^v0uyqwwpwa0+(67f(v61)mchls'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 # ALLOWED_HOSTS = ['*']   # To allow localhost when DEBUG=False
 ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1']
 
@@ -184,4 +184,19 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'lucellahighschool@gmail.com'
 EMAIL_HOST_PASSWORD = 'qbij gkcg jwok zbfk'
 
+#  AI sript. Completely bypass WhiteNoise manifest tracking during unit tests
+if 'test' in sys.argv:
+    if 'STORAGES' in locals() or 'STORAGES' in globals():
+        # For Django 4.2 and newer
+        STORAGES = {
+            "default": {
+                "BACKEND": "django.core.files.storage.FileSystemStorage",
+            },
+            "staticfiles": {
+                "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+            },
+        }
+    else:
+        # For Django 4.1 and older
+        STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 

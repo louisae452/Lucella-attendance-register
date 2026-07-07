@@ -5,10 +5,11 @@
 {% block content %}
 
 {% if request.user|has_group:"attendance_officer" %}
-<div >
-    <h2>{{studentsurname }}  {{ studentname }}</h2>
+<div class="list-container">
+    
 
-    <div class="form-container">
+    <div >
+        <h2>{{student.student_surname }}  {{ student.student_name }}</h2>
         <table>
             <tr>
                 <th>Date</th>
@@ -19,7 +20,7 @@
                     
             </tr>
                 
-            {% for record in student_records %}
+            {% for record in student_page %}
             <tr>
                     
                 <td>{{ record.date }}</td>
@@ -31,13 +32,31 @@
             <tr>
             {% endfor %}
         </table>
+    <div class="pagination">
+        <span class="step-links">
+            {% if student_page.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ student_page.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ student_page.number }} of {{ student_page.paginator.num_pages }}.
+            </span>
+
+            {% if student_page.has_next %}
+                <a href="?page={{ student_page.next_page_number }}">next</a>
+                <a href="?page={{ student_page.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
     </div>
 </div>
 <div>
-    <a class="button" href="{% url 'sendemail' studentcode %}">Email</a>
+    <a class="button" href="{% url 'sendemail' student.student_code %}">Email</a>
     <a class="button" href="{% url 'students' %}">Student list</a>
+   
 </div>
 
 {% endif %}
 {% endblock %}
+
 

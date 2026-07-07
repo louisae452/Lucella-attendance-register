@@ -123,6 +123,11 @@ Get my class allows the teacher to see the overal attendance of their students i
 
 PICTUE X 4
 
+Once logged in, a parent is presented with a list of their children registered at the school.
+
+PICTURE
+
+
 
 
 
@@ -157,6 +162,7 @@ Heroku
 - To override the browser's default blue colour in dropdown menues: Choice.js
 - To choose icons: [Font Awesome](https://fontawesome.com/).
 - To convert image to webp: [ToWebP](https://towebp.io/)
+- To convert logo to svg: [Kittl}(https://www.kittl.com/tools/svg-converter)]
 
 
 - Django docs.

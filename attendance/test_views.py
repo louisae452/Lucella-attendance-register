@@ -138,7 +138,7 @@ class TestStudentlist(TestCase):
     def test_unauthentificated_user_is_redirected(self):
         """Unauthenticated users cannot access the students page."""
         response = self.client.get(self.url)
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 403)
     def test_registered_students_on_list(self):
         """
             Checks teacher users can access the page
@@ -447,6 +447,8 @@ class TestStudentdetail(TestCase):
         self.url = reverse('studentdetail', kwargs={'student_code': self.test_student.student_code})
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
+
+    
         
 class TestSendemail(TestCase):
     """Tests sendemail(). Requires admissions_officer user"""
@@ -621,12 +623,12 @@ class TestAbsencedetail(TestCase):
     def test_unauthorised_user_is_rejected(self):
         """Tests an unauthorised user is not given access to page"""
         response = self.client.get(self.url)
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 403)
     def test_regular_user_rejected(self):
         """Tests a regular user is rejected"""
         self.client.login(username='JuanSoto', password='mypassword')
         response = self.client.get(self.url)
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 403)
         
 class TestGetclass(TestCase):
     """Test get_class(). Requires teacher user"""

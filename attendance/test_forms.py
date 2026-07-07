@@ -30,8 +30,6 @@ class TestStudentForm(TestCase):
             'music_option':'4'
             }
         student_form = StudentForm(data)
-        if not student_form.is_valid():
-            print("\nForm Errors:", student_form.errors.as_json())
         self.assertTrue(student_form.is_valid())
     def test_is_not_valid_name(self):
         """Tests form is not validated when Student_name is not filled in"""
@@ -60,8 +58,6 @@ class TestStudentForm(TestCase):
             'music_option':'4'
             }
         student_form = StudentForm(data)
-        if not student_form.is_valid():
-            print("\nForm Errors:", student_form.errors.as_json())
         self.assertFalse(student_form.is_valid())
     def test_is_not_valid_code(self):
         """Tests form is not validated when student_code is not filled in"""
@@ -76,8 +72,6 @@ class TestStudentForm(TestCase):
             'music_option':'4'
             }
         student_form = StudentForm(data)
-        if not student_form.is_valid():
-            print("\nForm Errors:", student_form.errors.as_json())
         self.assertFalse(student_form.is_valid())
     def test_is_not_valid_parent(self):
         """Tests form is not validated when parent_name is not a parent user"""
@@ -92,8 +86,6 @@ class TestStudentForm(TestCase):
             'music_option':'4'
             }
         student_form = StudentForm(data)
-        if not student_form.is_valid():
-            print("\nForm Errors:", student_form.errors.as_json())
         self.assertFalse(student_form.is_valid())
     def test_is_not_valid_date(self):
         """Tests form is not validated when date_of_birth_ is not correct"""
@@ -108,8 +100,6 @@ class TestStudentForm(TestCase):
             'music_option':'4'
             }
         student_form = StudentForm(data)
-        if not student_form.is_valid():
-            print("\nForm Errors:", student_form.errors.as_json())
         self.assertFalse(student_form.is_valid())
     def test_is_not_valid_sex(self):
         """Tests form is not validated when sex option is not correct"""
@@ -124,8 +114,6 @@ class TestStudentForm(TestCase):
             'music_option':'4'
             }
         student_form = StudentForm(data)
-        if not student_form.is_valid():
-            print("\nForm Errors:", student_form.errors.as_json())
         self.assertFalse(student_form.is_valid())
     def test_is_not_valid_group(self):
         """ Tests form is not validated when group option is not correct""" 
@@ -140,8 +128,6 @@ class TestStudentForm(TestCase):
             'music_option':'4'
             }
         student_form = StudentForm(data)
-        if not student_form.is_valid():
-            print("\nForm Errors:", student_form.errors.as_json())
         self.assertFalse(student_form.is_valid())
     def test_is_not_valid_music(self):
         """ Tests form is not validated when music_option is not correct"""
@@ -156,8 +142,6 @@ class TestStudentForm(TestCase):
             'music_option':'0'
             }
         student_form = StudentForm(data)
-        if not student_form.is_valid():
-            print("\nForm Errors:", student_form.errors.as_json())
         self.assertFalse(student_form.is_valid())
 
 class TestUserForm(TestCase):

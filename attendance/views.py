@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.core.exceptions import PermissionDenied
+from django.core.paginator import Paginator
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.views.decorators.cache import never_cache
@@ -92,7 +93,7 @@ def students_list(request):
             student.attendancepercentage = round((student.present_sessions/student.total_sessions)*100, 2)
         else:
             student.attendancepercentage = 0.0
-    return render(request, "attendance/students_list.html", {"students": students,})
+    return render(request, "attendance/students_list.html", {"students": students})
     
  
 
@@ -240,7 +241,7 @@ def add_teacherdata(request):
         teacherform = TeacherForm(data=request.POST)
         if teacherform.is_valid():
             teacherform.save()
-            messages.success('Data added successfully')
+            messages.success(request, 'Data added successfully')
             return redirect('landing')
     return render(
         request,
@@ -380,19 +381,16 @@ def student_detail(request, student_code):
         
     """
     student =  get_object_or_404(Student, student_code=student_code)
-    studentname = student.student_name
-    studentsurname = student.student_surname
-    studentcode = student_code
     student_records = DailyRegister.objects.filter(student_code=student)
+    paginator = Paginator(student_records, 10)
+    page_number = request.GET.get("page")
+    student_page = paginator.get_page(page_number)
     return render(
         request,
         "attendance/student_detail.html",
         {
-            'studentname': studentname,
-            'studentsurname': studentsurname,
-            'studentcode': studentcode,
-            
-            'student_records': student_records
+            'student': student,
+            'student_page': student_page,
         },
     )
 
@@ -665,6 +663,9 @@ def child_record(request, student_code):
     for child in child_records:
         subject = child.session_id.subject_name
         child.subject = subject
+    paginator = Paginator(child_records, 10)
+    page_number = request.GET.get("page")
+    child_page = paginator.get_page(page_number)
     return render(
         request,
         "attendance/child_record.html",
@@ -673,8 +674,7 @@ def child_record(request, student_code):
             'childsurname': childsurname,
             'childcode': childcode,
             'attendancepercentage': attendancepercentage,
-            
-            'child_records': child_records
+            'child_page': child_page,
         }
     )
     

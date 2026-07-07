@@ -56,6 +56,11 @@ header {
     justify-content: left;
     margin: 10px;  
 }
+h1, h2, h3, p {
+    color: var(--dark-purple);
+    margin: 5px;
+}
+
 #header h1 {
     margin: 10px;
     color: var(--mid-green);
@@ -77,9 +82,7 @@ footer p a {
 i {
     font-size: 1.5em;
 }
-h1, h2, h3, p {
-    color: var(--dark-purple);
-}
+
 .alert-box{
     margin-left: 15px;
 }
@@ -170,6 +173,19 @@ form label {
 
 /* End of home.html styling */
 
+.list-container {
+    display:grid;
+    align-items: center;
+    justify-content: center;
+    grid-template-columns: auto auto;
+    margin: 20px;
+}
+.home {
+    position: absolute;
+    top: 20vh;
+   
+}
+    
 /* tables styling */
 table {
     color: var(--forest-green);
@@ -235,6 +251,12 @@ td a:link, td a:visited {
     flex-direction: column;
     align-items: center;
 }  
+.current {
+    color: var(--purple);
+}
+.pagination {
+    margin: 10px;
+}
 
 
 .formcenter {
@@ -471,6 +493,10 @@ form  input, form select {
     .form-container{
         flex-direction: column;
     }
+    .list-container {
+        display: flex;
+        flex-direction: column;
+    }
     .reducesize {
         width: 90%;
     }
@@ -479,6 +505,10 @@ form  input, form select {
     }
     .turn-message {
         visibility: visible;
+    }
+    .home {
+        position: static;
+    }
     
 }
 
