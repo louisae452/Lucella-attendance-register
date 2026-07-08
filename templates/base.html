@@ -43,7 +43,7 @@
         {% if messages %}
             <div>
                 {% for message in messages %}
-                <div class="alert-box { message.tags }}">
+                <div class="alert-box{{ message.tags }}">
                     <p>{{ message }}</p>
                 </div>
                 {% endfor %}

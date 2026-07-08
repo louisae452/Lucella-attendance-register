@@ -286,7 +286,6 @@ form div {
 form label {
     text-align: left;
     font-size: 1.2em;
-    width: 100px;
 }
 form  input, form select {
     border-color: var(--forest-green);
@@ -294,8 +293,13 @@ form  input, form select {
     border-radius: 5px;
     margin: 10px;
     height: 30px;
-    color: var(--forest-green);
+    color: var(--purple);
     background-color:transparent;
+
+}
+
+textarea {
+    height: 75px;
 
 }
 .box {
@@ -309,6 +313,15 @@ form  input, form select {
 .inlinebutton {
     display: grid;
     grid-template-columns: auto auto;
+}
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px
+}
+.form-field {
+    display: flex;
+    flex-direction: column;
 }
 
 
@@ -406,6 +419,7 @@ form  input, form select {
 }
 
 /* End of AI code */
+
 /* End of forms stylying */
 
 /* Timetables info */

@@ -9,11 +9,14 @@
 <div class="form-container">
     <div class="reducesize">
         <h1>Enter the parent's details.</h1>
+          
         <form method="post">
-            {{ userform }}
+            {{ userform}}
             {% csrf_token %}
+
             <button class="button" type="submit">Save parent</button>
         </form>
+        
     </div>
     <div>
     <a class="button" href="{% url 'landing' %}">Main menu</a>

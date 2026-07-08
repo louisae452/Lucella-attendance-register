@@ -267,7 +267,6 @@ def get_register (request):
         :template:`attendance/get_register.html`
         
     """
-    cache.clear()
     if request.method == "POST":
         getregisterform = GetregisterForm(data=request.POST)
         if getregisterform.is_valid():
@@ -296,8 +295,11 @@ def get_register (request):
                 new_records_ids= list(DailyRegister.objects.filter(date=today, session_id=currentsessionid).values_list('id', flat=True))
                 request.session['filtered_new_records_ids'] = new_records_ids
                 # Send the session ids to saveregister view
-                return redirect('saveregister')              
-    getregisterform =GetregisterForm()                           
+                return redirect('saveregister')     
+            else:
+                messages.error(request, "Sorry, that session does not exist")
+    else:         
+            getregisterform =GetregisterForm()                           
     return render(
         request,
         "attendance/get_register.html",

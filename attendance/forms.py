@@ -17,6 +17,10 @@ class StudentForm(forms.ModelForm):
         }
         widgets = {
             'parent_name': forms.Select(attrs={'class': 'choicebox'}),
+            'sex': forms.Select(attrs={'class': 'choicebox'}),
+            'group': forms.Select(attrs={'class': 'choicebox'}),
+            'music_option': forms.Select(attrs={'class': 'choicebox'}),
+            
         }           
 
                   
@@ -149,7 +153,7 @@ class RemoveForm(forms.Form):
     # Force the field to render as a ChoiceField dropdown
     student_code = forms.ModelChoiceField(
         queryset = Student.objects.filter(deregistered=False),
-        widget = forms.Select(attrs={'class': 'form-control'}),
+        widget = forms.Select(attrs={'class': 'choicebox'}),
         label = "Select student to deregister",
     )
         

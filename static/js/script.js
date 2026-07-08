@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
 
 // Code written with AI to override browser's default blue colour in dropdown menus 
-    const targetDropdownIds = ['id_subject', 'id_parent_name', 'id_teacher_name', 'id_day', 'id_session', 'id_subject_name', 'id_status', 'id_code', 'id_mark'];
+    const targetDropdownIds = ['id_subject', 'id_parent_name', 'id_teacher_name', 'id_day', 'id_session', 'id_subject_name', 'id_status', 'id_code', 'id_mark', 'id_sex', 'id_group', 'id_music_option'];
     targetDropdownIds.forEach(id => {
         const element = document.getElementById(id);
         // Safety check: Only initialize if the specific element exists on this page
