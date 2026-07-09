@@ -1,5 +1,7 @@
 # Lucella High School Attendance Register.
 
+[View the finished project here.](https://dashboard.heroku.com/apps/lucella-attendance)
+
 Have you ever been late for your 10:00 am meeting because you were dealing with a message from school asking where your child is, when you clearly communicated at 7:00 am that they were unwell and spending the day at home being looked after by their grandparents?
 
 Have you received messages from disgrunted parents asking why you have not yet authorised their very justified child's absence?
@@ -205,6 +207,41 @@ Below is a detailed list of all the views used.
 
 ## Deployment
 
+The project was managed in [github] (https://github.com) and deployed to [heroku](https://id.heroku.com/login).
+
+The process followed to deploy was:
+
+- Once logged into Heroku, navigate to the new button on the top right corner and click on create new app.
+- Give the app a name.
+- Choose your location.
+- Click on create app.
+- From the app dashboard, click on Deploy.
+- In Deployment method, select GitHub.
+- Search for the repository name.
+- Click on connect.
+- Choose a branch to deploy from.
+- Click on deploy branch.
+- Move to the top of the page and click on Open app.
+
+The app can be accessed from: https://dashboard.heroku.com/apps/lucella-attendance
+
+To fork the project:
+
+- On Github, mavigate to the project page: https://github.com/louisae452/Lucella-attendance-register
+- Click on the fork icon.
+- Select new branch.
+- Give the branch a name and save.
+
+To clone the project:
+
+- On Github, navigate to the project page: https://github.com/louisae452/Lucella-attendance-register.
+- Click on the code button.
+- Copy the address shown.
+- Open your code editor.
+- On the terminal, navigate to the desired directory.
+- Type 'git clone' followed by the address you copied.
+- Press enter.
+
 ## Languages used
 
 
@@ -218,7 +255,7 @@ daily_register.html shows the students registered for a particular session. The 
 
 ![Dropbox in formset](readme/images/Bugs/formsetdropbox.jpg)  ![Dropbox in form](/readme/images/Bugs/formdropbox.jpg)
 
-
+## Packages used
 
 ## Frameworks, packages and libraries.
 
