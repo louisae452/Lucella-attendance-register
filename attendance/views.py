@@ -326,7 +326,7 @@ def saveregister(request):
         
         **Template**
         
-        :template:`attendance/get_register.html`
+        :template:`attendance/daily_register.html`
         
     """
     

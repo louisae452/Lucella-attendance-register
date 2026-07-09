@@ -158,7 +158,48 @@ By following the attendance record, the childs attendance record appears and the
 
 
 
-## The logic
+## Models and views.
+This is the entity relationship diagram of the models used in this project.
+
+![erd diagram](readme/images/edr.png)
+
+Below is a detailed list of all the views used.
+
+|View|User|Form|Template|Function|Leads to|
+|:---|:---|:---|:---|:---|:---|
+|Homeview|All| |home.html|Links to login|login page|
+|landing_router|--|--|--|Selects view to use depending on user permissions|landing.html|
+|LandingView|teacher|-- |landing.html|Provides links to various pages|Various function pages|
+|add_parent|admissions_officer|UserForm|new_parent.html|Creates a new parent user|add_parentdata.html|
+|add_parentdata|admissions_officer|ParentForm|add_parentdata.html|Adds extra data to the parent user|landing.html| 
+|add_student|admissions_officer|StudentForm|new_student.html|Creates a new student|landing.html|
+|add_teacher|admissions_officer|UserForm|new_teacher.html|Creates a new teacher user|teacherdata.html|
+|add_teacherdata|admissions_officer|TeacherForm|teacherdata.html|Adds extra data to the teacher user|landing.html|
+|students_list|teacher|-- |students_list.html|Shows list of registered students and their attendances|student_detail|
+|student_detail|attendance_officer|--|student-detail.html|Allows attendance officer to see detailed attendance record for student and send email if required|--|
+|sendemail|attendance_officer|SendemailForm|sendemail.html|Sends email to student's parent. Creates a record of the email|landing.html|
+|get_register|teacher|GetRegisterForm|get_register.html|Allows teacher to get the register for the current session|daily_register.html|
+|saveregister|teacher|RegisterFormSet|daily_register.html|Allows teacher to save the register for the current session|landing.html|
+|pending_absences|attendance_officer|--|pending_absences.html|Shows a list of all the pending absences|absence_detail.html|
+|absence_detail|attendance_officer|PendingabsenceForm|absence_detail.html|Allows AttendanceOfficer to review an absence and sends an email to parent if appropriate|pending_absences.html|
+|get_class|teacher|GetclassForm|myclass.html|Displays a list of all students in a specific subject and their attendance to that subject|class_detail.html|
+|class_detail|teacher|--|class_detail.html|Displays the attendance record for a student in a specific subject|--|
+|truanting_list|attendance_officer|--|truanting_list.html|Displays a list of all students truanting and allows Attendance Officer to send and email to each of their parents|landing.html|
+|remove_student|admissions_officer|RemoveForm|remove_students.html|Allows the Admissions Officer to deregister a student|landing.html|
+|children_list|parent|--|landing.html|Allows parent to choose one of their children to view|child_timetable.html|
+|child_timetable|parent|--|child_timetable.html|Allows parent to enter a session in the timetable or view the child's attendance record|report_absence/html or child_record.html|
+|report_absence|parent|AbsenceForm|report_absence.html|Allows parent to enter a reason for an absence on a session that has yet to happen|child_timetable.html|
+|child_record|parent|--|child_record.html|Allows parent to see child's attendance record|give_reason.html|
+|give_reason|parent|GiveReasonForm|give_reason.html|Allows parent to enter a reason for an absence that has already happened|child_record.html|
+|
+
+
+
+
+
+
+
+
 
 ## Testing
 
@@ -192,7 +233,7 @@ Heroku
 - To choose icons: [Font Awesome](https://fontawesome.com/).
 - To convert image to webp: [ToWebP](https://towebp.io/)
 - To convert logo to svg: [Kittl}(https://www.kittl.com/tools/svg-converter)]
-
+- To draw erd diagram: [dbdiagram.io](https://dbdiagram.io/home)
 
 - Django docs.
 - Group permissions https://www.geeksforgeeks.org/python/python-user-groups-custom-permissions-django/
