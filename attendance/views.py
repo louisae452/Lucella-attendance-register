@@ -825,11 +825,13 @@ def get_class(request):
             # get appropriate session values
             sessionids = Timetable.objects.filter(subject_name__subject_name=group).order_by().values_list('id', flat=True).distinct()
             students = students.annotate(
-                total_sessions=Count('dailyregister', filter=Q(dailyregister__session_id__in=sessionids)),
-                present_sessions = Count('dailyregister', filter=Q(dailyregister__session_id__in= sessionids, dailyregister__mark=0)),
+                total_sessions=Count('dailyregister',
+                                     filter=Q(dailyregister__session_id__in=sessionids)),
+                present_sessions=Count('dailyregister',
+                                       filter=Q(dailyregister__session_id__in= sessionids, dailyregister__mark=0)),
             )
             for student in students:
-                student.attendance =round((student.present_sessions/student.total_sessions)*100, 2)
+                student.attendance = round((student.present_sessions/student.total_sessions)*100, 2)
             return render(
                 request,
                 "attendance/class_list.html",

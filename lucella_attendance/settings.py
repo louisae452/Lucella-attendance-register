@@ -29,7 +29,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = 'django-insecure-szp)me@dc@kjkca0^_99r02^v0uyqwwpwa0+(67f(v61)mchls'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 # ALLOWED_HOSTS = ['*']   # To allow localhost when DEBUG=False
 ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1']
 
@@ -199,4 +199,8 @@ if 'test' in sys.argv:
     else:
         # For Django 4.1 and older
         STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+# 1. Force Django's session cookie to clear when the browser/tab is closed
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
+# 2. Prevent django-allauth from forcing a persistent "Remember Me" login cookie
+ACCOUNT_SESSION_REMEMBER = False

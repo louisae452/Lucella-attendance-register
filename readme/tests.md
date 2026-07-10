@@ -131,3 +131,8 @@
 # Manual testing
 
 |10/07/2026| pending absence detail.  form crashes when the dropbox is filled with ---- Eliminate that forom dropbox menu. (eliminate blank=True from model)| Form can only be filled with a proper choice.
+
+
+|date|Test|Method|Expected result|Result|Follow up|
+|:--|:--|:--|:--|:--|:--|
+|10/07/2026|User is logged off when browser is closed|Open browser. Navigate to app. Log in. Close browser. Open it again. Navigate to app.|Should be logged off|Pass|--|
