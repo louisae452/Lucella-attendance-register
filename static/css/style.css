@@ -439,6 +439,16 @@ textarea {
     padding: 5px;
     border-radius: 5px;
 }
+.timetableav, .timetablebv {
+    position: absolute;
+    bottom: 10vh;
+    right: 10px;
+    z-index: 3;
+    background-color: var(--pink);
+    padding: 5px;
+    border-radius: 5px;
+}
+
 .timetable-top {
     display: grid;
     grid-template-columns: auto auto;
@@ -450,15 +460,19 @@ textarea {
     background-color: var(--dark-purple);
     color: var(--barely-there-green);
 }
-.hidden {
-    visibility: hidden;
-}
+
 
 /* Whee Do I put this? */
 .textcenter {
     text-align:center;
 }
 
+.vertical {
+    visibility: hidden;
+}
+.hidden {
+    visibility: hidden !important;
+}
 /* Media queries.*/
 @media screen and (max-width: 992px) {
     .buttons-page{
@@ -525,6 +539,12 @@ textarea {
     }
     .home {
         position: static;
+    }
+    .horizontal {
+        visibility :hidden;
+    }
+    .vertical {
+        visibility: visible;
     }
     
 }

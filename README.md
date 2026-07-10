@@ -80,6 +80,12 @@ On login onto the site, users will be redirected to one of two landing pages so 
 
 On the staff's pages, three types of permissions have been given, teacher, Admissions Officer and Attendance officer. All users have teacher access, with the Admissions Officer and Attendance Officer having additional access to the funtionality referring to their roles.
 
+## Student groups.
+
+In order to show flexibility in the program, the students have been grouped differently depending on which subjects they are taking. In Maths, English and Science, students are grouped by age. In sports,boys are currently playing Football, while girls are doing Athletics. In music, advanced students are doing Piano while beginners are learning Guitar. 
+
+As the app is intended to deal with attendance, these settings have been sorted in the admin page. A new app dealing with timetables would have to be produced in order to be able to change these options on the front end.
+
 ## Features
 
 On arriving to the home page, users are directed to log in.
@@ -154,6 +160,10 @@ By following the attendance record, the childs attendance record appears and the
 
 ## Models and views.
 This is the entity relationship diagram of the models used in this project.
+
+The records for the Subject and Timetable models have been created on the Admin page, as they would have been created in the Timetable app.
+
+The Email and Sentemail models would belong to an app to deal with communications. Email records were created on the Admin page, while Sentemail records are created whenever an email is sent but, at the moment are only accessible from the Admin page.
 
 ![erd diagram](readme/images/edr.png)
 

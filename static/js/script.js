@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
  // End of AI code
     
-    // Highlight low attendance percentages.
+    // Highlights low attendance percentages.
     let alerts = document.querySelectorAll('.redalert');
     const orange = 90;
     const red = 80;
@@ -35,22 +35,57 @@ document.addEventListener("DOMContentLoaded", function() {
     // Show timetable info
     let buttona =  document.getElementById("buttona");
     let timetablea = document.getElementById("timetablea");
+    let timetableav = document.getElementById("timetableav")
+    let buttonb =  document.getElementById("buttonb");
+    let timetableb = document.getElementById("timetableb")
+    let timetablebv = document.getElementById("timetablebv")
+
+
     buttona.addEventListener("click", function() {   
         timetablea.classList.remove('hidden');
+        timetableav.classList.remove('hidden');
+        timetableb.classList.add('hidden');
+        timetablebv.classList.add('hidden');
     })
     let hidea = document.getElementById("hidea");
     hidea.addEventListener("click", function(){
-        timetablea.classList.add('hidden')
-    });
+        timetablea.classList.add('hidden');
+        timetableav.classList.add('hidden');
+        timetableb.classList.add('hidden');
+        timetablebv.classList.add('hidden');
 
-    let buttonb =  document.getElementById("buttonb");
-    let timetableb = document.getElementById("timetableb");
+
+    });
+    let hideav = document.getElementById("hideav");
+    hideav.addEventListener("click", function() {
+        timetablea.classList.add('hidden');
+        timetableav.classList.add('hidden');
+        timetableb.classList.add('hidden');
+        timetablebv.classList.add('hidden');
+
+
+    })
     buttonb.addEventListener("click", function() {   
         timetableb.classList.remove('hidden');
+        timetablebv.classList.remove('hidden');
+        timetablea.classList.add('hidden');
+        timetableav.classList.add('hidden');
     })
     let hideb = document.getElementById("hideb");
     hideb.addEventListener("click", function(){
-        timetableb.classList.add('hidden')
+        timetablea.classList.add('hidden');
+        timetableav.classList.add('hidden');
+        timetableb.classList.add('hidden');
+        timetablebv.classList.add('hidden');
+
+    })
+    let hidebv = document.getElementById("hidebv");
+    hidebv.addEventListener("click", function() {
+        timetablea.classList.add('hidden');
+        timetableav.classList.add('hidden');
+        timetableb.classList.add('hidden');
+        timetablebv.classList.add('hidden');
+
     })
     
 
