@@ -132,7 +132,53 @@
 
 |10/07/2026| pending absence detail.  form crashes when the dropbox is filled with ---- Eliminate that forom dropbox menu. (eliminate blank=True from model)| Form can only be filled with a proper choice.
 
+## Security
 
-|date|Test|Method|Expected result|Result|Follow up|
+|Date|Test|Method|Expected result|Result|Follow up|
 |:--|:--|:--|:--|:--|:--|
 |10/07/2026|User is logged off when browser is closed|Open browser. Navigate to app. Log in. Close browser. Open it again. Navigate to app.|Should be logged off|Pass|--|
+|10/07/2026|Landing page not accessible for non users|In browser, type landing page address on address bar|Home page loads|Pass|--|
+|10/07/2026|Student page not accessible for non users|In browser, type student page address on address bar|Blank page with 'Main menu' button appears. 'Main menu' button leads to home page|Pass--|
+|10/07/2026|Individual student page not accessible for non users|In browser, type individual existing student page.|430.html appears. 'Main menu' button leads to home page|Pass|--|
+|10/07/2026|Newparent page not accessible to non user|In browser, type newparent page address on address bar|403.html appears.'Main menu' button leads to home page|Pass|--|
+|10/07/2026|Newstudent page not accessible to non user|In browser, type newstudent page address on address bar|403.hml appears. 'Main menu'button leads to home page|Pass|--|
+|10/07/2026|Remove page not accessible for non users|In browser, type remove page address on address bar|403.html appears. 'Main menu' button leads to home page|Pass|--|
+|10/07/2026|Newteacher page not accessible for non users|In browsesr, type newteacher page address on address bar|403.html appears. 'Main menu' button leads to home page|Pass|--|
+|10/07/2026|Getregister page not accessible for non users|In browser, type getregister page address on address bar|403.html appears. 'Main menu' button leads to home page|Pass|--|
+
+
+
+Further security tests can be seen in automated tests.
+
+
+
+## Home page
+|Date|Test|Method|Expected result|Result|Follow up|
+|:--|:--|:--|:--|:--|:--|
+|10/07/2026|Navigates to log in page|Open app. Click on 'log in' button|Log in page appears|Pass|--|
+|10/07/2026|Email link directs to email program|Open app. Click on email link on footer|Email program opens. New email opens. School address is on address bar|Pass|--|
+
+
+## Login page
+|Date|Test|Method|Expected result|Result|Follow up|
+|:--|:--|:--|:--|:--|:--|
+|10/07/2026|Correct sign in|In login page, enter existing teacher Username and password|Teacher landing page opens|Pass|--|
+|10/07/2026|Correct sign in|In login page, enter existing parent Username and password|Parent landing page opens|Pass|--|
+|10/07/2026|Correct sign in |In login page, enter existing Username and incorrect password|Page resets|Pass|--|
+|10/07/2026|Correct sign in|In login page, enter incorrect Username and password|Page resets|Pass|--|
+
+## Teacher landing page.
+|Date|Test|Method|Expected result|Result|Follow up|
+|:--|:--|:--|:--|:--|:--|
+|10/07/2026|Not accessible for non users|In browser, type page address on address bar|Home page loads|Pass|--|
+|10/07/2026|Success log in message|Sign in with teacher credentials|Teacher landing appears. Successfully signed in message appears|Pass|--|
+|10/07/2026|'Student' list button directs to student page|Click on student list button|Student page appears|Pass|--|
+|10/07/2026|Individual student is blocked|On student page, click on any student|403.html page appears|Pass|--|
+|10/07/2026|'Main menu' button on individual student page redirects to correct landing page|From individual student 403 page, click on 'Main menu' button|Redirects to teacher landing page|Pass|--|
+|10/07/2026|'Add parent' button|On teacher landing, click on 'Add parent' button. 'Main menu' button leads back to teacher landing|403.html appears|Pass|--|
+|10/07/2026|'Add student' button|On teacher landing, click on 'Add student' button|403.html appears. 'Main menu'button leads back to teacher landing|Pass|--|
+|10/07/2026|'Remove student' button|On teacher landing, click on 'Remove student'button|430.html appears. 'Main menu' button leads back to teacher landing|Pass|--|
+|10/07/2026|'Add teacher' button|On teacher landing, click on 'Add teacher' button|403.html appears. 'Main menu' button leads to teacher landing page|Pass|--|
+|10/07/2026|Register page loads for teacher user|On teacher landing, clik on 'Register' button|Getregister page appears|Pass|--|
+
+
