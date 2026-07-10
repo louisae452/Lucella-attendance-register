@@ -1,6 +1,6 @@
 # Lucella High School Attendance Register.
 
-[View the finished project here.](https://dashboard.heroku.com/apps/lucella-attendance)
+[View the finished project here.](https://lucella-attendance-33d45b263ca9.herokuapp.com/)
 
 Have you ever been late for your 10:00 am meeting because you were dealing with a message from school asking where your child is, when you clearly communicated at 7:00 am that they were unwell and spending the day at home being looked after by their grandparents?
 
@@ -66,9 +66,9 @@ School staff will be able to see when a student has been reported as absent by t
 
 Since its conception, Lucella High School Attendance Regiter has been designed to be used in an office environment and as such, its design reflects the need for it to show information in a clear way, free of distractions and with easy navigation.
 
-As such, navigation panels are clear on what they do, and unnecesary distractions have been kept away. It is possible to return to the main landing page from all pages.
+As such, navigation panels are clear on what they do and unnecesary distractions have been kept away. It is possible to return to the main landing page from all pages.
 
-Lucella High School is part of the Piggy Before The Infection Started. For this reason, the design has been kept consistent with the series trademark's colour scheme.
+Lucella High School is part of the Piggy Before The Infection Started. For this reason, the design has been kept consistent with the series' brand.
 
 Fonts have been kept simple and professional.
 
@@ -90,75 +90,67 @@ Teachers are directed to the landing teacher page, which presents them with a me
 
 ![Teacher's landing page](readme/images/features/teachers_landing.jpg)
 
-Student list shows a list of all the students. 
+The 'Student list' button shows a list of all the students. 
 
 ![Students list page](readme/images/features/students_list.jpg)
 
 
-From that page, the Attendance Officer can email the appropriate parent.
+By clicking on a specific student, the attenance record of that studnent is shown. From that page, the Attendance Officer can email the appropriate parent.
 
 ![Student detail](readme/images/features/student_detail.jpg)
 
-Add parent button creates a parent user. On saving, it allows to enter the parent's additional information.
+The 'Add parent' button creates a parent user. On saving, it allows to enter the parent's additional information.
 
 ![New parent page](readme/images/features/new_parent.jpg)  ![Add parent data page](readme/images/features/parentdata.jpg)
 
-The add student button adds a new student once their parent has been registered as a user.
+The 'Add student@ button adds a new student once their parent has been registered as a user.
 
 ![New student page](readme/images/features/new_student.jpg)
 
-The remove student allows the Attendance Officer to deregister a student.
+The 'Remove student' button allows the Attendance Officer to deregister a student.
 
 ![Remove student page](readme/images/features/remove_student.jpg)
 
-The add teacher button allows the Admissions Officer to add a new teacher. On saving, a new page to enter additional data for the teacher opens.
+The 'Add teacher' button allows the Admissions Officer to add a new teacher. On saving, a new page to enter additional data for the teacher opens.
 
 ![New teacher page](readme/images/features/add_teacher.jpg) ![Add teacher data page](readme/images/features/teacherdata.jpg)
 
-The register button allows a teacher to input the session's details to get their register up. As the options allowed depend on the timetable, two pop up boxes on the corner show the current timetables. These boxes are for testing purposes only, as in a real situation a teacher would know what lesson they are supposed to be teaching and would be removed in real case scenarios.
+The 'Register@ button allows a teacher to input the session's details to get their register up. As the options allowed depend on the timetable, two pop up boxes on the corner show the current timetables. These boxes are for testing purposes only, as in a real situation a teacher would know what lesson they are supposed to be teaching and they would be removed in real case scenarios.
 
 ![Get the register](readme/images/features/get_register.jpg) ![Get the register help](readme/images/features/get_register_help.jpg)
 
-On clicking on get the register button, a list of the class to be registered appears.
+On clicking on the 'Get the register' button, a list of the class to be registered appears.
 
 ![Save the register page](readme/images/features/saveregister.jpg)
 
-Pending absences pulls out a list of all the pending absences so that the Attendance Officer can review them. Clicking on a student pulls out the record for the absence. If the absence is deemed unauthorised, an email is sent to the appropriate parent when saving.
+'Pending absences' pulls out a list of all the pending absences so that the Attendance Officer can review them. Clicking on a student pulls out the record for the absence. If the absence is deemed unauthorised, an email is sent to the appropriate parent when saving.
 
 
 ![Pending absences](readme/images/features/pending_absences.jpg) ![Absence detail](readme/images/features/pending_detail.jpg)
 
-Truanting students allows the Attendance Officer to see the students who are absent today and whose parent has not given a reason for them not  being there. On Clicking on the email button, an email will be sent to each of the parents requesting information about their missing child.
+'Truanting students' allows the Attendance Officer to see the students who are absent today and whose parent has not given a reason for them not  being there. On Clicking on the email button, an email will be sent to each of the parents, requesting information about their missing child's whereabouts.
 
 ![Truanting students list](readme/images/features/truanting_list.jpg)
 
-Get my class allows the teacher to see the overal attendance of their students in a class, as well as see the attendance record of an individual student.
+'Get my class' allows the teacher to see the overal attendance of their students in a class, as well as see the attendance record of an individual student.
 
 ![Get my class page](readme/images/features/get_myclass.jpg) ![Class detail](readme/images/features/myclass.jpg)
 
-Once logged in, a parent is presented with a list of their children registered at the school.
+Once logged in, a parent is presented with a list of the children they have registered at the school.
 
 ![Parents landing page](readme/images/features/parents_landing.jpg)
 
 On clicking on the required child, a page with their timetable and link to attendance record appears.
 
-![Timetable page](readme/images/features/parents_landing.jpg)
+![Child timetable](readme/images/features/child_timetable.jpg)
 
 Clicking on a slot in the timetable opens a page in which the parent can report an intended absence on that slot.
 
-![Child timetabel](readme/images/features/child_timetable.jpg)
+![Future absence detail](readme/images/features/)PICTURE
 
 By following the attendance record, the childs attendance record appears and the parent can explain an absence in the past.
 
 ![Child record](readme/images/features/child_record.jpg) ![Absence detail](readme/images/features/child_absence.jpg)
-
-
-
-
-
-
-
-
 
 ## Models and views.
 This is the entity relationship diagram of the models used in this project.
@@ -207,7 +199,7 @@ Below is a detailed list of all the views used.
 
 ## Deployment
 
-The project was managed in [github] (https://github.com) and deployed to [heroku](https://id.heroku.com/login).
+The project was managed in [github](https://github.com) and deployed to [heroku](https://id.heroku.com/login).
 
 The process followed to deploy was:
 
@@ -223,7 +215,7 @@ The process followed to deploy was:
 - Click on deploy branch.
 - Move to the top of the page and click on Open app.
 
-The app can be accessed from: https://dashboard.heroku.com/apps/lucella-attendance
+The app can be accessed from: https://lucella-attendance-33d45b263ca9.herokuapp.com/
 
 To fork the project:
 
@@ -244,6 +236,7 @@ To clone the project:
 
 ## Languages used
 
+HTML, CSS, JavaScript, Python
 
 ## Fixed bugs.
 
@@ -255,12 +248,11 @@ daily_register.html shows the students registered for a particular session. The 
 
 ![Dropbox in formset](readme/images/Bugs/formsetdropbox.jpg)  ![Dropbox in form](/readme/images/Bugs/formdropbox.jpg)
 
-## Packages used
 
 ## Frameworks, packages and libraries.
 
-Git hub
-Heroku
+For version control. [HitHub](https://www.github.com)
+-Heroku
 
 - Django 
 - Gunicorn

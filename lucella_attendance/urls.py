@@ -21,11 +21,10 @@ from attendance.views import HomeView
 
 
 urlpatterns = [
-    
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('', include('attendance.urls')),
     path('summernote/', include('django_summernote.urls')),
-    
-    
 ]
+# Render custom 403 template
+handler403 = 'django.views.defaults.permission_denied'

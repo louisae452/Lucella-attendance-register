@@ -66,6 +66,10 @@ h1, h2, h3, p {
     color: var(--mid-green);
 }
 
+.centertext {
+    text-align:center;
+    margin: 10px;
+}
 footer {
     background-color: var(--purple);
     display: grid;
@@ -115,7 +119,6 @@ form label {
 .turn-message h1 {
     color: var(--mid-green);
 }
-
 
 /*End of base.html styling */
 

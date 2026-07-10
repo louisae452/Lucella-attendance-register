@@ -447,9 +447,7 @@ class TestStudentdetail(TestCase):
         self.url = reverse('studentdetail', kwargs={'student_code': self.test_student.student_code})
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
-
-    
-        
+         
 class TestSendemail(TestCase):
     """Tests sendemail(). Requires admissions_officer user"""
     def setUp(self):

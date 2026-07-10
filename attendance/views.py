@@ -22,18 +22,7 @@ from django.core.cache import cache
 from datetime import date, datetime
 
 
-# Create your views here.
-def in_admissions(user):
-    """Denies permission to users not in admissions_officer group"""
-    if user.is_authenticated and user.groups.filter(name='admissions_officer').exists():
-        return True
-    raise PermissionDenied
-def in_attendance(user):
-    """Denies permission to users not in attendance_officer group"""
-    if user.is_authenticated and user.groups.filter(name='attendance_officer').exists():
-        return True
-    raise PermissionDenied
-    
+# Create your views here.    
 def in_teacher(user):
     """Denies permission to users not in teacher group"""
     if user.is_authenticated and user.groups.filter(name='teacher').exists():
@@ -94,23 +83,19 @@ def students_list(request):
         else:
             student.attendancepercentage = 0.0
     return render(request, "attendance/students_list.html", {"students": students})
-    
- 
 
-@user_passes_test(in_admissions)
+
 def add_parent(request):
     """ 
-        Adds a new parent user
-        
+        Adds a new parent user 
         **Context**
-        
         ``userform``
-            An instance of :form:`attendance.UserForm``
-        
-        **Template:**
-        
+            An instance of :form:`attendance.UserForm]`
+            **Template:**
         :template:`attendance.new_parent.html`
     """
+    if not (request.user.is_authenticated and request.user.groups.filter(name='admissions_officer').exists()):
+        raise PermissionDenied("Only the Admissions Officer has access to this page")
     if request.method == "POST":
         userform = UserForm(data=request.POST)
         if userform.is_valid():
@@ -129,20 +114,18 @@ def add_parent(request):
             }
     )
 
-@user_passes_test(in_admissions)
+
 def add_parentdata(request):
     """ 
-        Adds a extra data to parent user
-        
+        Adds a extra data to parent user 
         **Context**
-        
         ``parentform``
             An instance of :form:`attnedance.ParentForm``
-        
         **Template:**
-        
         :template:`attendance.parentdata.html`
     """
+    if not (request.user.is_authenticated and request.user.groups.filter(name='admissions_officer').exists()):
+        raise PermissionDenied("Only the Admissions Officer has access to this page")
     if request.method == "POST":
         parentform = ParentForm(data=request.POST)
         if parentform.is_valid():
@@ -158,7 +141,7 @@ def add_parentdata(request):
         }
     )
 
-@user_passes_test(in_admissions)
+
 def add_student(request):
     """ 
         Adds a new student
@@ -172,7 +155,8 @@ def add_student(request):
         
         :template:`attendance.new_student.html`
     """
-    
+    if not (request.user.is_authenticated and request.user.groups.filter(name='admissions_officer').exists()):
+        raise PermissionDenied("Only the Admissions Officer has access to this page")
     if request.method == "POST":
         studentform = StudentForm(data=request.POST)
         if studentform.is_valid():
@@ -188,9 +172,7 @@ def add_student(request):
        } 
    )
     
-#View to add a teacher.
-@user_passes_test(in_admissions)
-   
+
 def add_teacher(request):
     """ 
         Adds a new teacher user
@@ -204,6 +186,8 @@ def add_teacher(request):
         
         :template:`attendance.new_teacher.html`
     """
+    if not (request.user.is_authenticated and request.user.groups.filter(name='admissions_officer').exists()):
+        raise PermissionDenied("Only the Admissins Officer has access to this page")
     if request.method == "POST":
         userform = UserForm(data=request.POST)
         if userform.is_valid():
@@ -221,8 +205,7 @@ def add_teacher(request):
         }
     )
     
-# View to add additional data to teacher
-@user_passes_test(in_admissions)
+
 def add_teacherdata(request):
     """
         Adds extra data to teacher user
@@ -236,6 +219,8 @@ def add_teacherdata(request):
         
         :template:`attendance.teacherdata.html`
     """
+    if not (request.user.is_authenticated and request.user.groups.filter(name='admissions_officer').exists()):
+        raise PermissionDenied("Only the Admissions Officer has access to this page")
     teacherform = TeacherForm()
     if request.method == "POST":
         teacherform = TeacherForm(data=request.POST)
@@ -361,13 +346,10 @@ def saveregister(request):
         }
         )
 # View to show student's detail (from teacher landing)
-@user_passes_test(in_attendance) 
 def student_detail(request, student_code):
     """
         Shows attendance records of one student.
-        
         **Context**
-        
         ``studentname``
             The name of the student,
         ``studentsurname``
@@ -376,13 +358,12 @@ def student_detail(request, student_code):
             Sudent_code of the student,
         ``student_records'
             queryset of all the DailyRegister records of the student,
-        
         **Template**
-        
         :template:`attendance/student_detail.html`
-        
     """
-    student =  get_object_or_404(Student, student_code=student_code)
+    if not (request.user.is_authenticated and request.user.groups.filter(name='attendance_officer').exists()):
+        raise PermissionDenied("Only the Attendance Officer has access to this page")
+    student = get_object_or_404(Student, student_code=student_code)
     student_records = DailyRegister.objects.filter(student_code=student)
     paginator = Paginator(student_records, 10)
     page_number = request.GET.get("page")
@@ -396,14 +377,14 @@ def student_detail(request, student_code):
         },
     )
 
-@user_passes_test(in_attendance) 
+
 def sendemail(request, student_code):
     """
         Sends an email to a parent.
         
         **Context**
         ``userform``
-            An instance of :form:`attendance.SenemailForm``
+            An instance of :form:`attendance.SendemailForm``
         ``studentcode``
             Sudent_code of the student,
         ``studentname``
@@ -415,9 +396,10 @@ def sendemail(request, student_code):
         
         :template:`attendance/sendemail.html`
     """
-        
+    if not (request.user.is_authenticated and request.user.groups.filter(name='attendance_officer').exists()):
+        raise PermissionDenied("Only the Attendance Officer has access to this page")    
     student = get_object_or_404(Student, student_code=student_code)
-    studentcode =  student_code
+    studentcode = student_code
     studentname = student.student_name
     studentsurname = student.student_surname
     if request.method == 'POST':
@@ -458,7 +440,7 @@ def sendemail(request, student_code):
     )        
 # Parents pages.
 
-@login_required
+@user_passes_test(in_parent)
 def children_list(request):
     """
         Displays a list of all the registered children belonging to a parent user.
@@ -721,8 +703,7 @@ def give_reason(request, student_code, date, session_id):
         }
     )
     
-# View to see all pending absences
-@user_passes_test(in_attendance)
+
 def pending_absences(request):
     """
         Displays a list of all pending absences
@@ -735,7 +716,9 @@ def pending_absences(request):
         **Template:**
         
         :template:`attendance/pending_absences.html`
-    """  
+    """ 
+    if not (request.user.is_authenticated and request.user.groups.filter(name='attendance_officer').exists()):
+        raise PermissionDenied("Only the Attendance Officer has access to this page")  
     pending = DailyRegister.objects.filter(status=1)
     return render(
         request,
@@ -745,8 +728,7 @@ def pending_absences(request):
         }
     )
 
-# View to review individual pending absences
-@user_passes_test(in_attendance)
+
 def absence_detail(request, student_code, date, session_id):
     """
         Allows to review and individual pending absence.
@@ -765,6 +747,8 @@ def absence_detail(request, student_code, date, session_id):
         
         :tempalte:`attendance/absence_detail.html`S
     """  
+    if not (request.user.is_authenticated and request.user.groups.filter(name='attendance_officer').exists()):
+        raise PermissionDenied("Only the Attendance Officer has access to this page")  
     student = get_object_or_404(Student, student_code=student_code)
     #session = Timetable.objects.get(session_id=session_id)
     absence = get_object_or_404(DailyRegister, student_code__student_code=student_code, session_id=session_id, date=date)
@@ -885,8 +869,8 @@ def class_detail(request, subject_name, student_code):
             'subject_name': subject_name,
         }
     )
-# View to see truanting students.
-@user_passes_test(in_attendance)
+
+
 def truanting_list(request):
     """
         Displays a list of all studnets truanting today
@@ -902,7 +886,9 @@ def truanting_list(request):
         **Template:**
         
         :template:`attendance/truanting_list.html`
-    """  
+    """ 
+    if not (request.user.is_authenticated and request.user.groups.filter(name='attendance_officer').exists()):
+        raise PermissionDenied("Only the Attendance Officer has access to this page")  
     today = date.today()
     truantinglist = DailyRegister.objects.filter(date=today, mark=1, reason_for_absence='')
     if request.method == "POST":
@@ -931,6 +917,7 @@ def truanting_list(request):
                 message = EmailMultiAlternatives(subject, text_content, settings.EMAIL_HOST_USER, [parentmail])
                 message.attach_alternative(html_content, "text/html")
                 message.send()
+                messages.success(request, 'Email sent successfully')
         return redirect('landing')
     return render(
         request,
@@ -941,8 +928,7 @@ def truanting_list(request):
         }
     )
 
-# View to remove a student.
-@user_passes_test(in_admissions)
+
 def remove_student(request):
     """
         Allows Admissions Officer to deregister a student
@@ -957,6 +943,8 @@ def remove_student(request):
         
         :template:`attendance/remove_students.html`
     """  
+    if not (request.user.is_authenticated and request.user.groups.filter(name='admissions_officer').exists()):
+        raise PermissionDenied("Only the Admissions Officer has access to this page")  
     if request.method == "POST":
         removeform = RemoveForm(data=request.POST)
         if removeform.is_valid():
