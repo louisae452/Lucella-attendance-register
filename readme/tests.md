@@ -126,3 +126,8 @@
 |02/07/2026|remove_student|Non user is rejected|Pass| |
 |02/07/2026|remove_student|Non admissions_officer is rejected|Pass| |
 |02/07/2026|remove_student|Admissions_officer get access to page|Pass|Do manual tests to check form is submitted correctly|
+
+
+# Manual testing
+
+|10/07/2026| pending absence detail.  form crashes when the dropbox is filled with ---- Eliminate that forom dropbox menu. (eliminate blank=True from model)| Form can only be filled with a proper choice.

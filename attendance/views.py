@@ -745,7 +745,7 @@ def absence_detail(request, student_code, date, session_id):
         
         **Template:**
         
-        :tempalte:`attendance/absence_detail.html`S
+        :template:`attendance/absence_detail.html`S
     """  
     if not (request.user.is_authenticated and request.user.groups.filter(name='attendance_officer').exists()):
         raise PermissionDenied("Only the Attendance Officer has access to this page")  
@@ -756,8 +756,9 @@ def absence_detail(request, student_code, date, session_id):
         absenceform = PendingabsenceForm(data=request.POST, instance=absence)
         if absenceform.is_valid():
             absenceform.save()
+            # Send email if absence is unauthorised
             if absenceform.instance.status == 3:
-                parentname = get_object_or_404(Student, student_code=student_code).parent_name
+                parentname = student.parent_name
                 User = get_user_model()
                 parent = get_object_or_404(User, username=parentname)
                 parentmail = parent.email
@@ -778,15 +779,19 @@ def absence_detail(request, student_code, date, session_id):
                 message = EmailMultiAlternatives(subject, text_content, settings.EMAIL_HOST_USER, [parentmail])
                 message.attach_alternative(html_content, "text/html")
                 message.send()
-        return redirect('pending')
-    review = PendingabsenceForm(instance=absence)
+            messages.success(request, "Record successfully updated")
+            return redirect('pending')
+        else:
+            messages.error(request, " Please, fill in all fields in the form")
+    else:
+        absenceform = PendingabsenceForm(instance=absence)
     return render(
         request,
         "attendance/absence_detail.html",
         {
             'student': student,
             'absence': absence,
-            'review': review,
+            'review': absenceform,
         }
     )
 

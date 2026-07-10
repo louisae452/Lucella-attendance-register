@@ -100,9 +100,9 @@ class DailyRegister(models.Model):
     student_code = models.ForeignKey(Student, on_delete=models.RESTRICT)
     mark = models.IntegerField(choices=MARK, default=2)
     # reason_for_absence = models.CharField(max_length=200, blank=True)
-    status = models.IntegerField(choices=STATUS, blank=True, default='0')
-    code = models.IntegerField(choices=ABSENCECODE, blank=True, default='3')
-    reason_for_absence = models.TextField( blank=True)
+    status = models.IntegerField(choices=STATUS, default=0)
+    code = models.IntegerField(choices=ABSENCECODE, default=3)
+    reason_for_absence = models.TextField(blank=True)
     
     class Meta:
         ordering = ['date', 'student_code']

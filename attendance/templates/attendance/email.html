@@ -1,20 +1,29 @@
-{% extends "base.html" %}
 {% load static %}
-{% load custom_tags %}
 
+<!DOCTYPE html>
+<html class="h-100" lang="en">
+
+<head>
+    <title>Lucella Attendance Register Email</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" /> 
+    {% block meta_description %}  
+    <meta name="description" content="Home page">
+    {% endblock %}
+    <!-- Custom Css-->
+     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
 {% block content %}
-
-
+<header>
+        <div id="header">
+            <img src="{% static 'images/logogreen.svg' %}"" alt="Lucella High School logo" width="50" height="50">
+            <h1>Lucella High school</h1> 
+        </div>
+    </header>
 <div>
     <h2> {{ studentname}} {{studentsurname}},</h2>
     {{ text | safe}}
-
-
 </div>
-
-
-
-
-
-
 {% endblock %}
+<footer>
+    <a href="mailto:lucellahighschool@gmail.com"> lucellahighschool@gmail.com</a>
+</footer>
