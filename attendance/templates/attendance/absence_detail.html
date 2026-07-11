@@ -4,7 +4,7 @@
 
 {% block content %}
 
-{% if request.user|has_group:"admissions_officer" %}
+{% if request.user|has_group:"attendance_officer" %}
 <div class="form-container">
     <div class="reducesize">
         <h2>{{student.student_name }}  {{ student.student_surname }}</h2>
@@ -21,6 +21,7 @@
         
     </div>
     <div>
+        <a class="button" href="{% url 'pending' %}">Pending absences</a>
         <a class="button" href="{% url 'landing' %}">Main menu</a>
     </div>
 </div>

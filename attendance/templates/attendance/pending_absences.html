@@ -6,7 +6,7 @@
 
 <h2 class="textcenter"> Pending absences</h2>
 <div class="form-container">
-    {% if request.user|has_group:"admissions_officer" %}
+    {% if request.user|has_group:"attendance_officer" %}
     
     <table>
         <tr>

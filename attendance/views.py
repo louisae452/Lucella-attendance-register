@@ -831,7 +831,10 @@ def get_class(request):
                                        filter=Q(dailyregister__session_id__in= sessionids, dailyregister__mark=0)),
             )
             for student in students:
-                student.attendance = round((student.present_sessions/student.total_sessions)*100, 2)
+                if student.total_sessions != 0:
+                    student.attendance = round((student.present_sessions/student.total_sessions)*100, 2)
+                else:
+                    student.attendance = 0.0
             return render(
                 request,
                 "attendance/class_list.html",
@@ -959,6 +962,7 @@ def remove_student(request):
             student.deregistered_on = date.today()
             student.deregistered = True
             student.save()
+            messages.success(request, 'Student de-registered successfully')
             return redirect('landing')
     removeform = RemoveForm()
     return render(
