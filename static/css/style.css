@@ -490,9 +490,14 @@ textarea {
         display:flex;
         flex-direction: column;
         
+        
+        
+    }
+    #header {
+        flex-direction: column;
     }
     #header h1 {
-        font-size: 1.8em;
+        font-size: 1.5em;
     }
     .logins {
         
@@ -506,6 +511,12 @@ textarea {
     .login .button {
         margin:0px;
         margin-right:10px;   
+    }
+    #login {
+        z-index: 2;
+    }
+    #login .button {
+        margin:10px;
     }
     
     .buttons-page{
