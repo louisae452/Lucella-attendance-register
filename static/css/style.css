@@ -501,12 +501,14 @@ textarea {
         margin-top: 20px;
         margin-bottom: 70px;
     }
+    .login {
+        position: fixed;
+        z-index: 2;
+    }
     
     .login .button {
         margin:0px;
-        margin-right:10px;
-        
-        
+        margin-right:10px;   
     }
     
     .buttons-page{
