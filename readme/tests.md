@@ -182,3 +182,12 @@ Further security tests can be seen in automated tests.
 |10/07/2026|Register page loads for teacher user|On teacher landing, clik on 'Register' button|Getregister page appears|Pass|--|
 
 
+# User experience.
+
+The following issues were reported by users.
+
+|Date|Issue|Template|View|Action taken|
+|:--|:--|:--|:--|:--|
+|10/07/2026|'Home' button in parents pages is misleading|child_record.html, child_timetable.html, give_reason.html, report_absence.html|--|The text in the button was changed to 'Main menu'|
+|10/07/2026|There is no way to get out of givereason page unless saving|give_reason.html|--|'Back to absence record' and 'Main menu' buttons were added|
+|10/07/2026|In the reportabsence page, when the date does not match the session, after attempting to save, the user is redirected to the timetable page|report_absence.html|report_absence|The redirect was changed to go back to the reportabsence page|

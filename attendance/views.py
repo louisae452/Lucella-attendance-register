@@ -599,7 +599,7 @@ def report_absence(request, student_code, session_id):
             else:
                 # If the specified date is not the correct weekday.
                 messages.error(request, 'The date specified does not match a timetable slot!')
-                return redirect ('childdetail', student_code=student_code)
+                return redirect ('reportabsence', student_code=student_code, session_id=session_id)
     report = AbsenceForm()
     return render(
         request,
@@ -607,7 +607,7 @@ def report_absence(request, student_code, session_id):
         {
             'child': child,
             'session': session,
-            'report' : report,
+            'report': report,
             
         }
     )
@@ -690,7 +690,7 @@ def give_reason(request, student_code, date, session_id):
             # changes status back to pending.
             reasonholder.status = 1
             reasonholder.save()
-            messages.success(request, 'Absence saved successfullyS')
+            messages.success(request, 'Absence saved successfully!')
         return redirect('childrecord', student_code=student_code)
     reasonform = GivereasonForm(instance=absence)            
     return render(

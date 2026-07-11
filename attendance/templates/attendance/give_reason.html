@@ -15,7 +15,12 @@
             {{ reasonform }}
             {% csrf_token %}
             <button class="button" type="submit" href="">Save</button>
+
         </form>
+    </div>
+    <div>
+        <a class="button" href="{% url 'childrecord' child.student_code %}">Back to attendance record</a>
+        <a class="button" href="{% url 'landing' %}">Main menu</a>
     </div>
 </div>
 {% else %}
