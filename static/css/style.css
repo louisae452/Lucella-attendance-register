@@ -99,7 +99,7 @@ form label {
 }
 /* turn around message when phone in portrait*/
 .turn-message {
-    display: flex;
+    display: none;
     place-self: center;
     position: absolute;
     top: 15vh;
@@ -541,6 +541,7 @@ textarea {
         width: 100%;
     }
     .turn-message {
+        display: flex;
         visibility: visible;
     }
     .home {
