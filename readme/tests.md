@@ -152,6 +152,10 @@
 |11/07/2026|truanting page not accessible for non users|In browser, type truanting page address on address bar|403.html appeas. 'Main menu' button leads to home page|Pass|--|
 |11/07/2026|myclass page not accessible to non user|In browser, type myclass page address on address bar|403.html appears. 'Main menu' button leads to home page|Pass|--|
 |11/07/2026|Individual record on my class page not accessible to non user|In browser, type the myclass address of an existing student|403.html appears.'Main button' leads to home page|Pass|--|
+|11/07/2026|Individual child timetable page not accessible to non user|In browser, type existing child timetable address on address bar|403.html loads. 'Main menu' button leads to home page|Pass|--|
+|11/07/2026|Future absence page not accessible for non user|In browser, type existing child future absence address on address bar|403.html loads. 'Main menu' leads to home page|Pass|--|
+|11/07/2026|Individual child attendance record not accessible for non user|In browser, type existing child's attendace record on address bar|403.html loads. 'Main menu' leads to home page|Pass|--|
+|11/07/2026|Givereason page not accessible for no user|On browser, type address for an existing child's absence on address bar|403.html loads. 'Main menu' leads to home page|Pass|--|
 
 
 Further security tests can be seen in automated tests.
@@ -237,11 +241,40 @@ Further security tests can be seen in automated tests.
 |11/07/2026|absence detail|On pendingabsences page, click on an absence link|Individual absence page loads|Fail|Correct permissions in absence_detail.html|
 |11/07/2026|absence detail|On pendingabsences page, click on an absence link|Individual absence page loads|Pass|--|
 |11/07/2026|review individual unauthorised absence|On absence detail, deam an absence as unauthorised. click on 'save'|Email is sent to parent. Data is savved. Pending absences page loads whith success message|Pass|
-|11/07/2026|REview individual authorised absence|On absence detail, authorise the absence|Data is saved. Pending absences page loads with sucess message|Pass|--|
-
+|11/07/2026|Review individual authorised absence|On absence detail, authorise the absence|Data is saved. Pending absences page loads with sucess message|Pass|--|
 |11/07/2026|'Truanting students' button|
 
+
+## Parent landing page.
+|Date|Test|Method|Expected result|Result|Follow up|
+|:--|:--|:--|:--|:--|:--|
+|11/07/2026|Success log in message|Sign in with parent credentials|Parent landing loads with success message|Pass|--|
+|11/07/2026|View child's page|Click on child's link|Child's timetable page loads|Pass|--|
+|11/07/2026|Future absence page loads|On child's timetable page, click on timetable link|Future absence page loads|Pass|--|
+|11/07/2026|Future absence page saves|Fill in form wih suitable information.|Absence is saved. Timetable page loads with sucess message|Pass|--|
+|11/07/2026|'View attendance record' button|On child's timetable page, click on 'View attendance record'|Child's record page loads|Pass|--|
+|11/07/2026|givereason page loads|on child's attendance record, click on an absent record link|Givereason page loads|Pass|--|
+|11/07/2026|givereason page submits information|Fill in form. Click on 'Save'|Data is saved. Status for absence is set to pending. Child's attendance record page loads with success message|--|
+
+
+
+
+
 Note: Automated tests for all forms have been done. Manual tests for forms have done for successful submission and special cases.
+
+# User stories
+
+- Users can log onto the site and see the appropriate pages.
+- The Admission's Officer can see the list of all the registered students. They can register and deregister students. They can also register teachers.
+- The Attendance Officer can see all pending absences and review them. They can email the parent when they unauthorise an absence and when their child's attendance is below the recommended levels.
+- The Attendance Officer can also see a list of the students truanting on a specific day and email their parents.
+- Teachers can pull up the register for the session occurring and register their students. They can see their students' attendance over the year.
+- Parents can see their child's timetable and report an absence for a time that has not yet happened. They can see their child's attendance record over the year and explain an absence that took place in the past.
+- Parents are also informed by email when their child's attendance goes below a recommended level, when an absence is unauthorised and when their child is truanting.
+
+
+
+
 # User experience.
 
 The following issues were reported by users.

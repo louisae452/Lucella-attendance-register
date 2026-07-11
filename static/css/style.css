@@ -103,6 +103,7 @@ form label {
     place-self: center;
     position: absolute;
     top: 15vh;
+    left:50px;
     z-index: 3;
     width: 70%;
     height: 60%;

@@ -61,6 +61,7 @@ School staff will be able to see when a student has been reported as absent by t
 - As a parent I want to be informed when my child is missing from school so that I can find where they are.
 - As an Attendance Officer I want to be able to see a record of all students' attendance so that I can target students with critical attendance.
 - As an Attendance Officer I want to see all unclassified absences so that I can authorise/un-authorise them.
+- As an Attendance Officer I want to be able to send an email to parents of all truanting students so that they can be accounted for.
 
 ## Design
 

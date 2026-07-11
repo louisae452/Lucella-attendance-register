@@ -33,12 +33,9 @@ DEBUG = False
 # ALLOWED_HOSTS = ['*']   # To allow localhost when DEBUG=False
 ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1']
 
-
-
 # Application definition
 
 INSTALLED_APPS = [
-    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -93,12 +90,12 @@ WSGI_APPLICATION = 'lucella_attendance.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-#DATABASES = {
+# DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.sqlite3',
 #        'NAME': BASE_DIR / 'db.sqlite3',
 #    }
-#}
+# }
 
 DATABASES = {
     'default':
@@ -141,9 +138,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 ACOUNT_EMAIL_VERIFICATION = 'none'
 
-
-
-
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
@@ -171,11 +165,7 @@ STORAGES = {
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-
-
- # code fromm https://www.geeksforgeeks.org/python/setup-sending-email-in-django-project/
- 
-
+# code fromm https://www.geeksforgeeks.org/python/setup-sending-email-in-django-project/
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
