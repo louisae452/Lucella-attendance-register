@@ -39,6 +39,7 @@ main {
 #content-container {
     flex-grow: 1; 
     background-color: var(--barely-there-pink);
+    min-height: 80%;
 }
 header {
     display: grid;
@@ -172,8 +173,14 @@ form label {
 .buttons-page {
     display:grid;
     grid-template-columns: auto auto auto auto auto;
-    justify-content: space-evenly;
+    justify-content: center;
+
 }
+.reducesize .buttons-page {
+    display: grid !important;
+    grid-template-columns: auto auto;
+}
+
 
 /* End of home.html styling */
 
@@ -183,6 +190,9 @@ form label {
     justify-content: center;
     grid-template-columns: auto auto;
     margin: 20px;
+}
+.listdiv {
+    min-height: 100px;
 }
 .home {
     position: absolute;
@@ -326,6 +336,17 @@ textarea {
 .form-field {
     display: flex;
     flex-direction: column;
+}
+.deletebox {
+    visibility: hidden;
+    position: absolute;
+    top: 20vh;
+    z-index: 3;
+    border: 2px solid var(--forest-green);
+    border-radius: 5px;
+    background-color: var(--barely-there-pink);
+    
+
 }
 
 

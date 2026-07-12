@@ -28,10 +28,11 @@ urlpatterns = [
     path('child/<str:student_code>/<int:session_id>/', views.report_absence, name='reportabsence'),
     path('child/<str:student_code>/record/', views.child_record, name='childrecord'),
     path('child/<str:student_code>/record/<str:date>/<int:session_id>/', views.give_reason, name='givereason'),
+    path('planned/<str:student_code>/', views.planned_absences, name='plannedabsences'),
     path('email/<str:student_code>/', views.sendemail, name='sendemail'),
     path('<str:subject_name>/<str:student_code>/', views.class_detail, name='classdetail'),
     path('<str:student_code>/<str:date>/<int:session_id>/', views.absence_detail, name='absencedetail'),
-    #path('student/', views.student_detail, name='studentdetail'),
+    path('planned/<str:student_code>/<str:date>/<int:session_id>/', views.plan_detail, name='plandetail'),
     
     
     

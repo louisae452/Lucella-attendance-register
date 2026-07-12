@@ -14,11 +14,11 @@
         <form class="" method="post">
             {{ reasonform }}
             {% csrf_token %}
-            <button class="button" type="submit" href="">Save</button>
+            <button class="button" type="submit">Update</button>
 
         </form>
     </div>
-    <div>
+    <div class="buttons-page">
         <a class="button" href="{% url 'childrecord' child.student_code %}">Back to attendance record</a>
         <a class="button" href="{% url 'landing' %}">Main menu</a>
     </div>

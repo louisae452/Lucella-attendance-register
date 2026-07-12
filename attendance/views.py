@@ -553,6 +553,20 @@ def child_timetable(request, student_code):
         }
     )
 
+# View to show planned absences.
+@user_passes_test(in_parent)
+def planned_absences(request, student_code):
+    today = date.today()
+    child = get_object_or_404(Student, student_code=student_code)
+    absences = DailyRegister.objects.filter(student_code__student_code=student_code, date__gt=today)
+    return render(
+        request,
+        "attendance/planned_absences.html",
+        {
+            'child': child,
+            'absences': absences,}
+        )
+
 # View to report an absence.
 @user_passes_test(in_parent)
 def report_absence(request, student_code, session_id):
@@ -583,7 +597,7 @@ def report_absence(request, student_code, session_id):
             if dayofweek == session.day:
                 # Check if that absence already exists. Redirect to attendance records if it does.
                 if DailyRegister.objects.filter(session_id=session, student_code__student_code=child.student_code, date=absencedate).exists():
-                    messages.warning(request, "Absence alreay recorded. Please, access it from the student's records.")
+                    messages.warning(request, "Absence alreay recorded. Please, access it with planned absences button.")
                     return redirect('childdetail', student_code=student_code)
                 else:
                     # Create new record with default values
@@ -611,6 +625,39 @@ def report_absence(request, student_code, session_id):
             
         }
     )
+# View to  modify a planned absence
+@user_passes_test(in_parent)
+def plan_detail(request, student_code, date, session_id):
+
+        
+    child = get_object_or_404(Student, student_code=student_code)
+    absence = get_object_or_404(DailyRegister, session_id=session_id, date=date, student_code__student_code=student_code)
+    if request.method == "POST":
+        action = request.POST.get('action')
+        if action == 'delete':
+            absence.delete()
+            messages.success(request, 'The absence whas been successfully deleted')
+            return redirect('plannedabsences', student_code=student_code)
+        reasonform = GivereasonForm(data=request.POST, instance=absence)
+        
+        if reasonform.is_valid():
+            reasonholder = reasonform.save(commit=False)
+            # changes status back to pending.
+            reasonholder.status = 1
+            reasonholder.save()
+            messages.success(request, 'Absence saved successfully!')
+        return redirect('plannedabsences', student_code=student_code)
+    reasonform = GivereasonForm(instance=absence)            
+    return render(
+        request,
+        "attendance/plan_detail.html",
+        {
+            'child': child,
+            'absence': absence,
+            'reasonform': reasonform,       
+        }
+    )
+    
     
 # View to show parents their child's attendance record.
 @user_passes_test(in_parent)
