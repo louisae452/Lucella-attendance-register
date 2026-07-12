@@ -13,6 +13,7 @@
 <div class="form-container">
     <div class="reducesize">
         <h1>Enter the session's details.</h1>
+        <p class="helptext">Only lessons occurring today can be registered</p>
         <form method="post">
             {{ getregisterform }}
             {% csrf_token %}

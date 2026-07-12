@@ -7,7 +7,7 @@
 <h2 class="textcenter"> Pending absences</h2>
 <div class="form-container">
     {% if request.user|has_group:"attendance_officer" %}
-    
+    {% if pending %}
     <table>
         <tr>
             <th>Code</th>
@@ -29,9 +29,13 @@
         <tr>
         {% endfor %}
     </table>
+    {% else %}
+    <p class="textcenter">There are no pending absences</p>
     {% endif %}
+    
 </div>
 <div>
     <a class="button" href="{% url 'landing' %}">Main menu</a>
 </div>
+{% endif %}
 {% endblock %}

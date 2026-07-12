@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 class Parent(models.Model):
     """Creates a table of user parents. Requires userrs to be in group parent"""
     parent_name = models.OneToOneField(User, on_delete=models.RESTRICT, limit_choices_to={'groups__name': "parent"})
-    phone_number= models.IntegerField()
+    phone_number= models.CharField()
     
     class Meta:
         ordering = ["parent_name"]
@@ -47,7 +47,7 @@ class Student(models.Model):
 class Teacher(models.Model):
     """Creates a table of teacher users. Requires users to belong to group teacher"""
     teacher_name = models.OneToOneField(User, on_delete=models.RESTRICT, limit_choices_to={'groups__name': "teacher"})
-    phone_number = models.IntegerField(blank=True)
+    phone_number = models.CharField(blank=True)
     start_date = models.DateTimeField(auto_now_add=True)
     end_date = models.DateTimeField(blank=True, null=True)
     

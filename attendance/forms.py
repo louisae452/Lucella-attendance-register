@@ -38,16 +38,52 @@ class UserForm(forms.ModelForm):
         
 class ParentForm(forms.ModelForm):
     """ Creates a new parent. Requires parent to be user in parent group"""
+    # AI generated code to only accept phone numbers on field
+    phone_number = forms.RegexField(
+        regex=r'^\+?1?\d{9,15}$',  # Blocks text, allows only digits (9-15 long), accepts an optional '+'
+        max_length=15,
+        min_length=9,
+        error_messages={
+            'invalid': "Please enter a valid phone number. Letters and symbols (except +) are not allowed."
+        },
+        widget=forms.TextInput(attrs={
+            'type': 'tel',
+            'placeholder': '+1234567890',
+            #  HTML5 Pattern: Restricts input to only numbers and the '+' sign
+            'pattern': r'^\+?\d+$', 
+            'title': 'Please enter a valid phone number containing only numbers (e.g., +1234567890).'
+        })
+    )
+    # End of AI generated code
     class Meta:
         model = Parent
         fields = ('parent_name', 'phone_number',)
         widgets = {
             'parent_name': forms.Select(attrs={'class': 'choicebox'}),
+            # Phone constraints. 
+            
         }     
 
 class TeacherForm(forms.ModelForm):
     """Creates a new teacher. Requires teacher to be in teacher group"""
-    phone_number = forms.IntegerField(required=True) 
+    # AI generated code to only accept phone numbers on field
+    phone_number = forms.RegexField(
+        regex=r'^\+?1?\d{9,15}$',  # Blocks text, allows only digits (9-15 long), accepts an optional '+'
+        max_length=15,
+        min_length=9,
+        error_messages={
+            'invalid': "Please enter a valid phone number. Letters and symbols (except +) are not allowed."
+        },
+        widget=forms.TextInput(attrs={
+            'type': 'tel',
+            'placeholder': '+1234567890',
+            #  HTML5 Pattern: Restricts input to only numbers and the '+' sign
+            'pattern': r'^\+?\d+$', 
+            'title': 'Please enter a valid phone number containing only numbers (e.g., +1234567890).'
+        })
+    )
+    # End of AI generated code
+     
     class Meta:
         model = Teacher
         fields = ('teacher_name', 'phone_number',)

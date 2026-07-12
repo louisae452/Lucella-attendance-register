@@ -156,6 +156,8 @@
 |11/07/2026|Future absence page not accessible for non user|In browser, type existing child future absence address on address bar|403.html loads. 'Main menu' leads to home page|Pass|--|
 |11/07/2026|Individual child attendance record not accessible for non user|In browser, type existing child's attendace record on address bar|403.html loads. 'Main menu' leads to home page|Pass|--|
 |11/07/2026|Givereason page not accessible for no user|On browser, type address for an existing child's absence on address bar|403.html loads. 'Main menu' leads to home page|Pass|--|
+|12/07/2026|Planned absences list not accessible to non user|On browser, type address of an existing child's list of planned absences|403.html loads. 'Main menu' leads to home page|Pass|--|
+|12/07/2026|Planned absence detail page not accessible to non user|On browser, type address of a planned absence for an existing child|403.html loads.'Main menu' leads to home page|Pass|--|
 
 
 Further security tests can be seen in automated tests.
@@ -217,8 +219,8 @@ Further security tests can be seen in automated tests.
 |11/07/2026|newparent page|Fill in form with suitable data. Click on 'Save'|Parent is saved. parentdata page loads with success message|Pass|--|
 |11/07/2026|parentdata page|Fill form with suitable data. Click on 'Save data'|Data is saved. Teacher landing page loads with success message|Pass|--|
 |11/07/2026|'Add student' button|Fill in form with suitable data. Click on 'Save student'|Student record is saved. Teacher landing loads with success message|Pass|--|
-|11/07/2026|'Remove student' button|Select student to deregister. Click on 'Save'|Student is deregistered. Teacher landing loads with success message|Fail|Add success message to remove_student view|
-|11/07/2026|'Remove student' button|Select student to deregister. Click on 'Save'|Student is deregistered. Teacher landing loads with success message|Pass|--|
+|11/07/2026|'Remove student' button|Select student to deregister. Click on 'Deregister'|Student is deregistered. Teacher landing loads with success message|Fail|Add success message to remove_student view|
+|11/07/2026|'Remove student' button|Select student to deregister. Click on 'Deregister'|Student is deregistered. Teacher landing loads with success message|Pass|--|
 |11/07/2026|'Add teacher' button|Click on 'Add teacher' Button|newteacher page loads|Pass|--|
 |11/07/2026|newteacher page|Fill form with suitable data. Click on 'Save teacher'|teacherdata page loads with sucess message|Pass|--|
 |11/07/2026|teacherdata page|Fill form with suitable data. Click on 'Save data'|Data is saved. Teacher landing page loads with success message|Pass|--|
@@ -252,6 +254,12 @@ Further security tests can be seen in automated tests.
 |11/07/2026|View child's page|Click on child's link|Child's timetable page loads|Pass|--|
 |11/07/2026|Future absence page loads|On child's timetable page, click on timetable link|Future absence page loads|Pass|--|
 |11/07/2026|Future absence page saves|Fill in form wih suitable information.|Absence is saved. Timetable page loads with sucess message|Pass|--|
+|12/07/2026|'Planned absences button'|On child's timetable page, clic on 'Planned absences'button|A list of all the planned absences load|Pass|--|
+|12/07/2026|Planned absence detail|On planned absences list, click on the link for a planned absence|Details of the absence load|Pass|--|
+|12/07/2026|Update planned absence|On absence detail, change the reason for absence field. Click on 'Update'|The new data is saved. Planned absences list loads with success message|Pass|--|
+|12/07/2026|Delete planned absence|On absence detail, click on 'Delete'|A confirmation box appears.|Pass|--|
+|12/07/2026|Confirm delete|On confirmation box, click on 'Delete'|The message is deleted. Planned absences list loads with success message|Pass--|
+|12/-7/2026|Cancel delete|On confirmation box, click on 'Cancel'|The confirmation box disappears|Pass|--|
 |11/07/2026|'View attendance record' button|On child's timetable page, click on 'View attendance record'|Child's record page loads|Pass|--|
 |11/07/2026|givereason page loads|on child's attendance record, click on an absent record link|Givereason page loads|Pass|--|
 |11/07/2026|givereason page submits information|Fill in form. Click on 'Save'|Data is saved. Status for absence is set to pending. Child's attendance record page loads with success message|--|
@@ -269,7 +277,7 @@ Note: Automated tests for all forms have been done. Manual tests for forms have 
 - The Attendance Officer can see all pending absences and review them. They can email the parent when they unauthorise an absence and when their child's attendance is below the recommended levels.
 - The Attendance Officer can also see a list of the students truanting on a specific day and email their parents.
 - Teachers can pull up the register for the session occurring and register their students. They can see their students' attendance over the year.
-- Parents can see their child's timetable and report an absence for a time that has not yet happened. They can see their child's attendance record over the year and explain an absence that took place in the past.
+- Parents can see their child's timetable and report an absence for a time that has not yet happened.They can see the list of planned absences and update or delete absences as required. They can see their child's attendance record over the year and explain an absence that took place in the past.
 - Parents are also informed by email when their child's attendance goes below a recommended level, when an absence is unauthorised and when their child is truanting.
 
 
@@ -279,8 +287,13 @@ Note: Automated tests for all forms have been done. Manual tests for forms have 
 
 The following issues were reported by users.
 
-|Date|Issue|Template|View|Action taken|
+|Date|Issue|Template|View/Form|Action taken|
 |:--|:--|:--|:--|:--|
 |10/07/2026|'Home' button in parents pages is misleading|child_record.html, child_timetable.html, give_reason.html, report_absence.html|--|The text in the button was changed to 'Main menu'|
 |10/07/2026|There is no way to get out of givereason page unless saving|give_reason.html|--|'Back to absence record' and 'Main menu' buttons were added|
 |10/07/2026|In the reportabsence page, when the date does not match the session, after attempting to save, the user is redirected to the timetable page|report_absence.html|report_absence|The redirect was changed to go back to the reportabsence page|
+|12/07/2026|Get register page does not make clear that only lessons occurring on that day can be registered|get_register.html|--|Added help text to page|
+|12/07/2026|When you deregister a student, the button to submit says 'Save'. It should say 'Deregister'|remove_student.html|--|Changed text on button|
+|12/07/2026|Phone field entries do not validate correctly|parentdata.html, teacherdata.html|ParentForm, TeacherForm|Updated phone fields in models to CharField, updated forms to only accept phoneformat|
+|No feedback when there are no truanting students|truanting.html|--|Added message to empty list|
+|12/07/2026|It is not possible to delete a planned absence|planned_absences.html, plan_detail.html|planned_absences, plan_detail|Created new views and templates|

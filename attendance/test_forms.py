@@ -244,7 +244,7 @@ class TestParentForm(TestCase):
         """Tests ParentForm is not validated if parent_phone is not correct"""
         data = {
             'parent_name': self.test_user,
-            'phone_number': ''
+            'phone_number': 'dsfers'
         }
         parent_form = ParentForm(data)
         self.assertFalse(parent_form.is_valid()) 
@@ -276,7 +276,7 @@ class TestTeacherForm(TestCase):
         """Tests TeacherForm is not validated if teacher_phone is not correct"""
         data = {
             'teacher_name': self.test_user,
-            'phone_number': ''
+            'phone_number': 'errwee'
         }
         teacher_form = TeacherForm(data)
         self.assertFalse(teacher_form.is_valid()) 

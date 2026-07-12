@@ -8,7 +8,7 @@
 <div >
     <h2 class="textcenter">{{ today }}</h2>
     <h2 class="textcenter">Truanting students</h2>
-
+    {%if truantinglist %}
     <div class="form-container">
         <table>
             <tr>
@@ -30,8 +30,13 @@
                 <button class="button" type="submit" href="{% url 'landing'%}">Send email </button>
         </form>
     </div>
+    {% else %}
+        <p class="textcenter">There are no students truanting today</p>
+    {% endif %}
 </div>
-
+<div class="buttons-page">   
+    <a class="button" href="{% url 'landing' %}">Main menu</a>
+</div>
 
 
 {% endif %}

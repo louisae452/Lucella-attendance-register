@@ -57,6 +57,7 @@ School staff will be able to see when a student has been reported as absent by t
 - As a parent I want to be able to see my child's timetable so that they are prepared for the day ahead.
 - As a parent I want to be able to see my child's attendance record so that I know if I am likely to get fined by school.
 - As a parent I want to be able to record my child's absence so that it can be authorised by the school.
+- As a parent I want to be able to update and delete a planned absence so that if plans change my child is expected in school.
 - As a parent I want to be informed when my child's absence has been unauthorised so that I can provide more information to get it authorised.
 - As a parent I want to be informed when my child is missing from school so that I can find where they are.
 - As an Attendance Officer I want to be able to see a record of all students' attendance so that I can target students with critical attendance.
@@ -155,6 +156,12 @@ Clicking on a slot in the timetable opens a page in which the parent can report 
 
 ![Future absence detail](readme/images/features/)PICTURE
 
+The planned absences button shows a list of all planned future absences for a child. Clicking on an individual abscence, it is possible to update or delete it if plans have changed.
+
+![Planned absences list]
+
+![Update or delete a planned absence]
+
 By following the attendance record, the childs attendance record appears and the parent can explain an absence in the past.
 
 ![Child record](readme/images/features/child_record.jpg) ![Absence detail](readme/images/features/child_absence.jpg)
@@ -192,8 +199,10 @@ Below is a detailed list of all the views used.
 |truanting_list|attendance_officer|--|truanting_list.html|Displays a list of all students truanting and allows Attendance Officer to send and email to each of their parents|landing.html|
 |remove_student|admissions_officer|RemoveForm|remove_students.html|Allows the Admissions Officer to deregister a student|landing.html|
 |children_list|parent|--|landing.html|Allows parent to choose one of their children to view|child_timetable.html|
-|child_timetable|parent|--|child_timetable.html|Allows parent to enter a session in the timetable or view the child's attendance record|report_absence/html or child_record.html|
+|child_timetable|parent|--|child_timetable.html|Allows parent to enter a session in the timetable or view the child's attendance record|report_absence/html or child_record.html or planned_absences.html|
 |report_absence|parent|AbsenceForm|report_absence.html|Allows parent to enter a reason for an absence on a session that has yet to happen|child_timetable.html|
+|planned_absences|parent|--|planned_absences.html|Allows parent to see a list of all planned absences for a child|plan_detail.html|
+|plan_detail|parent|GiveReasonForm|plan_detail.html|Allows parent to update or delete a planned absence|planned_absences.html||
 |child_record|parent|--|child_record.html|Allows parent to see child's attendance record|give_reason.html|
 |give_reason|parent|GiveReasonForm|give_reason.html|Allows parent to enter a reason for an absence that has already happened|child_record.html|
 |

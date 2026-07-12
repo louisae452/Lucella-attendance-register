@@ -930,7 +930,7 @@ def class_detail(request, subject_name, student_code):
 
 def truanting_list(request):
     """
-        Displays a list of all studnets truanting today
+        Displays a list of all students truanting today
         Sends an email to the parent of each student on the list
         
         **Context**
