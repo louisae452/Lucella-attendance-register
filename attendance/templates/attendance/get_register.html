@@ -3,13 +3,11 @@
 {% load custom_tags %}
 
 {% block content %}
-
 {% if request.user|has_group:"teacher" %}
 <div class="info">
     <button class="info-button" id="buttona">A</button>
     <button class="info-button" id="buttonb">B</button>
 </div> 
-
 <div class="form-container">
     <div class="reducesize">
         <h1>Enter the session's details.</h1>
@@ -19,17 +17,13 @@
             {% csrf_token %}
             <div >
                 <button class="button" type="submit">Go to register</button>
-                
             </div>
         </form>
-        
     </div>
     <div>
         <a class="button" href="{% url 'landing' %}">Main menu</a>
     </div>
 </div>
-     
-    
     <div class="timetablea hidden horizontal" id="timetablea">
         <div class="timetable-top">
         <h2>Group A</h2>
@@ -100,8 +94,6 @@
             </tr>
         </table>
     </div>
-                
-
     <div class="timetableb hidden horizontal" id="timetableb">
         <div class="timetable-top">
             <h2>Group B</h2>
@@ -172,7 +164,6 @@
             </tr>
         </table>
     </div>
-
 {% else %}
     <div>
         <a class="button" href="{% url 'landing' %}">Main menu</a>

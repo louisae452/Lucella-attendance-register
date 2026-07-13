@@ -3,15 +3,12 @@
 {% load custom_tags %}
 
 {% block content %}
-
 {% if request.user|has_group:"teacher" %}
 <div >
     <h2 class="textcenter">{{ subject.subject_name }}</h2>
-
     <div class="form-container">
         <table>
             <tr>
-
                 <th>Surname</th>
                 <th>Name</th>
                 <th>Percentage attendance</th>        
@@ -27,9 +24,7 @@
     </div>
 </div>
 <div>
-    
     <a class="button" href="{% url 'landing' %}">Main menu</a>
 </div>
-
 {% endif %}
 {% endblock %}

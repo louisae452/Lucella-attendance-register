@@ -3,15 +3,11 @@
 {% load custom_tags %}
 
 {% block content %}
-
 {% if request.user|has_group:"admissions_officer" %}
-
     <div class="form-container">
-        
         <div class="reducesize">
             <h1> Parent's additional information</h1>
             <form method="post">
-
                 {{ parentform }}
                 {% csrf_token %}
                 <button class="button" type="submit">Save data</button>
@@ -20,15 +16,10 @@
         </div>    
             <a class="button" href="{% url 'landing' %}">Main menu</a>
         </div>
-
     </div>
-    
 {% else %}
-<div>
-    <a class="button" href="{% url 'landing' %}">Main menu</a>
-</div>
-
+    <div>
+        <a class="button" href="{% url 'landing' %}">Main menu</a>
+    </div>
 {% endif %}
-
-
 {% endblock %}

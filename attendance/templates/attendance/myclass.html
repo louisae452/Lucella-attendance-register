@@ -3,9 +3,7 @@
 {% load custom_tags %}
 
 {% block content %}
-
 {% if request.user|has_group:"teacher" %}
-
 <div class="form-container">
     <div class="reducesize">
         <h1>Enter the class' details.</h1>
@@ -17,7 +15,6 @@
     </div>
         <a class="button" href="{% url 'landing' %}">Main menu</a>
     </div>
-    
 </div>
 {% else %}
     <div>

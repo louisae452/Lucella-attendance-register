@@ -1,10 +1,7 @@
 {% extends "base.html"  %}
 {% load static %}
 {% load custom_tags %}
-<!--
-{% url 'newstudent' as newstudent_url %}
-{% url 'students' as students_url %}
--->
+
 
 {% block content %}
 <div>
@@ -31,9 +28,7 @@
                         <th>Code</th>
                         <th>Name</th>
                         <th>Surname</th>
-                        
                     </tr>
-                    
                     {% for child in children %}
                     <tr>
                         <td><a href="{% url 'childdetail' child.student_code %}">{{ child.student_code }}</a></td>
@@ -41,9 +36,7 @@
                         <td>{{ child.student_surname }}</td>
                     </tr>
                     {% endfor %}
-                    
                 </table>
-            
             </div>
         {% else %}
             <div>
@@ -51,5 +44,5 @@
             </div>
         {% endif %}  
     {% endif %}
-
+</div>
 {% endblock %}

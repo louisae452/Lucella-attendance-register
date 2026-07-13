@@ -16,14 +16,11 @@
                     {% csrf_token %}
                     <button class="button" type="submit" href="{% url 'landing'%}">Save</button>
             </form>
-
         </div>
-        
     </div>
     <div>
         <a class="button home" href="{% url 'landing' %}">Main menu</a>
     </div>
 </div>
-
 {% endif %}
 {% endblock %}

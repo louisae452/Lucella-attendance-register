@@ -3,7 +3,6 @@
 {% load custom_tags %}
 
 {% block content %}
-
 {% if request.user|has_group:"attendance_officer" %}
 <div class="form-container">
     <div class="reducesize">
@@ -25,9 +24,6 @@
         <a class="button" href="{% url 'landing' %}">Main menu</a>
     </div>
 </div>
-
-
-
 {% endif %}
 {% endblock %}
 

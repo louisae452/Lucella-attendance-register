@@ -3,7 +3,6 @@
 {% load custom_tags %}
 
 {% block content %}
-
 <h2 class="textcenter"> Pending absences</h2>
 <div class="form-container">
     {% if request.user|has_group:"attendance_officer" %}
@@ -15,9 +14,7 @@
             <th>Session_id</th>
             <th>Mark</th>
             <th>Status</th>
-            
         </tr>
-        
         {% for student in pending %}
         <tr>
             <td class="medium-column">{{ student.student_code }}</td>
@@ -25,14 +22,12 @@
             <td class="longer-column">{{ student.session_id }}</td>
             <td>{{ student.get_mark_display }}</td>
             <td>{{ student.get_status_display }}</td>
-            
         <tr>
         {% endfor %}
     </table>
     {% else %}
     <p class="textcenter">There are no pending absences</p>
     {% endif %}
-    
 </div>
 <div>
     <a class="button" href="{% url 'landing' %}">Main menu</a>

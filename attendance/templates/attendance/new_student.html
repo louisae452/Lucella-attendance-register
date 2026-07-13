@@ -5,7 +5,6 @@
 
 {% block content %}
 {% if request.user|has_group:"admissions_officer" %}
-
 <div class="form-container">   
     <div class="reducesize">
         <h1>Student's information</h1>
@@ -20,15 +19,10 @@
         <a class="button" href="{% url 'landing' %}">Main menu</a>
     </div>
 </div>
-
 {% else %}
 <div>
     <p> Sorry, you dont't have the required permission</p>
     <a class="button" href="{% url 'landing' %}">Main menu</a>
 </div>
-
 {% endif %}
-
-
-
 {% endblock %}

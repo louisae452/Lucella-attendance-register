@@ -3,9 +3,7 @@
 {% load custom_tags %}
 
 {% block content %}
-
 {% if request.user|has_group:"admissions_officer" %}
-
 <div class="form-container">
     <div class="reducesize">
         <h1>Enter the student's name.</h1>
@@ -19,7 +17,6 @@
         <a class="button" href="{% url 'landing' %}">Main menu</a>
     </div>
 </div>
-
 {% else %}
     <p>Sorry, you don't have the required permission</p>
     <div>

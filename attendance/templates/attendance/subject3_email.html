@@ -2,7 +2,6 @@
 
 <!DOCTYPE html>
 <html class="h-100" lang="en">
-
 <head>
     <title>Lucella Attendance Register Email</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" /> 
@@ -11,23 +10,19 @@
     {% endblock %}
     <!-- Custom Css-->
      <link rel="stylesheet" href="{% static 'css/style.css' %}">
-     
 </head>
-
 {% block content %}
 <header>
         <div id="header">
             <h1>Lucella High school</h1> 
         </div>
     </header>
-
 <div>
     <h2> {{ studentname}} {{studentsurname}},</h2>
     <h3>{{ date }}</h3>
     <h3>{{ session }}</h3>
     {{ text | safe}}
 </div>
-
 {% endblock %}
 <footer>
     <a href="mailto:lucellahighschool@gmail.com"> lucellahighschool@gmail.com</a>

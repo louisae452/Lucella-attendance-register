@@ -3,12 +3,10 @@
 {% load custom_tags %}
 
 {% block content %}
-
 {% if request.user|has_group:"parent" %}
 <div >
     <h2 class="textcenter">{{childsurname }}  {{ childname }}</h2>
     <h3 class="textcenter">{{ childname}}'s attendance percentage is: {{ attendancepercentage }}%</h3>
-
     <div class="form-container">
         <table>
             <tr>
@@ -63,7 +61,5 @@
     </div>
 
 </div>
-
-
 {% endif %}
 {% endblock %}

@@ -3,11 +3,8 @@
 {% load custom_tags %}
 
 {% block content %}
-
 {% if request.user|has_group:"attendance_officer" %}
 <div class="list-container">
-    
-
     <div >
         <h2>{{student.student_surname }}  {{ student.student_name }}</h2>
         <table>
@@ -17,18 +14,14 @@
                 <th>Mark</th>
                 <th>Status</th>
                 <th>Code</th>
-                    
             </tr>
-                
             {% for record in student_page %}
             <tr>
-                    
                 <td>{{ record.date }}</td>
                 <td class="longer-column">{{ record.session_id }}</td>
                 <td>{{ record.get_mark_display }}</td>
                 <td>{{ record.get_status_display }}</td>
                 <td>{{ record.get_code_display }}</td>
-                    
             <tr>
             {% endfor %}
         </table>
@@ -38,11 +31,9 @@
                 <a href="?page=1">&laquo; first</a>
                 <a href="?page={{ student_page.previous_page_number }}">previous</a>
             {% endif %}
-
             <span class="current">
                 Page {{ student_page.number }} of {{ student_page.paginator.num_pages }}.
             </span>
-
             {% if student_page.has_next %}
                 <a href="?page={{ student_page.next_page_number }}">next</a>
                 <a href="?page={{ student_page.paginator.num_pages }}">last &raquo;</a>
@@ -54,9 +45,7 @@
     <a class="button" href="{% url 'sendemail' student.student_code %}">Email</a>
     <a class="button" href="{% url 'students' %}">Student list</a>
     <a class="button" href="{% url 'landing' %}">Main menu</a>
-   
 </div>
-
 {% endif %}
 {% endblock %}
 

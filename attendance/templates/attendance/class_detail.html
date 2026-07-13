@@ -3,12 +3,8 @@
 {% load custom_tags %}
 
 {% block content %}
-
 {% if request.user|has_group:"teacher" %}
 <div class=>
-    
-    
-
     <div class="form-container">
         <h2>{{subject_name }}</h2>
         <table>
@@ -25,16 +21,13 @@
                 <td>{{ session.date }}</td>
                 <td class="longer-column">{{ session.session_id }}</td>
                 <td>{{ session.get_mark_display }}</td>
-                <td>{{ session.get_status_display }}</td>
-                
-                    
+                <td>{{ session.get_status_display }}</td>    
             </tr>
             {% endfor %}
         </table>
     </div>
 </div>
 <div>
-    
     <a class="button" href="{% url 'myclass' %}">Back to class list</a>
 </div>
 {% endif %}

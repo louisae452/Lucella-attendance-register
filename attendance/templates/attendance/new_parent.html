@@ -3,26 +3,20 @@
 {% load custom_tags %}
 
 {% block content %}
-
 {% if request.user|has_group:"admissions_officer" %}
-
 <div class="form-container">
     <div class="reducesize">
         <h1>Enter the parent's details.</h1>
-          
         <form method="post">
             {{ userform}}
             {% csrf_token %}
-
             <button class="button" type="submit">Save parent</button>
         </form>
-        
     </div>
     <div>
     <a class="button" href="{% url 'landing' %}">Main menu</a>
     </div>
 </div>
-
 {% else %}
     <div>
         <p>Sorry, you don't have the required permission</p>

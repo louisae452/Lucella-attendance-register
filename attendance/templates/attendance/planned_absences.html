@@ -3,14 +3,11 @@
 {% load custom_tags %}
 
 {% block content %}
-
 {% if request.user|has_group:"parent" %}
 <div class="listdiv">
     <h2 class="textcenter">Planned absences for {{child.student_name }}  {{ child.student_surname }}</h2>
-    
     {% if absences %}
     <div class="form-container">
-    
         <table>
             <tr>
                 <th>Date</th>
@@ -18,8 +15,6 @@
                 <th>Reason for absence</th>        
             </tr>    
             {% for absence in absences %}
-           
-            
             <tr>   
                 <td><a href="{% url 'plandetail' student_code=child.student_code date=absence.date session_id=absence.session_id_id %}">{{ absence.date }}</a></td>
                 <td class="longer-column">{{ absence.session_id}}</td>
@@ -31,18 +26,11 @@
         {% else %}
         <p class="textcenter">There are no planned absences for {{ child.student_name }}</p>
         {% endif %}
-   
     </div>
-    
 </div>
-
 <div class="buttons-page">
     <a class="button" href="{% url 'landing' %}">Main menu</a>
     <a class="button" href="{% url 'childdetail' child.student_code %}">Back</a>
-    
 </div>    
-
-
-
 {% endif %}
 {% endblock %}
