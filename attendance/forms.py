@@ -7,28 +7,34 @@ from django.forms import modelformset_factory
 from django.contrib.auth.models import User
 
 # Form to add a new student
+
+
 class StudentForm(forms.ModelForm):
-    """Form to add a new student. Requires parent to be a user with group parent"""
+    """Form to add a new student.
+    Requires parent to be a user with group parent"""
     class Meta:
         model = Student
-        fields = ('student_name', 'student_surname', 'student_code', 'parent_name', 'date_of_birth', 'sex', 'group', 'music_option',)
+        fields = ('student_name', 'student_surname', 'student_code',
+                  'parent_name', 'date_of_birth', 'sex', 'group',
+                  'music_option',)
         help_texts = {
-            'student_code': 'The student code is the last two digits of the year of birth, month of birth, first two letters of surname followed by first two letters of name in capitals.',
+            'student_code': 'The student code is the last two digits'
+            'of the year of birth, month of birth, first two letters'
+            'of surname followed by first two letters of name in capitals.',
         }
         widgets = {
             'parent_name': forms.Select(attrs={'class': 'choicebox'}),
             'sex': forms.Select(attrs={'class': 'choicebox'}),
             'group': forms.Select(attrs={'class': 'choicebox'}),
             'music_option': forms.Select(attrs={'class': 'choicebox'}),
-            
-        }           
-
+        }
                   
 class UserForm(forms.ModelForm):
     """Form to add a new user."""
     first_name = forms.CharField(max_length=150, required=True)
     last_name = forms.CharField(max_length=150, required=True)
     email = forms.EmailField(required=True)
+    
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password',)

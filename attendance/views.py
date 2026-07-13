@@ -88,7 +88,7 @@ class LandingView(TemplateView):
 def add_parent(request):
     """
     Adds a new parent user
-    Displays an individual instance of:model:`User
+    Displays an individual instance of:model:`auth.User`
     **Context**
     ``userform``
         An instance of :form:`attendance.UserForm`
@@ -181,7 +181,7 @@ def add_student(request):
 def add_teacher(request):
     """
     Adds a new teacher user
-    Displays an instance of :mode;:`User`
+    Displays an instance of :model:`Auth.User`
     **Context**
     ``userform``
         An instance of :form:`attendance.UserForm``
@@ -1109,6 +1109,6 @@ def give_reason(request, student_code, date, session_id):
         {
             'child': child,
             'absence': absence,
-            'reasonform': reasonform,       
+            'reasonform': reasonform,
         }
     )
