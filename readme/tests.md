@@ -338,6 +338,17 @@ Samsung Galaxy S25 phone:
 <img alt="S25 timetable landscape" src="images/s25/s25_timetable_horizontal.jpg"> &nbsp; &nbsp; <img alt="S25 timetable portrait" src="images/s25/s25_timetable_vertical.jpg">
 
 
+# Validation
+
+## HTML
+
+All html pages were run through the [W3C HTML validator](https://validator.w3.org/#validate_by_input). Errors were corrected.
+One warning remains in absence_detail. This refers to the empty box in the form when a parent has not given a reason for their child absence.
+
+![Empty box warning](images/empty_box_warning.jpg)
+
+
+
 
 
 
