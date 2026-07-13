@@ -158,6 +158,7 @@
 |11/07/2026|Givereason page not accessible for no user|On browser, type address for an existing child's absence on address bar|403.html loads. 'Main menu' leads to home page|Pass|--|
 |12/07/2026|Planned absences list not accessible to non user|On browser, type address of an existing child's list of planned absences|403.html loads. 'Main menu' leads to home page|Pass|--|
 |12/07/2026|Planned absence detail page not accessible to non user|On browser, type address of a planned absence for an existing child|403.html loads.'Main menu' leads to home page|Pass|--|
+|13/-7.2026|saveregister not accessible to non users|On browser, type address of saveregister page on address bar|403.html loads. 'Main menu' leads to home page|Pass|--|
 
 
 Further security tests can be seen in automated tests.
@@ -200,11 +201,11 @@ Further security tests can be seen in automated tests.
 |11/07/2026|'Hide' on timetable B  hides timetable B|On timetable B, click on 'Hide'.|Timetable B disappears|Pass|--|
 |11/07/2026|Button 'A' on register page shows timetable A and hides timetable B if it is showing|Click on button'B'. Click on button'A'|On clicking on button 'A', timetable B disappears and timetable A shows|Pass|--| 
 |11/07/2026|Button 'B' on register page shows timetable B and hides timetable A if it is showing|Click on button'A'. Click on button'B'|On clicking on button 'B', timetable A disappears and timetable B shows|Pass|--|
-
-
-
+|13/07/2026|Class register loads|On register page, enter details of an existing session for the day. Click 'Go to register'|The saveregister loads|Pass|--|
+|13/07/2026|savegister submits correctly|Fill in form in saveregister. Click on 'Save Register'|Data is saved. Teacher landing loads with success message|Fail|Add success message| 
+|13/07/2026|savegister submits correctly|Fill in form in saveregister. Click on 'Save Register'|Data is saved. Teacher landind loads with success message|Pass|--| 
 |11/07/2026|'Pending absences' button|Click on 'Pending absences' button|403.html appears. 'Main menu' button leads back to teacher landing|Pass|--|
-|11/07/2026|'Truantin students' button|Click on 'Truanting students' button|430.html appeas. 'Main menu' button leads back to teacher landing|Pass|
+|11/07/2026|'Truanting students' button|Click on 'Truanting students' button|430.html appeas. 'Main menu' button leads back to teacher landing|Pass|
 |11/07/2026|'See my class' button|Click on 'See my class'button|myclass page appear|Pass|--|
 |11/07/2026|myclass page|Select a subject on menu. Click on 'Get my class' button|Class list should show|Fail|Fix ZeroDivisionError on get_class view|
 |11/07/2026|my class page|Select a subject on menu. Click on 'Get my class' button|Class list should show|Pass|--|
@@ -244,7 +245,8 @@ Further security tests can be seen in automated tests.
 |11/07/2026|absence detail|On pendingabsences page, click on an absence link|Individual absence page loads|Pass|--|
 |11/07/2026|review individual unauthorised absence|On absence detail, deam an absence as unauthorised. click on 'save'|Email is sent to parent. Data is savved. Pending absences page loads whith success message|Pass|
 |11/07/2026|Review individual authorised absence|On absence detail, authorise the absence|Data is saved. Pending absences page loads with sucess message|Pass|--|
-|11/07/2026|'Truanting students' button|
+|13/07/2026|'Truanting students' button|On teacher landing, click on 'Truanting students'.|The list of today's truanting students appears|Pass|--|
+|13/07/2026|'Send email' button|On truanting page, click on 'Send email'|An email to each student's parent on the list is sent. Teacher page loads with success mesage|Pass|--|
 
 
 ## Parent landing page.
@@ -297,3 +299,61 @@ The following issues were reported by users.
 |12/07/2026|Phone field entries do not validate correctly|parentdata.html, teacherdata.html|ParentForm, TeacherForm|Updated phone fields in models to CharField, updated forms to only accept phoneformat|
 |No feedback when there are no truanting students|truanting.html|--|Added message to empty list|
 |12/07/2026|It is not possible to delete a planned absence|planned_absences.html, plan_detail.html|planned_absences, plan_detail|Created new views and templates|
+|13/-7/2026|Messages difficult to see|base.html|--|Encased messages in a box|
+
+
+# Responsiveness
+
+The game was tested on the following devices:
+
+Inspiron 16 laptop:
+
+![Inspiron attendance record ](images/inspiron/inspiron_attendance_record.jpg)
+![Inspiron student list](images/inspiron/inspiron_studentlist.jpg)
+
+<br>
+
+![Inspiron get register](images/inspiron/inspiron_getregister.jpg)
+![Inspiron timetable](images/inspiron/inspiron_timetable.jpg)
+
+Ipad Air 5th generation:
+
+<img src="images/apple/apple_getregister_horizontal.png" alt="Apple get register landscape"> &nbsp; &nbsp; <img src="images/apple/apple_register_vertical.png" alt="Apple get regoster portrait">
+
+<img src="images/apple/apple_record_horizontal.png" alt="Apple record landscape"> &nbsp; &nbsp; <img src="images/apple/apple_record_vertical.png" alt="Apple record portrait">
+
+<img src="images/apple/apple_studentlist_horizontal.png" alt="Apple student list landscape"> &nbsp; &nbsp; <img src="images/apple/apple_studentlist_vertical.png" alt="Apple student list portait">
+
+<img src="images/apple/apple_timetable_horizontal.png" alt="Apple timetable landscape"> &nbsp; &nbsp; <img src="images/apple/apple_timetable_vertical.png" alt="Apple timeetable portrait">
+
+
+Samsung Galaxy S25 phone:
+
+
+
+<img alt ="S25 get register landscape" src="images/s25/s25_getregister_horizontal.jpg"> &nbsp; &nbsp; <img alt="S25 get register portrait" src="images/s25/s25_getregister_vertical.jpg">
+
+<img alt="S25 student list landscape" src="images/s25/s25_studentlist_horizontal.jpg"> &nbsp; &nbsp; <img alt="S25 student list portrait" src="images/s25/s25_studentlist_vertical.jpg">
+
+<img alt="S25 timetable landscape" src="images/s25/s25_timetable_horizontal.jpg"> &nbsp; &nbsp; <img alt="S25 timetable portrait" src="images/s25/s25_timetable_vertical.jpg">
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+

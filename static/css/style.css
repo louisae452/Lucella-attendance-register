@@ -90,6 +90,11 @@ i {
 
 .alert-box{
     margin-left: 15px;
+    border: 2px solid var(--forest-green);
+    background-color: var(--pink);
+    border-radius: 5px;
+    width: fit-content;
+    padding: 5px;
 }
 
 form label {
@@ -459,6 +464,7 @@ textarea {
     z-index: 3;
     background-color: var(--pink);
     padding: 5px;
+    border: 2px solid var(--forest-green);
     border-radius: 5px;
 }
 .timetableav, .timetablebv {
@@ -468,12 +474,15 @@ textarea {
     z-index: 3;
     background-color: var(--pink);
     padding: 5px;
+    border: 2px solid var(--forest-green);
     border-radius: 5px;
+
 }
 
 .timetable-top {
     display: grid;
     grid-template-columns: auto auto;
+    
 }
 .hide-button, .info-button {
     width: 50px;

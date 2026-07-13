@@ -73,8 +73,8 @@ def landing_router(request, *args, **kwargs):
         return LandingView.as_view()(request, *args, **kwargs)
     else:
         return redirect('home')
-    
-# Teacher's pages.   
+
+# Teacher's pages.
 @method_decorator(login_required, name='dispatch')
 class LandingView(TemplateView):
     """
@@ -354,7 +354,7 @@ def sendemail(request, student_code):
     if not (request.user.is_authenticated and request.user.groups.filter(
             name='attendance_officer').exists()):
         raise PermissionDenied(
-            "Only the Attendance Officer has access to this page")    
+            "Only the Attendance Officer has access to this page")
     student = get_object_or_404(Student, student_code=student_code)
     studentcode = student_code
     studentname = student.student_name
@@ -447,14 +447,14 @@ def get_register(request):
                     student_record = DailyRegister.objects.filter(
                         session_id=currentsessionid, date=today,
                         student_code=student).exists()
-                    if not student_record: 
+                    if not student_record:
                         new_record = DailyRegister(session_id=currentsessionid,
                                                    date=today,
                                                    student_code=student
                                                    )
                         new_record.save()
                 #  Get ids for all the DailyRegister records for
-                # current session and set.      
+                # current session and set.
                 new_records_ids = list(DailyRegister.objects.filter(
                     date=today,
                     session_id=currentsessionid).values_list('id', flat=True))
@@ -505,9 +505,11 @@ def saveregister(request):
                 instance = form.save(commit=False)
                 if instance.mark == 1:
                     instance.status = 1
-                instance.save()           
-        del request.session['filtered_new_records_ids']        
-        return redirect('landing')
+                instance.save()
+            
+            del request.session['filtered_new_records_ids']
+            messages.success(request, "Register successfully saved")
+            return redirect('landing')
     return render(
         request,
         "attendance/daily_register.html",
@@ -699,7 +701,7 @@ def get_class(request):
         classlist = GetclassForm(data=request.POST)
         if classlist.is_valid():
             group = classlist.cleaned_data['subject_name']
-            subject = get_object_or_404(Subject, subject_name=group)     
+            subject = get_object_or_404(Subject, subject_name=group)
             if subject.set == 0 or subject.set == 1:
                 students = Student.objects.filter(
                     group=subject.set, deregistered=False)
@@ -1002,7 +1004,7 @@ def plan_detail(request, student_code, date, session_id):
                 'The absence whas been successfully deleted')
             return redirect('plannedabsences', student_code=student_code)
         reasonform = GivereasonForm(data=request.POST, instance=absence)
-        
+
         if reasonform.is_valid():
             reasonholder = reasonform.save(commit=False)
             # changes status back to pending.
@@ -1010,14 +1012,14 @@ def plan_detail(request, student_code, date, session_id):
             reasonholder.save()
             messages.success(request, 'Absence saved successfully!')
         return redirect('plannedabsences', student_code=student_code)
-    reasonform = GivereasonForm(instance=absence)            
+    reasonform = GivereasonForm(instance=absence)
     return render(
         request,
         "attendance/plan_detail.html",
         {
             'child': child,
             'absence': absence,
-            'reasonform': reasonform,       
+            'reasonform': reasonform,
         }
     )
 
@@ -1050,7 +1052,7 @@ def child_record(request, student_code):
     presentdays = DailyRegister.objects.filter(
         student_code__student_code=student_code, mark=0).count()
     totaldays = DailyRegister.objects.filter(
-        student_code__student_code=student_code).count() 
+        student_code__student_code=student_code).count()
     attendancepercentage = round(((presentdays/totaldays)*100), 2)
     # To show the subject rather than the __str__
     for child in child_records:
@@ -1102,7 +1104,7 @@ def give_reason(request, student_code, date, session_id):
             reasonholder.save()
             messages.success(request, 'Absence saved successfully!')
         return redirect('childrecord', student_code=student_code)
-    reasonform = GivereasonForm(instance=absence)            
+    reasonform = GivereasonForm(instance=absence)
     return render(
         request,
         "attendance/give_reason.html",

@@ -154,13 +154,12 @@ On clicking on the required child, a page with their timetable and link to atten
 
 Clicking on a slot in the timetable opens a page in which the parent can report an intended absence on that slot.
 
-![Future absence detail](readme/images/features/)PICTURE
+![Future absence detail](readme/images/features/report_absence.jpg)
 
 The planned absences button shows a list of all planned future absences for a child. Clicking on an individual abscence, it is possible to update or delete it if plans have changed.
 
-![Planned absences list]
-
-![Update or delete a planned absence]
+![Planned absences list](readme/images/features/planed_absences.jpg)
+![Update or delete a planned absence](readme/images/features/update_planned.jpg)
 
 By following the attendance record, the childs attendance record appears and the parent can explain an absence in the past.
 
@@ -266,15 +265,23 @@ Student_detail stopped working. Was fixed by reorganising the url order, ensurin
 
 daily_register.html shows the students registered for a particular session. The drop down menu allows the teacher to mark each of the students as present or absent. When the drop down menu is used, the highlight colour is still the blue from the browser, rather that the pink colour (consinstent with the brand colours) all the other dropboxes have. This is due to the dropboxes being part of a formset rather than a simple form. While the text colour was changed to its intended green forest, neither the highlight colour nor the dropbox border settings were able to be changed during this project.
 
-![Dropbox in formset](readme/images/Bugs/formsetdropbox.jpg)  ![Dropbox in form](/readme/images/Bugs/formdropbox.jpg)
+![Dropbox in formset](readme/images/bugs/formsetdropbox.jpg)  ![Dropbox in form](/readme/images/bugs/formdropbox.jpg)
+
+After sending emails to parents of truanting students, a success message appears for each of the emails sent. Several options suggested by AI were tested, but none of them worked.
+
+![Muliple success messages](readme/images/bugs/truanting_bug.jpg)
 
 
 ## Frameworks, packages and libraries.
 
-For version control. [HitHub](https://www.github.com)
--Heroku
+To build the site : Django
 
-- Django 
+For version control: [HitHub](https://www.github.com)
+
+To deploy the site : [Heroku](https://dashboard.heroku.com/apps)
+
+
+
 - Gunicorn
 - Witenoise
 
