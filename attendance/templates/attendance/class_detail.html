@@ -4,7 +4,7 @@
 
 {% block content %}
 {% if request.user|has_group:"teacher" %}
-<div class=>
+<div>
     <div class="form-container">
         <h2>{{subject_name }}</h2>
         <table>
@@ -26,9 +26,9 @@
             {% endfor %}
         </table>
     </div>
-</div>
-<div>
-    <a class="button" href="{% url 'myclass' %}">Back to class list</a>
+    <div>
+        <a class="button" href="{% url 'myclass' %}">Back to class list</a>
+    </div>
 </div>
 {% endif %}
 {% endblock %}

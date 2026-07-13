@@ -10,9 +10,9 @@
         <h1>Student's information</h1>
         <p> Ensure parent has been registered before attempting to register student</p>
         <form method="post">
-            {{ studentform }}
             {% csrf_token %}
-            <button class="button" type="submit">Save student</buttton>
+            {{ studentform }}
+            <button class="button" type="submit">Save student</button>
         </form>
     </div>
     <div>
@@ -21,7 +21,7 @@
 </div>
 {% else %}
 <div>
-    <p> Sorry, you dont't have the required permission</p>
+    <p> Sorry, you don't have the required permission</p>
     <a class="button" href="{% url 'landing' %}">Main menu</a>
 </div>
 {% endif %}

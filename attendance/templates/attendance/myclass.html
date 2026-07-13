@@ -8,11 +8,12 @@
     <div class="reducesize">
         <h1>Enter the class' details.</h1>
         <form method="post">
-            {{ classlist }}
             {% csrf_token %}
+            {{ classlist }}
             <button class="button" type="submit">Get my class</button>
         </form>
     </div>
+    <div>
         <a class="button" href="{% url 'landing' %}">Main menu</a>
     </div>
 </div>

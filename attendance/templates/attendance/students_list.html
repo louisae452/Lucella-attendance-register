@@ -24,15 +24,14 @@
             <td>{{ student.get_group_display }}</td>
             <td>{{ student.get_music_option_display }}</td>
             <td class="redalert">{{ student.attendancepercentage }}</td>
-        <tr>
+        </tr>
         {% endfor %}
     </table>
     {% endif %}
     </div>
-<div>
-<div class="turn-message" id="turn-message">
-    <h1>Please, <br>turn your device <br>round!</h1>
-</div> 
+    <div class="turn-message" id="turn-message">
+        <h1>Please, <br>turn your device <br>round!</h1>
+    </div> 
 <div>   
     <a class="button" href="{% url 'landing' %}">Main menu</a>
 </div>

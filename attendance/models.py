@@ -128,7 +128,7 @@ class Timetable(models.Model):
 MARK = ((0, 'Present'), (1, 'Absent'), (2, 'Not recorded '))
 STATUS = ((0, 'N/A'), (1, 'Pending'), (2, 'Authorised'), (3, 'Unauthorised'))
 ABSENCECODE = ((0, 'Medical'), (1, 'Educational activity'),
-               (2, 'Unauthorised'), (3, ' '))
+               (2, 'Unauthorised'), (3, '-- '))
 
 
 class DailyRegister(models.Model):

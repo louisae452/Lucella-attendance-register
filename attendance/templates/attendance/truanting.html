@@ -18,14 +18,14 @@
             <tr>  
                 <td class="medium-column">{{ student.student_code}}</td>
                 <td class="longer-column">{{ student.session_id }}</td> 
-            <tr>
+            </tr>
             {% endfor %}
         </table>
     </div>
     <div>
         <form method="post">  
             {% csrf_token %}
-            <button class="button" type="submit" href="{% url 'landing'%}">Send email </button>
+            <button class="button" type="submit">Send email </button>
         </form>
     </div>
     {% else %}

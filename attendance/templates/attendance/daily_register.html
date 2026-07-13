@@ -14,8 +14,10 @@
             <table>
                 {% for form in register %}
                 <tr>
-                    {{ form.id }}
-                    <td>{{ form.student_code }}</td>
+                    <td>
+                        {{ form.id }}
+                        {{ form.student_code }}
+                    </td>
                     <td>{{ form.mark }}</td>
                 </tr>
                 {% endfor %}

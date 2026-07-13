@@ -11,18 +11,24 @@
     <!-- Custom Css-->
      <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
-{% block content %}
-<header>
+<body>
+    
+    <header>
         <div id="header">
-            <img src="{% static 'images/logogreen.svg' %}"" alt="Lucella High School logo" width="50" height="50">
+            <img src="{% static 'images/logogreen.svg' %}" alt="Lucella High School logo" width="50" height="50">
             <h1>Lucella High school</h1> 
         </div>
     </header>
-<div>
-    <h2> {{ studentname}} {{studentsurname}},</h2>
-    {{ text | safe}}
-</div>
-{% endblock %}
-<footer>
-    <a href="mailto:lucellahighschool@gmail.com"> lucellahighschool@gmail.com</a>
-</footer>
+    <main>
+        {% block content %}   
+        <div>
+            <h2> {{ studentname}} {{studentsurname}},</h2>
+            {{ text | safe}}
+        </div>
+        {% endblock %}
+    </main>
+    <footer>
+        <a href="mailto:lucellahighschool@gmail.com"> lucellahighschool@gmail.com</a>
+    </footer>
+</body>
+</html>
