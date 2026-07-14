@@ -1,4 +1,7 @@
 # Automated testing.
+
+The following automated tests were carried out:
+
 ## Forms.
 |Date|Form|Test|Result|Follow-up|
 |:----|:----|:------|:------|:-------|
@@ -130,7 +133,7 @@
 
 # Manual testing
 
-|10/07/2026| pending absence detail.  form crashes when the dropbox is filled with ---- Eliminate that forom dropbox menu. (eliminate blank=True from model)| Form can only be filled with a proper choice.
+The following manual tests were carried out:
 
 ## Security
 
@@ -181,7 +184,7 @@ Further security tests can be seen in automated tests.
 |10/07/2026|Correct sign in|In login page, enter incorrect Username and password|Page resets|Pass|--|
 
 ## Teacher landing page. 
-###Teacher user.
+### Teacher user.
 |Date|Test|Method|Expected result|Result|Follow up|
 |:--|:--|:--|:--|:--|:--|
 |10/07/2026|Not accessible for non users|In browser, type page address on address bar|Home page loads|Pass|--|
@@ -226,7 +229,6 @@ Further security tests can be seen in automated tests.
 |11/07/2026|newteacher page|Fill form with suitable data. Click on 'Save teacher'|teacherdata page loads with sucess message|Pass|--|
 |11/07/2026|teacherdata page|Fill form with suitable data. Click on 'Save data'|Data is saved. Teacher landing page loads with success message|Pass|--|
 |11/07/2026|'Pending absences' button|Click on 'Pending absences' button|403.html loads. 'Main menu' button leads to teacher landing|Pass|--|
-
 |11/07/2026|'Truanting students' button|Click on 'Truanting students' button|403.html loads. 'Main menu' button leads to teacher landing|Pass|--|
 
 ### Attendance Officer user.
@@ -277,6 +279,9 @@ Note: Automated tests for all forms have been done. Manual tests for forms have 
 - Users can log onto the site and see the appropriate pages.
 - The Admission's Officer can see the list of all the registered students. They can register and deregister students. They can also register teachers.
 - The Attendance Officer can see all pending absences and review them. They can email the parent when they unauthorise an absence and when their child's attendance is below the recommended levels.
+
+&ensp; &ensp; &ensp; [Email to communicate an unauthorised absence](images/email.png)
+
 - The Attendance Officer can also see a list of the students truanting on a specific day and email their parents.
 - Teachers can pull up the register for the session occurring and register their students. They can see their students' attendance over the year.
 - Parents can see their child's timetable and report an absence for a time that has not yet happened.They can see the list of planned absences and update or delete absences as required. They can see their child's attendance record over the year and explain an absence that took place in the past.
@@ -299,7 +304,8 @@ The following issues were reported by users.
 |12/07/2026|Phone field entries do not validate correctly|parentdata.html, teacherdata.html|ParentForm, TeacherForm|Updated phone fields in models to CharField, updated forms to only accept phoneformat|
 |No feedback when there are no truanting students|truanting.html|--|Added message to empty list|
 |12/07/2026|It is not possible to delete a planned absence|planned_absences.html, plan_detail.html|planned_absences, plan_detail|Created new views and templates|
-|13/-7/2026|Messages difficult to see|base.html|--|Encased messages in a box|
+|13/07/2026|Messages difficult to see|base.html|--|Encased messages in a box|
+|14/07/2026|Login button on home page not easy to see|base.html, home.html|--|Moved login button to header|
 
 
 # Responsiveness
@@ -342,10 +348,78 @@ Samsung Galaxy S25 phone:
 
 ## HTML
 
-All html pages were run through the [W3C HTML validator](https://validator.w3.org/#validate_by_input). Errors were corrected.
-One warning remains in absence_detail. This refers to the empty box in the form when a parent has not given a reason for their child absence.
+The following html pages were run through the [W3C HTML validator](https://validator.w3.org/#validate_by_input). 
+
+- attedance/templates/attendance/absence_detail.html
+- attendance/templates/attendance/child_record.html
+- attendance/templates/attendance/child_timetable
+- attendance/templates/attendance/class_detail
+- attendance/templates/attendance/class_list
+- attendance/templates/attendance/daily_register
+- attendance/templates/attendance/email.html
+- attendance/templates/attendance/get_register.html
+- attendance/templates/attendance/give_reason.html
+- attendance/templates/attendance/home.html
+- attendance/templates/attendance/landing.html
+- attendance/templates/attendance/myclass.html
+- attendance/templates/attendance/new_parent.html
+- attendance/templates/attendance/new_student.html
+- attendance/templates/attendance/new_teacher.html
+- attendance/templates/attendance/parentdata.htm
+- attendance/templates/attendance/pending_absences.html
+- attendance/templates/attendance/plan_detail.html
+- attendance/templates/attendance/planned_absences.html
+- attendance/templates/attendance/remove_students.html
+- attendance/templates/attendance/report_absence.html
+- attendance/templates/attendance/sendemail.html
+- attendance/templates/attendance/student_detail.html
+- attendance/templates/attendance/students_list.html
+- attendance/templates/attendance/subject3_email.html
+- attendance/templates/attendance/teacherdata.htm.
+- attendance/templates/attendance/truanting.html
+- templates/base.html
+- templates/403.html
+- templates/404.html
+- templates/account/login.html
+- templates/account/logout.html
+
+All errors were corrected.
+One warning remains in absence_detail.html. This refers to the empty box in the form when a parent has not given a reason for their child absence. As the object of the box is to show whether a reason has been given for an absence, it was left.
 
 ![Empty box warning](images/empty_box_warning.jpg)
+
+## CSS
+
+static/css/styles.css was validated with the [w3 CSS validator](https://jigsaw.w3.org/css-validator/validator.html).
+
+All errors or warnings found were corrected.
+
+## JavaScript
+
+static/js/script.js was validated with [js Lint](https://www.jslint.com/).
+
+All errors or warnings found were corrected.
+
+## Python
+
+The Python code was validated with [Code Institute CI Python Linter](https://pep8ci.herokuapp.com/#).
+
+The following files were tested:
+
+- attendance/admin.py
+- atendance/apps.py
+- attendance/forms.py
+- attendance/models.py
+- attendance/test_forms.py
+- attendance/test_views.py
+- attendance/urls.py
+- attendance/views.py
+- lucella_attendance/settings.py
+- lucella_attendance/urls.py
+
+All errors found were corrected.
+
+## Lighthouse
 
 
 

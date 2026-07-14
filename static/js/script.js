@@ -1,122 +1,132 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
 
-// Code written with AI to override browser's default blue colour in dropdown menus 
-    const targetDropdownIds = ['id_subject', 'id_parent_name', 'id_teacher_name', 'id_day', 'id_session', 'id_subject_name', 'id_status', 'id_code', 'id_mark', 'id_sex', 'id_group', 'id_music_option'];
-    targetDropdownIds.forEach(id => {
-        const element = document.getElementById(id);
-        // Safety check: Only initialize if the specific element exists on this page
+// Code written with AI to override browser's default blue
+//  colour in dropdown menus
+    let targetDropdownIds = [
+        "id_subject",
+        "id_parent_name",
+        "id_teacher_name",
+        "id_day",
+        "id_session",
+        "id_subject_name",
+        "id_status",
+        "id_code",
+        "id_mark",
+        "id_sex",
+        "id_group",
+        "id_music_option"
+    ];
+    targetDropdownIds.forEach(function (id) {
+        let element = document.getElementById(id);
+        // Safety check: Only initialize if the specific element
+        //  exists on this page
         if (element) {
-            new Choices(element, {
-                searchEnabled: false, 
-                itemSelectText: '',   
+            new window.Choices(element, {
+                itemSelectText: "",
+                searchEnabled: false
             });
-            console.log(`Choices.js successfully initialized for #${id}!`);
-        } else {
-            // Optional: Changed to log instead of error so missing elements don't look like critical bugs
-            console.log(`Choices.js skipped #${id} (Element not found on this page).`);
         }
     });
  // End of AI code
-    
+
     // Highlights low attendance percentages.
-    let alerts = document.querySelectorAll('.redalert');
+    let alerts = document.querySelectorAll(".redalert");
     const orange = 90;
     const red = 80;
-    alerts.forEach(number =>{
+    alerts.forEach(function (number) {
         let percentage = parseFloat(number.textContent);
         if (percentage < red) {
-            number.style.color='var(--red-alert)';
-        }else if  (percentage < orange) {
-            number.style.color = 'var(--orange-alert)';
-        
+            number.style.colo = "var(--red-alert)";
+        } else if (percentage < orange) {
+            number.style.color = "var(--orange-alert)";
+
         }
     });
 
     // Show timetable info
-    
-    let buttona =  document.getElementById("buttona");
+
+    let buttona = document.getElementById("buttona");
     let timetablea = document.getElementById("timetablea");
-    let timetableav = document.getElementById("timetableav")
-    let buttonb =  document.getElementById("buttonb");
-    let timetableb = document.getElementById("timetableb")
-    let timetablebv = document.getElementById("timetablebv")
+    let timetableav = document.getElementById("timetableav");
+    let buttonb = document.getElementById("buttonb");
+    let timetableb = document.getElementById("timetableb");
+    let timetablebv = document.getElementById("timetablebv");
 
-if (buttona && timetablea && timetableav && buttonb && timetableb && timetablebv) {
-        buttona.addEventListener("click", function() {   
-            timetablea.classList.remove('hidden');
-            timetableav.classList.remove('hidden');
-            timetableb.classList.add('hidden');
-            timetablebv.classList.add('hidden');
-        })
+    if (
+        buttona
+        && timetablea
+        && timetableav
+        && buttonb
+        && timetableb
+        && timetablebv
+    ) {
+        buttona.addEventListener("click", function () {
+            timetablea.classList.remove("hidden");
+            timetableav.classList.remove("hidden");
+            timetableb.classList.add("hidden");
+            timetablebv.classList.add("hidden");
+        });
         let hidea = document.getElementById("hidea");
-        hidea.addEventListener("click", function(){
-            timetablea.classList.add('hidden');
-            timetableav.classList.add('hidden');
-            timetableb.classList.add('hidden');
-            timetablebv.classList.add('hidden');
-
-
+        hidea.addEventListener("click", function () {
+            timetablea.classList.add("hidden");
+            timetableav.classList.add("hidden");
+            timetableb.classList.add("hidden");
+            timetablebv.classList.add("hidden");
         });
         let hideav = document.getElementById("hideav");
-        hideav.addEventListener("click", function() {
-            timetablea.classList.add('hidden');
-            timetableav.classList.add('hidden');
-            timetableb.classList.add('hidden');
-            timetablebv.classList.add('hidden');
-
-
-        })
-        buttonb.addEventListener("click", function() {   
-            timetableb.classList.remove('hidden');
-            timetablebv.classList.remove('hidden');
-            timetablea.classList.add('hidden');
-            timetableav.classList.add('hidden');
-        })
+        hideav.addEventListener("click", function () {
+            timetablea.classList.add("hidden");
+            timetableav.classList.add("hidden");
+            timetableb.classList.add("hidden");
+            timetablebv.classList.add("hidden");
+        });
+        buttonb.addEventListener("click", function () {
+            timetableb.classList.remove("hidden");
+            timetablebv.classList.remove("hidden");
+            timetablea.classList.add("hidden");
+            timetableav.classList.add("hidden");
+        });
         let hideb = document.getElementById("hideb");
-        hideb.addEventListener("click", function(){
-            timetablea.classList.add('hidden');
-            timetableav.classList.add('hidden');
-            timetableb.classList.add('hidden');
-            timetablebv.classList.add('hidden');
-
-        })
+        hideb.addEventListener("click", function () {
+            timetablea.classList.add("hidden");
+            timetableav.classList.add("hidden");
+            timetableb.classList.add("hidden");
+            timetablebv.classList.add("hidden");
+        });
         let hidebv = document.getElementById("hidebv");
-        hidebv.addEventListener("click", function() {
-            timetablea.classList.add('hidden');
-            timetableav.classList.add('hidden');
-            timetableb.classList.add('hidden');
-            timetablebv.classList.add('hidden');
-
-        })
-    };  
+        hidebv.addEventListener("click", function () {
+            timetablea.classList.add("hidden");
+            timetableav.classList.add("hidden");
+            timetableb.classList.add("hidden");
+            timetablebv.classList.add("hidden");
+        });
+    }
     // Delete modal box.
     let absencedelete = document.getElementById("absencedelete");
-    let deletebox=document.getElementById("deletebox");
+    let deletebox = document.getElementById("deletebox");
     let cancelbutton = document.getElementById("cancelbutton");
     let deletebutton = document.getElementById("deletebutton");
     let plannedform = document.getElementById("plannedform");
-    if (absencedelete && deletebox && cancelbutton && deletebutton && plannedform) {
-        absencedelete.addEventListener("click", function() {
+    if (
+        absencedelete
+        && deletebox
+        && cancelbutton
+        && deletebutton
+        && plannedform
+    ) {
+        absencedelete.addEventListener("click", function () {
             deletebox.style.visibility = "visible";
         });
-        cancelbutton.addEventListener("click", function() {
-            deletebox.style.visibility = "hidden"
-
+        cancelbutton.addEventListener("click", function () {
+            deletebox.style.visibility = "hidden";
         });
-        deletebutton.addEventListener("click", function() {
+        deletebutton.addEventListener("click", function () {
             let newinput = document.createElement("input");
-            newinput.type="hidden";
-            newinput.name="action";
-            newinput.value="delete";
+            newinput.type = "hidden";
+            newinput.name = "action";
+            newinput.value = "delete";
             plannedform.appendChild(newinput);
             plannedform.submit();
         });
-    };
-
-    
-
-
-
-
-
+    }
 });

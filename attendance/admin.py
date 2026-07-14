@@ -8,9 +8,10 @@ from .models import (
 
 @admin.register(Email)
 class EmailAdmin(SummernoteModelAdmin):
-    list_display = ['subject',]
-    search_fields = ['subject',]
-    summernote_fields = ('text')
+    """Admin configuaration for :model:`attendance.Email`"""
+    list_display = ['subject', ]
+    search_fields = ['subject', ]
+    summernote_fields = ('text',)
 
 
 admin.site.register(Student)

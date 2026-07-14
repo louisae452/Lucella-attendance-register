@@ -204,7 +204,7 @@ Below is a detailed list of all the views used.
 |plan_detail|parent|GiveReasonForm|plan_detail.html|Allows parent to update or delete a planned absence|planned_absences.html||
 |child_record|parent|--|child_record.html|Allows parent to see child's attendance record|give_reason.html|
 |give_reason|parent|GiveReasonForm|give_reason.html|Allows parent to enter a reason for an absence that has already happened|child_record.html|
-|
+
 
 
 
@@ -274,7 +274,21 @@ After sending emails to parents of truanting students, a success message appears
 
 ## Frameworks, packages and libraries.
 
-To build the site : Django
+To build the site : django 
+
+To provide a WSGI server: gunicorn 
+
+To serve static files: whitenoise 
+
+To access the data in the data base: psycopg2
+
+To provide a rich-text editor: django-summernote
+
+For enhanced authentification: django-allauth
+
+To run automated tests: pytest
+
+To override the browser's default blue colour in dropdown menues: Choice.js
 
 For version control: [HitHub](https://www.github.com)
 
@@ -282,10 +296,9 @@ To deploy the site : [Heroku](https://dashboard.heroku.com/apps)
 
 
 
-- Gunicorn
-- Witenoise
 
-- To override the browser's default blue colour in dropdown menues: Choice.js
+
+
 - To choose icons: [Font Awesome](https://fontawesome.com/).
 - To convert image to webp: [ToWebP](https://towebp.io/)
 - To convert logo to svg: [Kittl}(https://www.kittl.com/tools/svg-converter)]

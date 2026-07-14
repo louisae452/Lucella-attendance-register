@@ -12,7 +12,6 @@
     --orange-alert: #b49e7ac9;
 }
 
-
 /* Base.html styling */
 * {
     box-sizing: border-box;
@@ -61,12 +60,10 @@ h1, h2, h3, p {
     color: var(--dark-purple);
     margin: 5px;
 }
-
 #header h1 {
     margin: 10px;
     color: var(--mid-green);
 }
-
 .centertext {
     text-align:center;
     margin: 10px;
@@ -87,7 +84,7 @@ footer p a {
 i {
     font-size: 1.5em;
 }
-
+/*messages box*/
 .alert-box{
     margin-left: 15px;
     border: 2px solid var(--forest-green);
@@ -96,7 +93,6 @@ i {
     width: fit-content;
     padding: 5px;
 }
-
 form label {
     color: var(--dark-purple);
 }
@@ -126,7 +122,6 @@ form label {
 .turn-message h1 {
     color: var(--mid-green);
 }
-
 /*End of base.html styling */
 
 /* Home html styling */
@@ -140,14 +135,12 @@ form label {
     display: flex;
     flex-direction: column;
 }
-
 #welcome {
-    
+
     font-size: 3em;
     text-align: center;
     margin: 10px;
     color: var(--mid-green);
-
 }
 .logins {
     height: auto;
@@ -157,7 +150,6 @@ form label {
     display: flex;
     align-items: flex-end;  
 }
-
 .button {
     width: 100px;
     height: 50px;
@@ -179,14 +171,11 @@ form label {
     display:grid;
     grid-template-columns: auto auto auto auto auto;
     justify-content: center;
-
 }
 .reducesize .buttons-page {
     display: grid !important;
     grid-template-columns: auto auto;
 }
-
-
 /* End of home.html styling */
 
 .list-container {
@@ -202,9 +191,7 @@ form label {
 .home {
     position: absolute;
     top: 20vh;
-   
 }
-    
 /* tables styling */
 table {
     color: var(--forest-green);
@@ -235,11 +222,9 @@ td a:link, td a:visited {
     justify-content: center;
     margin: 20px;
 }
-
 .authpage {
     display:flex;
     flex-direction: column;
-    
     text-align: center;
 }
 #outform {
@@ -256,7 +241,6 @@ td a:link, td a:visited {
     justify-content: center;
     flex-direction: column;
     margin: 20px;
-    
 }  
 .reducesize div {
     display: flex;
@@ -276,8 +260,6 @@ td a:link, td a:visited {
 .pagination {
     margin: 10px;
 }
-
-
 .formcenter {
     display: flex;
     justify-content: center;
@@ -295,8 +277,6 @@ form {
     width:70%;
     justify-content: center;
     flex-direction: column;
-
-
 }
 form div {
     width: 70%;
@@ -314,12 +294,9 @@ form  input, form select {
     height: 30px;
     color: var(--purple);
     background-color:transparent;
-
 }
-
 textarea {
     height: 75px;
-
 }
 .box {
     padding: 10px;
@@ -327,7 +304,6 @@ textarea {
     border-width: 2px;
     border-color: var(--forest-green);
     border-radius: 5px;
-     
 }
 .inlinebutton {
     display: grid;
@@ -350,14 +326,10 @@ textarea {
     border: 2px solid var(--forest-green);
     border-radius: 5px;
     background-color: var(--barely-there-pink);
-    
-
 }
 
-
-
 /* Code written to  override the browser's blue color in dropdown menus. With AI */
-/* 1. OVERALL MAIN CONTAINER */
+/* OVERALL MAIN CONTAINER */
 .choices:has(.choicebox) {
     width: 300px !important;          
     margin-bottom: 15px;
@@ -368,7 +340,7 @@ textarea {
     box-sizing: border-box !important;
     position: relative;
 }
-/* 2. INNER CONTAINER */
+/* INNER CONTAINER */
 .choices:has(.choicebox) .choices__inner {
     background-color: transparent !important; 
     border: none !important;              
@@ -382,7 +354,7 @@ textarea {
     position: relative !important;
     box-sizing: border-box !important;
 }
-/* 3. FORCE CLOSED TEXT VISIBILITY & PERFECTLY CENTERTEXT */
+/* FORCE CLOSED TEXT VISIBILITY & PERFECTLY CENTERTEXT */
 .choices:has(.choicebox) .choices__list--single {
     padding: 0 !important;
     margin: 0 !important;
@@ -413,7 +385,7 @@ textarea {
     background: transparent !important;
     -webkit-text-fill-color: var(--purple) !important;
 }
-/* 4. DROPDOWN LIST MENU OPTIONS */
+/*  DROPDOWN LIST MENU OPTIONS */
 .choices:has(.choicebox) .choices__list--dropdown {
     background-color: var(--barely-there-pink) !important;
     border: 2px solid var(--forest-green) !important;
@@ -426,7 +398,7 @@ textarea {
 }
 /* Keep dropdown menu item text separate from closed box text */
 .choices:has(.choicebox) .choices__list--dropdown .choices__item {
-    color: var(-purple) !important; 
+    color: var(--purple) !important; 
     -webkit-text-fill-color: var(--purple) !important;
     font-size: 14px;
     font-weight: normal;
@@ -437,7 +409,7 @@ textarea {
     color: var(--purple) !important;            
     -webkit-text-fill-color: var(--purple) !important;
 }
-/* 5. STOP INPUT BOX FROM OVERWRITING OR BLOCKING THE CLOSED TEXT */
+/* STOP INPUT BOX FROM OVERWRITING OR BLOCKING THE CLOSED TEXT */
 .choices:has(.choicebox) input.choices__input {
     position: absolute !important;
     opacity: 0 !important;
@@ -447,9 +419,7 @@ textarea {
     margin: 0 !important;
     pointer-events: none !important;
 }
-
 /* End of AI code */
-
 /* End of forms stylying */
 
 /* Timetables info */
@@ -476,13 +446,10 @@ textarea {
     padding: 5px;
     border: 2px solid var(--forest-green);
     border-radius: 5px;
-
 }
-
 .timetable-top {
     display: grid;
     grid-template-columns: auto auto;
-    
 }
 .hide-button, .info-button {
     width: 50px;
@@ -491,37 +458,30 @@ textarea {
     background-color: var(--dark-purple);
     color: var(--barely-there-green);
 }
-
-
-/* Whee Do I put this? */
 .textcenter {
     text-align:center;
 }
-
 .vertical {
     visibility: hidden;
 }
 .hidden {
     visibility: hidden !important;
 }
+
 /* Media queries.*/
 @media screen and (max-width: 992px) {
     .buttons-page{
         grid-template-columns: auto auto auto;
-        
     }
     .button {
         margin: 10px;
     }
-
 }
 @media screen and (max-width:600px) {
     header {
         display:flex;
         flex-direction: column;
     }
-
-    
     #header h1 {
         font-size: 1.5em;
     }
@@ -531,8 +491,6 @@ textarea {
         margin-top: 20px;
         margin-bottom: 70px;
     }
-    
-    
     .login .button {
         margin:0px;
         margin-right:10px;   
@@ -543,10 +501,8 @@ textarea {
     #login .button {
         margin:0px;
     }
-    
     .buttons-page{
         grid-template-columns: auto auto;
-        
     }
     .button {
         margin: 30px;
@@ -585,7 +541,3 @@ textarea {
     }
     
 }
-
-
-
-

@@ -9,14 +9,14 @@
         <div class="authpage">
             <div>
                 <h1>{% trans "Sign Out" %}</h1>
-                <p>{% trans 'Are you sure you want to sign out?' %}<p>
+                <p>{% trans 'Are you sure you want to sign out?' %}</p>
             </div>
             <div >
-                <form id="outform" class=""method="post" action="{% url 'account_logout'%}"> 
-                 {% csrf_token %}
-                <button class="button" id="signout" type="submit">{% trans 'Sign Out' %}</button>
+                <form id="outform" method="post" action="{% url 'account_logout' %}"> 
+                    {% csrf_token %}
+                    <button class="button" id="signout" type="submit">{% trans 'Sign Out' %}</button>
+                </form>
             </div>   
-            
         </div>
         
     </div>

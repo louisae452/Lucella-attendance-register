@@ -236,7 +236,7 @@ class TestAddparent(TestCase):
         teacher_group, _ = Group.objects.get_or_create(name='teacher')
         self.teacher_user = User.objects.create_user(
             username='MiriamGonzalez', password='mypassword')
-        self.teacher_user.groups.add (teacher_group)
+        self.teacher_user.groups.add(teacher_group)
         admissions_group, _ = Group.objects.get_or_create(
             name='admissions_officer')
         self.admissions_user = User.objects.create_user(
@@ -449,7 +449,7 @@ class TestTeacherdata(TestCase):
         teacher_group, _ = Group.objects.get_or_create(name='teacher')
         self.teacher_user = User.objects.create_user(
             username='MiriamGonzalez', password='mypassword')
-        self.teacher_user.groups.add (teacher_group)
+        self.teacher_user.groups.add(teacher_group)
 
     def test_unauthorised_user_is_rejected(self):
         """Tests an unauthorised user is not given access to page"""
@@ -559,7 +559,7 @@ class TestStudentdetail(TestCase):
         self.teacher_user.groups.add(teacher_group)
         attendance_group, _ = Group.objects.get_or_create(
             name='attendance_officer')
-        self.attendance_user =User.objects.create_user(
+        self.attendance_user = User.objects.create_user(
             username='JuanSoto', password='mypassword')
         self.attendance_user.groups.add(attendance_group)
         parent_group, _ = Group.objects.get_or_create(name='parent')
@@ -615,7 +615,9 @@ class TestStudentdetail(TestCase):
         """Tests the attendance_officer user is accepted"""
         self.client.login(username='JuanSoto', password='mypassword')
         self.test_student.refresh_from_db()
-        self.url = reverse('studentdetail', kwargs={'student_code': self.test_student.student_code})
+        self.url = reverse(
+            'studentdetail',
+            kwargs={'student_code': self.test_student.student_code})
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
 
@@ -718,8 +720,8 @@ class TestReason(TestCase):
             'givereason',
             kwargs={
                 'student_code': self.test_student.student_code,
-                'date':self.test_record.date,
-                'session_id':self.test_record.session_id.pk})
+                'date': self.test_record.date,
+                'session_id': self.test_record.session_id.pk})
 
     def test_unauthorised_user_is_rejected(self):
         """Tests an unauthorised user is not given access to page"""
@@ -795,7 +797,7 @@ class TestReportabsence(TestCase):
             'reportabsence',
             kwargs={
                 'student_code': self.test_student.student_code,
-                'session_id':3})
+                'session_id': 3})
 
     def test_unauthorised_user_is_rejected(self):
         """Tests an unauthorised user is not given access to page"""
@@ -841,6 +843,7 @@ class TestChildrecord(TestCase):
         self.client.login(username='JuanSoto', password='mypassword')
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 403)
+
 
 class TestPendingabsences(TestCase):
     """Tests pending_absences. Requires attendance_officer user"""

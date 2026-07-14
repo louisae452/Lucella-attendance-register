@@ -25,7 +25,8 @@ class TestStudentForm(TestCase):
         # Create a parent group. (with help form AI)
         parent_group, _ = AuthGroup.objects.get_or_create(name='parent')
         # Create a user.
-        self.test_user = User. objects.create(username='FlorenceFox', password='testpassword')
+        self.test_user = User. objects.create(
+            username='FlorenceFox', password='testpassword')
         # Assign user to parent group
         self.test_user.groups.add(parent_group)
 
@@ -180,6 +181,7 @@ class TestUserForm(TestCase):
         }
         user_form = UserForm(data)
         self.assertTrue(user_form.is_valid())
+
     def test_is_not_valid_username(self):
         """Tests form is not validated if there is not a username"""
         data = {
@@ -386,10 +388,12 @@ class TestRegisterForm(TestCase):
         """Tests that student_code is disabled on initialisation"""
         register_form = RegisterForm()
         self.assertTrue(register_form.fields['student_code'].disabled)
+
     def setUp(self):
         """Creates a student instance. Requires parent instance"""
-        parent_group, _  = AuthGroup.objects.get_or_create(name='parent')
-        self.test_user = User. objects.create(username='FlorenceFox', password='testpassword')
+        parent_group, _ = AuthGroup.objects.get_or_create(name='parent')
+        self.test_user = User. objects.create(
+            username='FlorenceFox', password='testpassword')
         self.test_user.groups.add(parent_group)
         self.test_student = Student.objects.create(
             student_code='0609PITE',
@@ -421,8 +425,11 @@ class TestRegisterForm(TestCase):
         }
         register_form = RegisterForm(data)
         self.assertFalse(register_form.is_valid())
+
     def test_form_is_not_valid_mark(self):
-        """Tests RegisterForm is not validated if mark in not filled correctly"""
+        """
+        Tests RegisterForm is not validated if mark in not filled correctly
+        """
         data = {
             'mark': 5,
         }
@@ -603,7 +610,9 @@ class TestPendingabsenceForm(TestCase):
         self.assertTrue(pendingabsence_form.is_valid())
 
     def test_form_is_not_valid_instance(self):
-        """Tests PendingabsenceForm is not validated if an instance is not provided"""
+        """
+        Tests PendingabsenceForm is not validated if an instance is not
+        provided"""
         data = {
             'status': 1,
             'code': 0,
@@ -612,7 +621,9 @@ class TestPendingabsenceForm(TestCase):
             PendingabsenceForm(data)
 
     def test_form_is_not_valid_status(self):
-        """Tests PendingabsenceForm is not validated if status is not provided"""
+        """
+        Tests PendingabsenceForm is not validated if status is not provided
+        """
         data = {
             'status': '5',
             'code': 0,
@@ -677,7 +688,8 @@ class TestRemoveForm(TestCase):
         Requires parent.
         """
         parent_group, _ = AuthGroup.objects.get_or_create(name='parent')
-        self.test_user = User. objects.create(username='FlorenceFox', password='testpassword')
+        self.test_user = User. objects.create(
+            username='FlorenceFox', password='testpassword')
         self.test_user.groups.add(parent_group)
         self.test_student1 = Student.objects.create(
             student_code='0609PITE',

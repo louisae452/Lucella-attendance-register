@@ -114,16 +114,20 @@ CSRF_TRUSTED_ORIGINS = [
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.auth.password_validation.'
+                'UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': 'django.contrib.auth.password_validation.'
+                'MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.'
+                'CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.'
+                'NumericPasswordValidator',
     },
 ]
 
@@ -153,10 +157,10 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# code from 
+# code from
 # https://www.geeksforgeeks.org/python/setup-sending-email-in-django-project/
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -175,14 +179,17 @@ if 'test' in sys.argv:
                 "BACKEND": "django.core.files.storage.FileSystemStorage",
             },
             "staticfiles": {
-                "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+                "BACKEND": "django.contrib.staticfiles.storage."
+                "StaticFilesStorage",
             },
         }
     else:
         # For Django 4.1 and older
-        STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
-# 1. Force Django's session cookie to clear when the browser/tab is closed
+        STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.'
+        'StaticFilesStorage'
+# Force Django's session cookie to clear when the browser/tab is closed
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
-# 2. Prevent django-allauth from forcing a persistent "Remember Me" login cookie
+#  Prevent django-allauth from forcing a persistent
+# "Remember Me" login cookie
 ACCOUNT_SESSION_REMEMBER = False

@@ -156,7 +156,7 @@ class SendemailForm(forms.ModelForm):
 
 class AbsenceForm(forms.ModelForm):
     """Creates a form to report an absence in the future"""
-    reason_for_absence = forms.CharField( required=True, widget=forms.Textarea)
+    reason_for_absence = forms.CharField(required=True, widget=forms.Textarea)
 
     class Meta:
         model = DailyRegister
@@ -168,7 +168,7 @@ class AbsenceForm(forms.ModelForm):
 
 class GivereasonForm(forms.ModelForm):
     """Allows to update a past absence"""
-    reason_for_absence = forms.CharField( required=True, widget=forms.Textarea)
+    reason_for_absence = forms.CharField(required=True, widget=forms.Textarea)
 
     class Meta:
         model = DailyRegister

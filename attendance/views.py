@@ -75,6 +75,8 @@ def landing_router(request, *args, **kwargs):
         return redirect('home')
 
 # Teacher's pages.
+
+
 @method_decorator(login_required, name='dispatch')
 class LandingView(TemplateView):
     """
@@ -442,7 +444,8 @@ def get_register(request):
                 elif currentset == 4 or currentset == 5:
                     students = Student.objects.filter(
                         music_option=currentset, deregistered=False)
-                # If a DailyAttendance record for that student and session does not exists, create one with default values.
+                # If a DailyAttendance record for that student and session
+                # does not exist, create one with default values.
                 for student in students:
                     student_record = DailyRegister.objects.filter(
                         session_id=currentsessionid, date=today,
@@ -506,7 +509,6 @@ def saveregister(request):
                 if instance.mark == 1:
                     instance.status = 1
                 instance.save()
-            
             del request.session['filtered_new_records_ids']
             messages.success(request, "Register successfully saved")
             return redirect('landing')
@@ -686,6 +688,7 @@ def truanting_list(request):
         }
     )
 
+
 @user_passes_test(in_teacher)
 def get_class(request):
     """
@@ -829,7 +832,7 @@ def child_timetable(request, student_code):
                 key = f"M{record.session}"
             else:
                 key = f"{record.day}{record.session}"
-            timetablevalues[key]=record
+            timetablevalues[key] = record
     elif child.group == 0:
         academicgroupB = ["English B", "Maths B", "Science B"]
         academicrecordsB = Timetable.objects.filter(
@@ -839,7 +842,7 @@ def child_timetable(request, student_code):
                 key = f"M{record.session}"
             else:
                 key = f"{record.day}{record.session}"
-            timetablevalues[key]=record
+            timetablevalues[key] = record
     if child.sex == 3:
         record = get_object_or_404(
             Timetable, subject_name__subject_name="Football A")
@@ -847,7 +850,7 @@ def child_timetable(request, student_code):
             key = f"M{record.session}"
         else:
             key = f"{record.day}{record.session}"
-        timetablevalues[key]=record
+        timetablevalues[key] = record
     elif child.sex == 2:
         record = get_object_or_404(
             Timetable, subject_name__subject_name="Athletics B")
@@ -855,7 +858,7 @@ def child_timetable(request, student_code):
             key = f"M{record.session}"
         else:
             key = f"{record.day}{record.session}"
-        timetablevalues[key]=record
+        timetablevalues[key] = record
     if child.music_option == 5:
         record = get_object_or_404(
             Timetable, subject_name__subject_name="Piano A")
@@ -909,9 +912,9 @@ def report_absence(request, student_code, session_id):
                 # Check if that absence already exists. Redirect to attendance
                 # records if it does.
                 if DailyRegister.objects.filter(
-                    session_id=session,
-                    student_code__student_code=child.student_code,
-                    date=absencedate).exists():
+                        session_id=session,
+                        student_code__student_code=child.student_code,
+                        date=absencedate).exists():
                     messages.warning(
                         request,
                         "Absence alreay recorded. "
