@@ -18,6 +18,8 @@ if os.path.isfile('env.py'):
     import env
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+
 # TEMPLATES_DIR = [BASE_DIR / 'static']
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 
@@ -26,7 +28,6 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-szp)me@dc@kjkca0^_99r02^v0uyqwwpwa0+(67f(v61)mchls'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False

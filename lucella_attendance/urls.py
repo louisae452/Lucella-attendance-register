@@ -16,8 +16,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from attendance.views import HomeView
-
 
 
 urlpatterns = [
@@ -26,5 +24,6 @@ urlpatterns = [
     path('', include('attendance.urls')),
     path('summernote/', include('django_summernote.urls')),
 ]
-# Render custom 403 template
+# Render custom 403 and 404 templates
 handler403 = 'django.views.defaults.permission_denied'
+handler404 = 'django.views.defaults.page_not_found'

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+{% load custom_tags %}
+
+{% block content %}
+<div class="form-container">
+    <div>
+        <h1 class="centertext">Sorry, that is not possible!</h1>
+    </div>
+    <div>
+        <a class="button" href="{% url 'landing' %}">Main menu</a>
+    </div>
+</div>
+{% endblock %}
