@@ -421,6 +421,63 @@ All errors found were corrected.
 
 ## Lighthouse
 
+Lighthouse was run on all pages on Google Dev Tools. These are the results.
+
+|Page|Mode|Performance|Accessibility|Best Practices|SEO|
+|:--|:--|--:|--:|--:|-------:|
+|home|Mobile|90|100|96|100|
+|home|Desktop|100|100|96|100|
+|teacher landing|Mobile|98|100|96|100|
+|teacher landing|Desktop|100|100|96|100|
+|students|Mobile|98|95|96|100|
+|students|Desktop|100|95|96|100|
+|studentdetail|Mobile|99|100|96|100|
+|studentdetail|Desktop|100|100|96|100|
+|sendemail|Mobile|99|95|96|100|
+|sendemail|Desktop|100|95|96|100|
+|newparent|Mobile|99|100|96|100|
+|newparent|Desktop|100|100|96|100|
+|parentdata|Mobile|98|95|96|100|
+|parentdata|Desktop|100|95|96|100|
+|newstudent|Mobile|98|95|96|100|
+|newstudent|Desktop|100|95|96|100|
+|remove|Mobile|98|100|96|100|
+|remove|Desktop|100|100|96|100|
+|newteacher|Mobile|98|100|96|100|
+|newteacher|Desktop|10|100|96|100|
+|teacherdata|Mobile|99|95|96|100|
+|teacherdata|Desktop|100|95|96|100|
+|dailyregister|Mobile|99|95|96|100|
+|dailyregiser|Desktop|100|95|96|100|
+|saveregoster|Mobile|99|93|96|100|
+|saveregister|Desktop|100|93|96|100|
+|pending|Mobile|99|100|96|100|
+|pending|Desktop|100|95|96|100|
+|absencedetail|Mobile|99|95|96|100|
+|absencedetail|Desktpop|100|95|96|100|
+|truanting|Mobile|99|100|96|100|
+|truanting|Desktop|100|100|96|100|
+|myclass|Mobile|98|95|96|100|
+|myclass|Desktop|100|95|96|100|
+|classlist|Mobile|98|95|96|100|
+|classlist|Desktop|100|95|96|100|
+|classdetail|Mobile|98|100|96|100|
+|classdetail|Desktop|100|100|96|100|
+|parentslanding|Mobile|99|95|96|100|
+|parentslanding|Desktop|100|95|96|100|
+|childtimetable|Mobile|99|95|96|100|
+|childtimetable|Desktop|100|95|96|100|
+|reportabsence|Mobile|92|100|96|100|
+|reportabsence|Desktop|100|100|96|100|
+|plannedabsences|Mobile|99|100|96|100|
+|plannedabsences|Desktop|100|100|96|100|
+|plandetail|Mobile|99|100|96|100|
+|plandetail|Desktop|99|100|96|100|
+|childrecord|Mobile|98|100|96|100|
+|childrecord|Desktop|100|100|96|100|
+|givereason|Mobile|99|100|96|100|
+|givereason|Desktop|100|100|96|100|
+
 
 
 
