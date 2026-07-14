@@ -166,13 +166,14 @@ By following the attendance record, the childs attendance record appears and the
 ![Child record](readme/images/features/child_record.jpg) ![Absence detail](readme/images/features/child_absence.jpg)
 
 ## Models and views.
+
 This is the entity relationship diagram of the models used in this project.
 
 The records for the Subject and Timetable models have been created on the Admin page, as they would have been created in the Timetable app.
 
 The Email and Sentemail models would belong to an app to deal with communications. Email records were created on the Admin page, while Sentemail records are created whenever an email is sent but, at the moment are only accessible from the Admin page.
 
-![erd diagram](readme/images/edr.png)
+![erd diagram](readme/images/erd.png)
 
 Below is a detailed list of all the views used.
 
@@ -205,14 +206,21 @@ Below is a detailed list of all the views used.
 |child_record|parent|--|child_record.html|Allows parent to see child's attendance record|give_reason.html|
 |give_reason|parent|GiveReasonForm|give_reason.html|Allows parent to enter a reason for an absence that has already happened|child_record.html|
 
+## The future
 
+When I started this project, I thought it was a pretty simple thing: students are supposed to be there, they get marked down, parents get notified. 
 
+As I started planning, I realised that many variables needed to be accounted for. Each sbuject may have a different group of students. Subjects happen in different days of the week. Teachers come and go. There are weekends, school holidays, bank holidays... 
 
+I realised that for this project to be able to manage all the factors, several apps would need to be produced. An admissions app, a timetable app, a calendar app, a communications app, and, of course, an attendance app.
 
+The site has two different landing pages. One for parents and one for teachers. It would be better for each of the different teacher roles to have their own dedicated landing pages, so that they would never find a 'You don't have the required permissions' page.
 
+Of course, attendance is not the only issue schools may want to communicate to parents. School grades, behaviour, events...
 
+Had I not been tied to a deadline, the project could have grown and grown...
 
-
+May be one day, it will.
 
 ## Testing
 
@@ -294,28 +302,60 @@ For version control: [HitHub](https://www.github.com)
 
 To deploy the site : [Heroku](https://dashboard.heroku.com/apps)
 
+To debug and optimise: Google Developer Tools
 
+To validate HTML: [w3 HTML validator](https://validator.w3.org/)
 
+To validate CSS: [w3 CSS validator](https://jigsaw.w3.org/css-validator/)
 
+To validate JavaScript: [JsLint](https://www.jslint.com/)S
 
+To validate Python: [CI Pyhton Linter](https://pep8ci.herokuapp.com/)
 
-- To choose icons: [Font Awesome](https://fontawesome.com/).
-- To convert image to webp: [ToWebP](https://towebp.io/)
-- To convert logo to svg: [Kittl}(https://www.kittl.com/tools/svg-converter)]
-- To draw erd diagram: [dbdiagram.io](https://dbdiagram.io/home)
+To manipulate images: Microsoft photos
 
-- Django docs.
-- Group permissions https://www.geeksforgeeks.org/python/python-user-groups-custom-permissions-django/
-- To make models https://sentry.io/answers/difference-between-onetoonefield-and-foreign-key-django/
-- To write listview as function https://www.geeksforgeeks.org/python/list-view-function-based-views-django/
-- To check if user belongs to group. [Stack Overflow]( https://stackoverflow.com/questions/34571880/how-to-check-in-template-if-user-belongs-to-a-group) 
-- To create custom tags. https://www.geeksforgeeks.org/python/how-to-create-custom-template-tags-in-django/
-- To filter users by group. [StackOverflow](https://stackoverflow.com/questions/11118179/django-filter-users-by-group-in-a-model-foreign-key)
-- Formsets [Geeksforgeeks]( https://www.geeksforgeeks.org/python/django-modelformsets/)
-- To send emails [Geeksforgeeks](https://www.geeksforgeeks.org/python/setup-sending-email-in-django-project/)
-- Annotate: (https://www.geeksforgeeks.org/python/aggregate-vs-annotate-in-django/)(https://www.geeksforgeeks.org/python/filter-objects-with-count-annotation-in-django/)
-- Atomic transactions [Geeksforgeeks](https://www.geeksforgeeks.org/python/transaction-atomic-with-django/)
+To choose icons: [Font Awesome](https://fontawesome.com/)
+
+To convert image to webp: [ToWebP](https://towebp.io/)
+
+To convert logo to svg: [Kittl](https://www.kittl.com/tools/svg-converter)
+
+To draw erd diagram: [dbdiagram.io](https://dbdiagram.io/home)
+
+Django docs.
+
+Group permissions [geeksforgeeks](https://www.geeksforgeeks.org/python/python-user-groups-custom-permissions-django/)
+
+To make models [sentry.io](https://sentry.io/answers/difference-between-onetoonefield-and-foreign-key-django/)
+
+To write listview as function [geeksforgeeks](https://www.geeksforgeeks.org/python/list-view-function-based-views-django/)
+
+To check if user belongs to group. [Stack Overflow]( https://stackoverflow.com/questions/34571880/how-to-check-in-template-if-user-belongs-to-a-group) 
+
+To create custom tags. [geeksforgeeks](https://www.geeksforgeeks.org/python/how-to-create-custom-template-tags-in-django/)
+
+To filter users by group. [StackOverflow](https://stackoverflow.com/questions/11118179/django-filter-users-by-group-in-a-model-foreign-key)
+
+Formsets [Geeksforgeeks]( https://www.geeksforgeeks.org/python/django-modelformsets/)
+
+To send emails [Geeksforgeeks](https://www.geeksforgeeks.org/python/setup-sending-email-in-django-project/)
+
+Annotate: [Geeksforgeeks](https://www.geeksforgeeks.org/python/aggregate-vs-annotate-in-django/) and [Geeksforgeeks](https://www.geeksforgeeks.org/python/filter-objects-with-count-annotation-in-django/)
+
+Atomic transactions [Geeksforgeeks](https://www.geeksforgeeks.org/python/transaction-atomic-with-django/)
 
 ## Media
 
+The home image and the logo were created by SuperJakeJoseCat.
+
 ## Acknoledgements
+
+This project would not have been possible without the following people:
+
+My tutor, Kevin Loughrey who helped and encouraged me through the development of the project.
+
+My friend and Colleague, Veronica Teodorof for always being supportive. Special thanks for a very detailed critique of the project's user experience.
+
+My family for their unconditional support.
+
+SuperJakeJoseCat for sharing his creativity and being my biggest fan.
