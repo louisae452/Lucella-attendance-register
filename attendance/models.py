@@ -99,7 +99,7 @@ SESSION = ((0, 'MomoA'), (1, 'MoafA'), (2, 'TumoA'), (3, 'TuafA'),
            (8, 'FrmoA'), (9, 'FrafA'), (10, 'MomoB'), (11, 'MoafB'),
            (12, 'TumoB'), (13, 'TuafB'), (14, 'WemoB'), (15, 'WeafB'),
            (16, 'ThmoB'), (17, 'ThafB'), (18, 'FrmoB'), (19, 'FrafB'))
-DAYS = ((0, "Monday"), (1, "Tuesday"), (2, "Wednesday"), 
+DAYS = ((0, "Monday"), (1, "Tuesday"), (2, "Wednesday"),
         (3, "Thursday"), (4, "Friday"))
 TIME = ((0, "Morning"), (1, "Afternoon"))
 TIMETABLEGROUP = ((0, "A"), (1, "B"))
@@ -153,7 +153,8 @@ class DailyRegister(models.Model):
         return (f"{self.date}, {self.student_code}, {self.session_id}")
 
 
-SUBJECT = ((0, 'Attendance below 90%'), (1, 'Attendance below 80%'), (2, 'Student missing'), (3, 'Unauthorised absence'))
+SUBJECT = ((0, 'Attendance below 90%'), (1, 'Attendance below 80%'),
+           (2, 'Student missing'), (3, 'Unauthorised absence'))
 
 
 class Email(models.Model):
@@ -170,16 +171,8 @@ class Email(models.Model):
 class Sentemail(models.Model):
     """
     Creates an entry of a sent email.
-    Related to :model:`attendance.Student, :model:`attendance.Email    
+    Related to :model:`attendance.Student, :model:`attendance.Email
     """
     student_code = models.ForeignKey(Student, on_delete=models.RESTRICT)
     subject = models.ForeignKey(Email, on_delete=models.RESTRICT)
     date_sent = models.DateTimeField(auto_now_add=True)
-
-
-
-
-
-
-
-

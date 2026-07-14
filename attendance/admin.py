@@ -1,13 +1,10 @@
 from django.contrib import admin
 from django_summernote.admin import SummernoteModelAdmin
-from .models import Student
-from .models import Parent
-from .models import Teacher
-from .models import Subject
-from .models import Timetable
-from .models import DailyRegister
-from .models import Email
-from .models import Sentemail
+from .models import (
+    DailyRegister, Email, Parent, Sentemail,
+    Student, Subject, Teacher, Timetable,
+)
+
 
 @admin.register(Email)
 class EmailAdmin(SummernoteModelAdmin):
@@ -15,7 +12,6 @@ class EmailAdmin(SummernoteModelAdmin):
     search_fields = ['subject',]
     summernote_fields = ('text')
 
-# Register your models here.
 
 admin.site.register(Student)
 admin.site.register(Parent)
