@@ -30,14 +30,13 @@
         <div id= "login">
             {% if user.is_authenticated %}
             <div class="login">
-                <a class="button" href="{% url 'account_logout' %}">Log out</a>
+            <a class="button" href="{% url 'account_logout' %}">Log out</a>    
             </div>
             {% else %}
             <div class="login"> 
                 <a class="button" href="{% url 'account_login' %}">Log in</a>
             </div>
             {% endif %}
-
         </div>
     </header>
     <main>

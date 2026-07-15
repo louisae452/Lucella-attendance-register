@@ -55,6 +55,9 @@ SITE_ID = 1
 LOGIN_REDIRECT_URL = '/landing/'
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_URL = 'account_login'
+ACCOUNT_LOGOUT_ON_GET = False
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+ACCOUNT_SESSION_REMEMBER = False
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -86,7 +89,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'lucella_attendance.wsgi.application'
-
 
 DATABASES = {
     'default':
@@ -190,6 +192,4 @@ if 'test' in sys.argv:
 # Force Django's session cookie to clear when the browser/tab is closed
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
-#  Prevent django-allauth from forcing a persistent
-# "Remember Me" login cookie
-ACCOUNT_SESSION_REMEMBER = False
+
