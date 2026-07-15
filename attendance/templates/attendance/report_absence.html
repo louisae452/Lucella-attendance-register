@@ -5,22 +5,26 @@
 
 {% block content %}
 {% if request.user|has_group:"parent" %}
-<div class="">
+
     <div class="form-container">
         <div class="reducesize">
             <h1>Report your child's absence</h1>
             <h2>{{ child.student_name }} {{ child.student_surname }}</h2>
             <h3>{{session.get_day_display}} {{ session.get_session_display }}, {{ session.subject_name }}</h3>
             <form method="post">
-                    {{ report }}
-                    {% csrf_token %}
-                    <button class="button" type="submit">Save</button>
+                {{ report }}
+                {% csrf_token %}
+                <button class="button" type="submit">Save</button>
             </form>
+
+
         </div>
+        <div class="buttons-page">
+            <a class="button" href="{% url 'landing' %}">Main menu</a>
+        
+    
     </div>
-    <div>
-        <a class="button home" href="{% url 'landing' %}">Main menu</a>
-    </div>
+    
 </div>
 {% endif %}
 {% endblock %}
