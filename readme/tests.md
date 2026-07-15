@@ -1,5 +1,7 @@
 ## 9. Testing
 
+[Back to main file](../README.md#10-bugs)
+
 ### Contents
 
 1. [Automated testing](#1-automated-testing)
@@ -209,7 +211,7 @@ Further security tests can be seen in automated tests.
 |10/07/2026|Not accessible for non users|In browser, type page address on address bar|Home page loads|Pass|--|
 |10/07/2026|Success log in message|Sign in with teacher credentials|Teacher landing appears. Successfully signed in message appears|Pass|--|
 |10/07/2026|'Student' list button directs to student page|Click on student list button|Student page appears|Pass|--|
-|15/07/2026|Student list pagination|Naigate to students list page. Click on 'next'. Click on 'previous'|Next or previous page of studentslist page appears|Pass|--|
+|15/07/2026|Student list pagination|Navigate to students list page. Click on 'next'. Click on 'previous'|Next or previous page of studentslist page appears|Pass|--|
 |10/07/2026|Individual student is blocked|On student page, click on any student|403.html page appears|Pass|--|
 |10/07/2026|'Main menu' button on individual student page redirects to correct landing page|From individual student 403 page, click on 'Main menu' button|Redirects to teacher landing page|Pass|--|
 |10/07/2026|'Add parent' button|On teacher landing, click on 'Add parent' button. 'Main menu' button leads back to teacher landing|403.html appears|Pass|--|
@@ -317,7 +319,7 @@ The following issues were reported by users.
 |12/07/2026|Get register page does not make clear that only lessons occurring on that day can be registered|get_register.html|--|Added help text to page|
 |12/07/2026|When you deregister a student, the button to submit says 'Save'. It should say 'Deregister'|remove_student.html|--|Changed text on button|
 |12/07/2026|Phone field entries do not validate correctly|parentdata.html, teacherdata.html|ParentForm, TeacherForm|Updated phone fields in models to CharField, updated forms to only accept phoneformat|
-|No feedback when there are no truanting students|truanting.html|--|Added message to empty list|
+!12/07/2026|No feedback when there are no truanting students|truanting.html|--|Added message to empty list|
 |12/07/2026|It is not possible to delete a planned absence|planned_absences.html, plan_detail.html|planned_absences, plan_detail|Created new views and templates|
 |13/07/2026|Messages difficult to see|base.html|--|Encased messages in a box|
 |14/07/2026|Login button on home page not easy to see|base.html, home.html|--|Moved login button to header|
@@ -492,3 +494,6 @@ Lighthouse was run on all pages on Google Dev Tools. These are the results.
 |childrecord|Desktop|100|100|96|100|
 |givereason|Mobile|99|100|96|100|
 |givereason|Desktop|100|100|96|100|
+
+[Back to the top of Test page](tests.md#9-testing)
+[Back to main file](../README.md#10-bugs)

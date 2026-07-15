@@ -286,7 +286,8 @@ def students_list(request):
     **Template**
     :template:`attendance/students_list.html`
     """
-    students = Student.objects.filter(deregistered=False)
+    students = Student.objects.filter(deregistered=False).order_by(
+        'student_surname')
     students = students.annotate(
                 total_sessions=Count('dailyregister'),
                 present_sessions=Count('dailyregister',

@@ -223,7 +223,7 @@ class TestStudentlist(TestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "attendance/students_list.html")
-        students_in_context = response.context['students']
+        students_in_context = response.context['students_page']
         self.assertIn(self.test_student1, students_in_context)
         self.assertNotIn(self.test_student2, students_in_context)
 

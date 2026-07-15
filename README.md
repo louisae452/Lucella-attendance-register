@@ -6,7 +6,7 @@ Have you ever been late for your 10:00 am meeting because you were dealing with 
 
 Have you received messages from disgrunted parents asking why you have not yet authorised their very justified child's absence?
 
-Attendance is a masive subject in school and a system that allows clear and easy communication between partents and school is paramamount in order not to create resentment and animosity between them.
+Attendance is a masive subject in school and a system that allows clear and easy communication between parents and school is paramamount in order not to create resentment and animosity between them.
 
 This project has been drawn out of my own experiences as a parent, Head of a school department and school governor.
 
@@ -98,9 +98,9 @@ School staff will be able to see when a student has been reported as absent by t
 - As a user I want to be able to log onto the site so that I can see the appropriate pages.
 - As an Admission's Officer I want to be able to see the list of all registered students so that if I click on one I can see their details.
 - As an Admissions Officer I want to be able to register a student so that they are on the register.
-- As an Admission's Officer I want to be able to deregister a studentgit  so that records are kept up to date.
+- As an Admissions Officer I want to be able to deregister a student so that records are kept up to date.
 - As a teacher I want to be able to see the list of students in my class so that I can mark them on the register.
-- As a teacher I want to be able to see the class attendance over the year so that I can target students with low attendance.
+- As a teacher I want to be able to see my class' attendance over the year so that I can target students with low attendance.
 - As a parent I want to be able to see my child's timetable so that they are prepared for the day ahead.
 - As a parent I want to be able to see my child's attendance record so that I know if I am likely to get fined by school.
 - As a parent I want to be able to record my child's absence so that it can be authorised by the school.
@@ -115,9 +115,9 @@ School staff will be able to see when a student has been reported as absent by t
 
 Since its conception, Lucella High School Attendance Regiter has been designed to be used in an office environment and as such, its design reflects the need for it to show information in a clear way, free of distractions and with easy navigation.
 
-As such, navigation panels are clear on what they do and unnecesary distractions have been kept away. It is possible to return to the main landing page from all pages.
+Navigation panels are clear on what they do and unnecesary distractions have been kept away. It is possible to return to the main landing page from all pages.
 
-Lucella High School is part of the Piggy Before The Infection Started. For this reason, the design has been kept consistent with the series' brand.
+Lucella High School is part of the Piggy Before The Infection Started franchise. For this reason, the design has been kept consistent with the series' brand.
 
 Fonts have been kept simple and professional.
 
@@ -131,7 +131,7 @@ On the staff's pages, three types of permissions have been given, teacher, Admis
 
 ## 6. Student groups.
 
-In order to show flexibility in the program, the students have been grouped differently depending on which subjects they are taking. In Maths, English and Science, students are grouped by age. In sports,boys are currently playing Football, while girls are doing Athletics. In music, advanced students are doing Piano while beginners are learning Guitar. 
+In order to show flexibility in the program, the students have been grouped differently depending on which subjects they are taking. In Maths, English and Science, students are grouped by age. In sports, boys are currently playing Football, while girls are doing Athletics. In music, advanced students are doing Piano while beginners are learning Guitar. 
 
 As the app is intended to deal with attendance, these settings have been sorted in the admin page. A new app dealing with timetables would have to be produced in order to be able to change these options on the front end.
 
@@ -158,7 +158,7 @@ The 'Add parent' button creates a parent user. On saving, it allows to enter the
 
 ![New parent page](readme/images/features/new_parent.jpg) &ensp; ![Add parent data page](readme/images/features/parentdata.jpg)
 
-The 'Add student@ button adds a new student once their parent has been registered as a user.
+The 'Add student' button adds a new student once their parent has been registered as a user.
 
 ![New student page](readme/images/features/new_student.jpg)
 
@@ -170,7 +170,7 @@ The 'Add teacher' button allows the Admissions Officer to add a new teacher. On 
 
 ![New teacher page](readme/images/features/add_teacher.jpg) &ensp; ![Add teacher data page](readme/images/features/teacherdata.jpg)
 
-The 'Register@ button allows a teacher to input the session's details to get their register up. As the options allowed depend on the timetable, two pop up boxes on the corner show the current timetables. These boxes are for testing purposes only, as in a real situation a teacher would know what lesson they are supposed to be teaching and they would be removed in real case scenarios.
+The 'Register' button allows a teacher to input the session's details to get their register up. As the options allowed depend on the timetable, two pop up boxes on the corner show the current timetables. These boxes are for testing purposes only, as in a real situation a teacher would know what lesson they are supposed to be teaching and they would be removed in real case scenarios.
 
 ![Get the register](readme/images/features/get_register.jpg) &ensp; ![Get the register help](readme/images/features/get_register_help.jpg)
 
@@ -195,7 +195,7 @@ Once logged in, a parent is presented with a list of the children they have regi
 
 ![Parents landing page](readme/images/features/parents_landing.jpg)
 
-On clicking on the required child, a page with their timetable and link to attendance record appears.
+On clicking on the required child, a page with their timetable and links to their attendance record and planned absences appears.
 
 ![Child timetable](readme/images/features/child_timetable.jpg)
 
@@ -203,22 +203,22 @@ Clicking on a slot in the timetable opens a page in which the parent can report 
 
 ![Future absence detail](readme/images/features/report_absence.jpg)
 
-The planned absences button shows a list of all planned future absences for a child. Clicking on an individual abscence, it is possible to update or delete it if plans have changed.
+The 'Planned absences' button shows a list of all planned future absences for a child. Clicking on an individual abscence, it is possible to update or delete it if plans have changed.
 
 ![Planned absences list](readme/images/features/planed_absences.jpg) &ensp;
 ![Update or delete a planned absence](readme/images/features/update_planned.jpg)
 
-By following the attendance record, the childs attendance record appears and the parent can explain an absence in the past.
+By following the 'Attendance record', the childs attendance record appears and the parent can explain an absence in the past.
 
 ![Child record](readme/images/features/child_record.jpg) &ensp; ![Absence detail](readme/images/features/child_absence.jpg)
 
-##8. Models and views.
+## 8. Models and views.
 
 This is the entity relationship diagram of the models used in this project.
 
 The records for the Subject and Timetable models have been created on the Admin page, as they would have been created in the Timetable app.
 
-The Email and Sentemail models would belong to an app to deal with communications. Email records were created on the Admin page, while Sentemail records are created whenever an email is sent but, at the moment are only accessible from the Admin page.
+The Email and Sentemail models would belong to an app to deal with communications. Email records were created on the Admin page, while Sentemail records are created whenever an email is sent but, at the moment, are only accessible from the Admin page.
 
 ![erd diagram](readme/images/erd.png)
 
@@ -240,7 +240,7 @@ Below is a detailed list of all the views used.
 |get_register|teacher|GetRegisterForm|get_register.html|Allows teacher to get the register for the current session|daily_register.html|
 |saveregister|teacher|RegisterFormSet|daily_register.html|Allows teacher to save the register for the current session|landing.html|
 |pending_absences|attendance_officer|--|pending_absences.html|Shows a list of all the pending absences|absence_detail.html|
-|absence_detail|attendance_officer|PendingabsenceForm|absence_detail.html|Allows AttendanceOfficer to review an absence and sends an email to parent if appropriate|pending_absences.html|
+|absence_detail|attendance_officer|PendingabsenceForm|absence_detail.html|Allows Attendance Officer to review an absence and sends an email to parent if appropriate|pending_absences.html|
 |get_class|teacher|GetclassForm|myclass.html|Displays a list of all students in a specific subject and their attendance to that subject|class_detail.html|
 |class_detail|teacher|--|class_detail.html|Displays the attendance record for a student in a specific subject|--|
 |truanting_list|attendance_officer|--|truanting_list.html|Displays a list of all students truanting and allows Attendance Officer to send and email to each of their parents|landing.html|
@@ -257,7 +257,7 @@ Below is a detailed list of all the views used.
 
 When I started this project, I thought it was a pretty simple thing: students are supposed to be there, they get marked down, parents get notified. 
 
-As I started planning, I realised that many variables needed to be accounted for. Each sbuject may have a different group of students. Subjects happen in different days of the week. Teachers come and go. There are weekends, school holidays, bank holidays... 
+As I started planning, I realised that many variables needed to be accounted for. Each subject may have a different group of students. Subjects happen in different days of the week. Teachers come and go. There are weekends, school holidays, bank holidays... 
 
 I realised that for this project to be able to manage all the factors, several apps would need to be produced. An admissions app, a timetable app, a calendar app, a communications app, and, of course, an attendance app.
 
@@ -283,11 +283,11 @@ Student_detail stopped working. Was fixed by reorganising the url order, ensurin
 
 daily_register.html shows the students registered for a particular session. The drop down menu allows the teacher to mark each of the students as present or absent. When the drop down menu is used, the highlight colour is still the blue from the browser, rather that the pink colour (consinstent with the brand colours) all the other dropboxes have. This is due to the dropboxes being part of a formset rather than a simple form. While the text colour was changed to its intended green forest, neither the highlight colour nor the dropbox border settings were able to be changed during this project.
 
-![Dropbox in formset](readme/images/bugs/formsetdropbox.jpg) &ensp; ![Dropbox in form](/readme/images/bugs/formdropbox.jpg)
+![Dropbox in formset](readme/images/issues/formsetdropbox.jpg) &ensp; ![Dropbox in form](/readme/images/issues/formdropbox.jpg)
 
 After sending emails to parents of truanting students, a success message appears for each of the emails sent. Several options suggested by AI were tested, but none of them worked.
 
-![Muliple success messages](readme/images/bugs/truanting_bug.jpg)
+![Muliple success messages](readme/images/issues/truanting_bug.jpg)
 
 ## 11. Deployment
 
@@ -295,17 +295,17 @@ The project was managed in [github](https://github.com) and deployed to [heroku]
 
 The process followed to deploy was:
 
-- Once logged into Heroku, navigate to the new button on the top right corner and click on create new app.
+- Once logged into Heroku, navigate to the 'new' button on the top right corner and click on 'create new app'.
 - Give the app a name.
 - Choose your location.
-- Click on create app.
-- From the app dashboard, click on Deploy.
+- Click on 'create app'.
+- From the app dashboard, click on 'Deploy'.
 - In Deployment method, select GitHub.
 - Search for the repository name.
-- Click on connect.
+- Click on 'connect'.
 - Choose a branch to deploy from.
-- Click on deploy branch.
-- Move to the top of the page and click on Open app.
+- Click on 'deploy branch'.
+- Move to the top of the page and click on 'Open app'.
 
 The app can be accessed from: https://lucella-attendance-33d45b263ca9.herokuapp.com/
 
@@ -374,6 +374,8 @@ To draw erd diagram: [dbdiagram.io](https://dbdiagram.io/home)
 
 Django docs.
 
+General information: [w3schools](https://www.w3schools.com/)
+
 Group permissions [geeksforgeeks](https://www.geeksforgeeks.org/python/python-user-groups-custom-permissions-django/)
 
 To make models [sentry.io](https://sentry.io/answers/difference-between-onetoonefield-and-foreign-key-django/)
@@ -408,7 +410,7 @@ My friend and Colleague, Veronica Teodorof for always being supportive. Special 
 
 My family for their unconditional support.
 
-SuperJakeJoseCat for sharing his creativity and being my biggest fan.
+SuperJakeJoseCat for sharing his creativity and been my biggest fan.
 
 [View the finished project here.](https://lucella-attendance-33d45b263ca9.herokuapp.com/)
 
