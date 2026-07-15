@@ -22,7 +22,54 @@ Lucella High School Attendance Register will provide an easy way for parents to 
 School staff will be able to see when a student has been reported as absent by their parent, while the School's Attendance officer will be able to authorise or unauthorise absences. Parents will receive an automated message when their child's abscence has been unauthorised.
 
 
-## Business goals.
+## Contents
+
+1. [Business goals.](#1-business-goals)
+
+2. [User needs](#2-user-needs)
+
+3. [User stories](#3-user-stories)
+
+4. [Design](#4-design)
+
+5. [Access to the site](#5-access-to-the-site)
+
+6. [Student groups](#6-student-groups)
+
+7. [Features](#7-features)
+
+8. [Limitations of the projects and the future](#8-limitations-of-the-project-and-the-future)
+
+9. [Testing](readme/tests.md)
+
+    1. [Automated testing](readme/tests.md#1-automated-testing)
+
+    2. [Manual testing](readme/tests.md#2-manual-testing)
+
+    3. [User stories](readme/tests.md#3-user-stories)
+
+    4. [User experience](readme/tests.md#4-user-experience)
+
+    5. [Responsiveness](readme/tests.md#5-responsiveness)
+
+    6. [Validation](readme/tests.md/#6-validation)
+
+    7. [Lighthouse](readme/tests.md/#7-lighthouse)
+
+
+10. [Bugs](#10-bugs)
+
+11. [Deploynent](#11-deployment)
+
+12. [Languages used](#12-languages-used)
+
+13. [Frameworks, packages and libraries](#13-frameworks-packages-and-libraries)
+
+14. [Media](#14-media)
+
+15. [Acknowlegdements](#15-acknowledgements)
+
+##  1. Business goals.
 
 - To create a single point of communication between parents and school on the matter of absences.
 - To provide a way for parents to easily report an absence.
@@ -30,7 +77,7 @@ School staff will be able to see when a student has been reported as absent by t
 - To provide a way for the Attendance Officer to easily communicate whether an absence has been authorised.
 - To enhance home-school relationships by seamlessly implementing the above.
 
-## User needs.
+## 2. User needs.
 
 ### School staff needs.
 
@@ -47,7 +94,7 @@ School staff will be able to see when a student has been reported as absent by t
 - To be quickly and accurately informed when their child is missing.
 - To be informed when an absence has been unauthorised.
 
-## User stories.
+## 3. User stories.
 - As a user I want to be able to log onto the site so that I can see the appropriate pages.
 - As an Admission's Officer I want to be able to see the list of all registered students so that if I click on one I can see their details.
 - As an Admissions Officer I want to be able to register a student so that they are on the register.
@@ -64,7 +111,7 @@ School staff will be able to see when a student has been reported as absent by t
 - As an Attendance Officer I want to see all unclassified absences so that I can authorise/un-authorise them.
 - As an Attendance Officer I want to be able to send an email to parents of all truanting students so that they can be accounted for.
 
-## Design
+## 4. Design
 
 Since its conception, Lucella High School Attendance Regiter has been designed to be used in an office environment and as such, its design reflects the need for it to show information in a clear way, free of distractions and with easy navigation.
 
@@ -74,7 +121,7 @@ Lucella High School is part of the Piggy Before The Infection Started. For this 
 
 Fonts have been kept simple and professional.
 
-## Access to the site.
+## 5. Access to the site.
 
 Lucella High School Attendance Register is intended to be used only by registered users. It has two main type of users, parents of a student and staff members. Furthermore, users cannot register themselves as they require to be members of the organisation. On registration of a parent or teacher as a user by the Admissions Officer, they will be given the appropriate password.
 
@@ -82,13 +129,13 @@ On login onto the site, users will be redirected to one of two landing pages so 
 
 On the staff's pages, three types of permissions have been given, teacher, Admissions Officer and Attendance officer. All users have teacher access, with the Admissions Officer and Attendance Officer having additional access to the funtionality referring to their roles.
 
-## Student groups.
+## 6. Student groups.
 
 In order to show flexibility in the program, the students have been grouped differently depending on which subjects they are taking. In Maths, English and Science, students are grouped by age. In sports,boys are currently playing Football, while girls are doing Athletics. In music, advanced students are doing Piano while beginners are learning Guitar. 
 
 As the app is intended to deal with attendance, these settings have been sorted in the admin page. A new app dealing with timetables would have to be produced in order to be able to change these options on the front end.
 
-## Features
+## 7. Features
 
 On arriving to the home page, users are directed to log in.
 
@@ -165,7 +212,7 @@ By following the attendance record, the childs attendance record appears and the
 
 ![Child record](readme/images/features/child_record.jpg) ![Absence detail](readme/images/features/child_absence.jpg)
 
-## Models and views.
+##8. Models and views.
 
 This is the entity relationship diagram of the models used in this project.
 
@@ -206,7 +253,7 @@ Below is a detailed list of all the views used.
 |child_record|parent|--|child_record.html|Allows parent to see child's attendance record|give_reason.html|
 |give_reason|parent|GiveReasonForm|give_reason.html|Allows parent to enter a reason for an absence that has already happened|child_record.html|
 
-## The future
+## 8. Limitations of the project and the future
 
 When I started this project, I thought it was a pretty simple thing: students are supposed to be there, they get marked down, parents get notified. 
 
@@ -216,15 +263,33 @@ I realised that for this project to be able to manage all the factors, several a
 
 The site has two different landing pages. One for parents and one for teachers. It would be better for each of the different teacher roles to have their own dedicated landing pages, so that they would never find a 'You don't have the required permissions' page.
 
-Of course, attendance is not the only issue schools may want to communicate to parents. School grades, behaviour, events...
+Of course, attendance is not the only issue schools may want to communicate to parents. School grades, behaviour, homework, events...
 
 Had I not been tied to a deadline, the project could have grown and grown...
 
 May be one day, it will.
 
-## Testing
+## 9. Testing
 
-## Deployment
+The log for all the tests done can be found here. [Lucella High School Attendance Register test log](readme/tests.md)
+
+## 10. Bugs
+
+### Fixed bugs.
+
+Student_detail stopped working. Was fixed by reorganising the url order, ensuring that paths with a fixed name were first on the list and variable based ones were last.
+
+### Unsolved bugs.
+
+daily_register.html shows the students registered for a particular session. The drop down menu allows the teacher to mark each of the students as present or absent. When the drop down menu is used, the highlight colour is still the blue from the browser, rather that the pink colour (consinstent with the brand colours) all the other dropboxes have. This is due to the dropboxes being part of a formset rather than a simple form. While the text colour was changed to its intended green forest, neither the highlight colour nor the dropbox border settings were able to be changed during this project.
+
+![Dropbox in formset](readme/images/bugs/formsetdropbox.jpg)  ![Dropbox in form](/readme/images/bugs/formdropbox.jpg)
+
+After sending emails to parents of truanting students, a success message appears for each of the emails sent. Several options suggested by AI were tested, but none of them worked.
+
+![Muliple success messages](readme/images/bugs/truanting_bug.jpg)
+
+## 11. Deployment
 
 The project was managed in [github](https://github.com) and deployed to [heroku](https://id.heroku.com/login).
 
@@ -261,26 +326,11 @@ To clone the project:
 - Type 'git clone' followed by the address you copied.
 - Press enter.
 
-## Languages used
+## 12. Languages used
 
 HTML, CSS, JavaScript, Python
 
-## Fixed bugs.
-
-Student_detail stopped working. Was fixed by reorganising the url order, ensuring that paths with a fixed name were first on the list and variable based ones were last.
-
-## Unsolved bugs.
-
-daily_register.html shows the students registered for a particular session. The drop down menu allows the teacher to mark each of the students as present or absent. When the drop down menu is used, the highlight colour is still the blue from the browser, rather that the pink colour (consinstent with the brand colours) all the other dropboxes have. This is due to the dropboxes being part of a formset rather than a simple form. While the text colour was changed to its intended green forest, neither the highlight colour nor the dropbox border settings were able to be changed during this project.
-
-![Dropbox in formset](readme/images/bugs/formsetdropbox.jpg)  ![Dropbox in form](/readme/images/bugs/formdropbox.jpg)
-
-After sending emails to parents of truanting students, a success message appears for each of the emails sent. Several options suggested by AI were tested, but none of them worked.
-
-![Muliple success messages](readme/images/bugs/truanting_bug.jpg)
-
-
-## Frameworks, packages and libraries.
+## 13. Frameworks, packages and libraries.
 
 To build the site : django 
 
@@ -344,11 +394,11 @@ Annotate: [Geeksforgeeks](https://www.geeksforgeeks.org/python/aggregate-vs-anno
 
 Atomic transactions [Geeksforgeeks](https://www.geeksforgeeks.org/python/transaction-atomic-with-django/)
 
-## Media
+## 14. Media
 
 The home image and the logo were created by SuperJakeJoseCat.
 
-## Acknoledgements
+## 15. Acknowledgements
 
 This project would not have been possible without the following people:
 
@@ -359,3 +409,7 @@ My friend and Colleague, Veronica Teodorof for always being supportive. Special 
 My family for their unconditional support.
 
 SuperJakeJoseCat for sharing his creativity and being my biggest fan.
+
+[View the finished project here.](https://lucella-attendance-33d45b263ca9.herokuapp.com/)
+
+[Return to the top](#lucella-high-school-attendance-register)

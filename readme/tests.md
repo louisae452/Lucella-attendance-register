@@ -1,8 +1,26 @@
-# Automated testing.
+## 9. Testing
+
+### Contents
+
+1. [Automated testing](#1-automated-testing)
+
+2. [Manual testing](#2-manual-testing)
+
+3. [User stories](#3-user-stories)
+
+4. [User experience](#4-user-experience)
+
+5. [Responsiveness](#5-responsiveness)
+
+6. [Validation](#6-validation)
+
+7. [Lighthouse](#7-lighthouse)
+
+### 1. Automated testing.
 
 The following automated tests were carried out:
 
-## Forms.
+#### Forms.
 |Date|Form|Test|Result|Follow-up|
 |:----|:----|:------|:------|:-------|
 |27/06/2026|StudentForm|Form is valid when fields filled in correctly.|Pass|  |
@@ -57,7 +75,7 @@ The following automated tests were carried out:
 |29/06/2026|RemoveForm|Form is valid when a registered student is selected.|Pass|  |
 |29/06/2026|RemoveForm|Form is not valid when a deregistered student is selected.|Pass|  |
 
-## Views
+#### Views
 
 |Date|View|Test|Result|Follow-up|
 |:----|:----|:------|:------|:-------|
@@ -131,11 +149,11 @@ The following automated tests were carried out:
 |02/07/2026|remove_student|Admissions_officer get access to page|Pass|Do manual tests to check form is submitted correctly|
 
 
-# Manual testing
+### 2. Manual testing
 
 The following manual tests were carried out:
 
-## Security
+#### Security
 
 |Date|Test|Method|Expected result|Result|Follow up|
 |:--|:--|:--|:--|:--|:--|
@@ -166,16 +184,15 @@ The following manual tests were carried out:
 
 Further security tests can be seen in automated tests.
 
+#### Home page
 
-
-## Home page
 |Date|Test|Method|Expected result|Result|Follow up|
 |:--|:--|:--|:--|:--|:--|
 |10/07/2026|Navigates to log in page|Open app. Click on 'log in' button|Log in page appears|Pass|--|
 |10/07/2026|Email link directs to email program|Open app. Click on email link on footer|Email program opens. New email opens. School address is on address bar|Pass|--|
 
+#### Login page
 
-## Login page
 |Date|Test|Method|Expected result|Result|Follow up|
 |:--|:--|:--|:--|:--|:--|
 |10/07/2026|Correct sign in|In login page, enter existing teacher Username and password|Teacher landing page opens|Pass|--|
@@ -183,8 +200,10 @@ Further security tests can be seen in automated tests.
 |10/07/2026|Correct sign in |In login page, enter existing Username and incorrect password|Page resets|Pass|--|
 |10/07/2026|Correct sign in|In login page, enter incorrect Username and password|Page resets|Pass|--|
 
-## Teacher landing page. 
-### Teacher user.
+#### Teacher landing page. 
+
+##### Teacher user.
+
 |Date|Test|Method|Expected result|Result|Follow up|
 |:--|:--|:--|:--|:--|:--|
 |10/07/2026|Not accessible for non users|In browser, type page address on address bar|Home page loads|Pass|--|
@@ -214,7 +233,7 @@ Further security tests can be seen in automated tests.
 |11/07/2026|my class page|Select a subject on menu. Click on 'Get my class' button|Class list should show|Pass|--|
 |11/07/2026|my class detail|On class list, click on an individual student|A record of the student's attendance to that subject should appear|Pass|--|
 
-### Admissions Officer user.
+##### Admissions Officer user.
 
 |Date|Test|Method|Expected result|Result|Follow up|
 |:--|:--|:--|:--|:--|:--|
@@ -231,7 +250,8 @@ Further security tests can be seen in automated tests.
 |11/07/2026|'Pending absences' button|Click on 'Pending absences' button|403.html loads. 'Main menu' button leads to teacher landing|Pass|--|
 |11/07/2026|'Truanting students' button|Click on 'Truanting students' button|403.html loads. 'Main menu' button leads to teacher landing|Pass|--|
 
-### Attendance Officer user.
+##### Attendance Officer user.
+
 |Date|Test|Method|Expected result|Result|Follow up|
 |:--|:--|:--|:--|:--|:--|
 |11/07/2026|student detail|On student page, click on a student|The student's record appears|Pass|--|
@@ -250,8 +270,8 @@ Further security tests can be seen in automated tests.
 |13/07/2026|'Truanting students' button|On teacher landing, click on 'Truanting students'.|The list of today's truanting students appears|Pass|--|
 |13/07/2026|'Send email' button|On truanting page, click on 'Send email'|An email to each student's parent on the list is sent. Teacher page loads with success mesage|Pass|--|
 
+#### Parent landing page.
 
-## Parent landing page.
 |Date|Test|Method|Expected result|Result|Follow up|
 |:--|:--|:--|:--|:--|:--|
 |11/07/2026|Success log in message|Sign in with parent credentials|Parent landing loads with success message|Pass|--|
@@ -268,13 +288,9 @@ Further security tests can be seen in automated tests.
 |11/07/2026|givereason page loads|on child's attendance record, click on an absent record link|Givereason page loads|Pass|--|
 |11/07/2026|givereason page submits information|Fill in form. Click on 'Save'|Data is saved. Status for absence is set to pending. Child's attendance record page loads with success message|--|
 
-
-
-
-
 Note: Automated tests for all forms have been done. Manual tests for forms have done for successful submission and special cases.
 
-# User stories
+### 3. User stories
 
 - Users can log onto the site and see the appropriate pages.
 - The Admission's Officer can see the list of all the registered students. They can register and deregister students. They can also register teachers.
@@ -287,10 +303,7 @@ Note: Automated tests for all forms have been done. Manual tests for forms have 
 - Parents can see their child's timetable and report an absence for a time that has not yet happened.They can see the list of planned absences and update or delete absences as required. They can see their child's attendance record over the year and explain an absence that took place in the past.
 - Parents are also informed by email when their child's attendance goes below a recommended level, when an absence is unauthorised and when their child is truanting.
 
-
-
-
-# User experience.
+### 4. User experience.
 
 The following issues were reported by users.
 
@@ -308,7 +321,7 @@ The following issues were reported by users.
 |14/07/2026|Login button on home page not easy to see|base.html, home.html|--|Moved login button to header|
 
 
-# Responsiveness
+### 5. Responsiveness
 
 The game was tested on the following devices:
 
@@ -344,9 +357,9 @@ Samsung Galaxy S25 phone:
 <img alt="S25 timetable landscape" src="images/s25/s25_timetable_horizontal.jpg"> &nbsp; &nbsp; <img alt="S25 timetable portrait" src="images/s25/s25_timetable_vertical.jpg">
 
 
-# Validation
+### 6. Validation
 
-## HTML
+#### HTML
 
 The following html pages were run through the [W3C HTML validator](https://validator.w3.org/#validate_by_input). 
 
@@ -388,19 +401,19 @@ One warning remains in absence_detail.html. This refers to the empty box in the 
 
 ![Empty box warning](images/empty_box_warning.jpg)
 
-## CSS
+#### CSS
 
 static/css/styles.css was validated with the [w3 CSS validator](https://jigsaw.w3.org/css-validator/validator.html).
 
 All errors or warnings found were corrected.
 
-## JavaScript
+#### JavaScript
 
 static/js/script.js was validated with [js Lint](https://www.jslint.com/).
 
 All errors or warnings found were corrected.
 
-## Python
+#### Python
 
 The Python code was validated with [Code Institute CI Python Linter](https://pep8ci.herokuapp.com/#).
 
@@ -419,7 +432,7 @@ The following files were tested:
 
 All errors found were corrected.
 
-## Lighthouse
+### 7. Lighthouse
 
 Lighthouse was run on all pages on Google Dev Tools. These are the results.
 
@@ -477,25 +490,3 @@ Lighthouse was run on all pages on Google Dev Tools. These are the results.
 |childrecord|Desktop|100|100|96|100|
 |givereason|Mobile|99|100|96|100|
 |givereason|Desktop|100|100|96|100|
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
