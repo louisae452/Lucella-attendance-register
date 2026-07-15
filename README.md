@@ -156,7 +156,7 @@ By clicking on a specific student, the attenance record of that studnent is show
 
 The 'Add parent' button creates a parent user. On saving, it allows to enter the parent's additional information.
 
-![New parent page](readme/images/features/new_parent.jpg)  ![Add parent data page](readme/images/features/parentdata.jpg)
+![New parent page](readme/images/features/new_parent.jpg) &ensp; ![Add parent data page](readme/images/features/parentdata.jpg)
 
 The 'Add student@ button adds a new student once their parent has been registered as a user.
 
@@ -168,11 +168,11 @@ The 'Remove student' button allows the Attendance Officer to deregister a studen
 
 The 'Add teacher' button allows the Admissions Officer to add a new teacher. On saving, a new page to enter additional data for the teacher opens.
 
-![New teacher page](readme/images/features/add_teacher.jpg) ![Add teacher data page](readme/images/features/teacherdata.jpg)
+![New teacher page](readme/images/features/add_teacher.jpg) &ensp; ![Add teacher data page](readme/images/features/teacherdata.jpg)
 
 The 'Register@ button allows a teacher to input the session's details to get their register up. As the options allowed depend on the timetable, two pop up boxes on the corner show the current timetables. These boxes are for testing purposes only, as in a real situation a teacher would know what lesson they are supposed to be teaching and they would be removed in real case scenarios.
 
-![Get the register](readme/images/features/get_register.jpg) ![Get the register help](readme/images/features/get_register_help.jpg)
+![Get the register](readme/images/features/get_register.jpg) &ensp; ![Get the register help](readme/images/features/get_register_help.jpg)
 
 On clicking on the 'Get the register' button, a list of the class to be registered appears.
 
@@ -181,15 +181,15 @@ On clicking on the 'Get the register' button, a list of the class to be register
 'Pending absences' pulls out a list of all the pending absences so that the Attendance Officer can review them. Clicking on a student pulls out the record for the absence. If the absence is deemed unauthorised, an email is sent to the appropriate parent when saving.
 
 
-![Pending absences](readme/images/features/pending_absences.jpg) ![Absence detail](readme/images/features/pending_detail.jpg)
+![Pending absences](readme/images/features/pending_absences.jpg) &ensp;![Absence detail](readme/images/features/pending_detail.jpg)
 
 'Truanting students' allows the Attendance Officer to see the students who are absent today and whose parent has not given a reason for them not  being there. On Clicking on the email button, an email will be sent to each of the parents, requesting information about their missing child's whereabouts.
 
-![Truanting students list](readme/images/features/truanting_list.jpg)
+<img src="readme/images/features/truanting_list.jpg" alt="Truanting students list"> &ensp; <img src="readme/images/features/missing_email.png" alt="Missing student email">
 
 'Get my class' allows the teacher to see the overal attendance of their students in a class, as well as see the attendance record of an individual student.
 
-![Get my class page](readme/images/features/get_myclass.jpg) ![Class detail](readme/images/features/myclass.jpg)
+![Get my class page](readme/images/features/get_myclass.jpg) &ensp; ![Class detail](readme/images/features/myclass.jpg)
 
 Once logged in, a parent is presented with a list of the children they have registered at the school.
 
@@ -205,12 +205,12 @@ Clicking on a slot in the timetable opens a page in which the parent can report 
 
 The planned absences button shows a list of all planned future absences for a child. Clicking on an individual abscence, it is possible to update or delete it if plans have changed.
 
-![Planned absences list](readme/images/features/planed_absences.jpg)
+![Planned absences list](readme/images/features/planed_absences.jpg) &ensp;
 ![Update or delete a planned absence](readme/images/features/update_planned.jpg)
 
 By following the attendance record, the childs attendance record appears and the parent can explain an absence in the past.
 
-![Child record](readme/images/features/child_record.jpg) ![Absence detail](readme/images/features/child_absence.jpg)
+![Child record](readme/images/features/child_record.jpg) &ensp; ![Absence detail](readme/images/features/child_absence.jpg)
 
 ##8. Models and views.
 
@@ -283,7 +283,7 @@ Student_detail stopped working. Was fixed by reorganising the url order, ensurin
 
 daily_register.html shows the students registered for a particular session. The drop down menu allows the teacher to mark each of the students as present or absent. When the drop down menu is used, the highlight colour is still the blue from the browser, rather that the pink colour (consinstent with the brand colours) all the other dropboxes have. This is due to the dropboxes being part of a formset rather than a simple form. While the text colour was changed to its intended green forest, neither the highlight colour nor the dropbox border settings were able to be changed during this project.
 
-![Dropbox in formset](readme/images/bugs/formsetdropbox.jpg)  ![Dropbox in form](/readme/images/bugs/formdropbox.jpg)
+![Dropbox in formset](readme/images/bugs/formsetdropbox.jpg) &ensp; ![Dropbox in form](/readme/images/bugs/formdropbox.jpg)
 
 After sending emails to parents of truanting students, a success message appears for each of the emails sent. Several options suggested by AI were tested, but none of them worked.
 

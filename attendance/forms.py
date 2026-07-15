@@ -14,8 +14,6 @@ from .models import (
 
 
 class StudentForm(forms.ModelForm):
-    """Form to add a new student.
-    Requires parent to be a user with group parent"""
     class Meta:
         model = Student
         fields = ('student_name', 'student_surname', 'student_code',
@@ -35,7 +33,6 @@ class StudentForm(forms.ModelForm):
 
 
 class UserForm(forms.ModelForm):
-    """Form to add a new user."""
     first_name = forms.CharField(max_length=150, required=True)
     last_name = forms.CharField(max_length=150, required=True)
     email = forms.EmailField(required=True)
@@ -50,7 +47,6 @@ class UserForm(forms.ModelForm):
 
 
 class ParentForm(forms.ModelForm):
-    """ Creates a new parent. Requires parent to be user in parent group"""
     # AI generated code to only accept phone numbers on field
     phone_number = forms.RegexField(
         # Blocks text, allows only digits (9-15 long), accepts an optional '+'
@@ -83,7 +79,6 @@ class ParentForm(forms.ModelForm):
 
 
 class TeacherForm(forms.ModelForm):
-    """Creates a new teacher. Requires teacher to be in teacher group"""
     # AI generated code to only accept phone numbers on field
     phone_number = forms.RegexField(
         # Blocks text, allows only digits (9-15 long), accepts an optional '+'
@@ -114,7 +109,6 @@ class TeacherForm(forms.ModelForm):
 
 
 class GetregisterForm(forms.ModelForm):
-    """Creates the filter to find students expected to be in a session"""
     class Meta:
         model = Timetable
         fields = ('day', 'session', 'subject_name')
@@ -126,7 +120,6 @@ class GetregisterForm(forms.ModelForm):
 
 
 class RegisterForm(forms.ModelForm):
-    """Creates a form with the student name already in filled in"""
     class Meta:
         model = DailyRegister
         fields = ['student_code', 'mark']
@@ -155,7 +148,6 @@ class SendemailForm(forms.ModelForm):
 
 
 class AbsenceForm(forms.ModelForm):
-    """Creates a form to report an absence in the future"""
     reason_for_absence = forms.CharField(required=True, widget=forms.Textarea)
 
     class Meta:
@@ -167,7 +159,6 @@ class AbsenceForm(forms.ModelForm):
 
 
 class GivereasonForm(forms.ModelForm):
-    """Allows to update a past absence"""
     reason_for_absence = forms.CharField(required=True, widget=forms.Textarea)
 
     class Meta:
@@ -182,7 +173,6 @@ class GivereasonForm(forms.ModelForm):
 
 
 class PendingabsenceForm(forms.ModelForm):
-    """Allows Attendance Officer to review absences"""
     class Meta:
         model = DailyRegister
         fields = ['status', 'code']
@@ -199,7 +189,6 @@ class PendingabsenceForm(forms.ModelForm):
 
 
 class GetclassForm(forms.Form):
-    """Allows teacher to select a subject"""
     subject_name = forms.ModelChoiceField(
         queryset=Subject.objects.all(),
         empty_label="Choose a subject..",
@@ -208,7 +197,6 @@ class GetclassForm(forms.Form):
 
 
 class RemoveForm(forms.Form):
-    """Allows Admissions Officer to deregister a student"""
     # Force the field to render as a ChoiceField dropdown
     student_code = forms.ModelChoiceField(
         queryset=Student.objects.filter(deregistered=False),
