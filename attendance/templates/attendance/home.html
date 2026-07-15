@@ -7,5 +7,10 @@
     <div>
         <h1 id="welcome"> Welcome to Lucella High School!</h1>
     </div>
+    {% if user.is_authenticated %}
+    <div class="logins"> 
+        <a class="button" href="{%url 'landing' %}">Main menu</a>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}
