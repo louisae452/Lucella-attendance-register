@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
     alerts.forEach(function (number) {
         let percentage = parseFloat(number.textContent);
         if (percentage < red) {
-            number.style.colo = "var(--red-alert)";
+            number.style.color = "var(--red-alert)";
         } else if (percentage < orange) {
             number.style.color = "var(--orange-alert)";
 

@@ -209,6 +209,7 @@ Further security tests can be seen in automated tests.
 |10/07/2026|Not accessible for non users|In browser, type page address on address bar|Home page loads|Pass|--|
 |10/07/2026|Success log in message|Sign in with teacher credentials|Teacher landing appears. Successfully signed in message appears|Pass|--|
 |10/07/2026|'Student' list button directs to student page|Click on student list button|Student page appears|Pass|--|
+|15/07/2026|Student list pagination|Naigate to students list page. Click on 'next'. Click on 'previous'|Next or previous page of studentslist page appears|Pass|--|
 |10/07/2026|Individual student is blocked|On student page, click on any student|403.html page appears|Pass|--|
 |10/07/2026|'Main menu' button on individual student page redirects to correct landing page|From individual student 403 page, click on 'Main menu' button|Redirects to teacher landing page|Pass|--|
 |10/07/2026|'Add parent' button|On teacher landing, click on 'Add parent' button. 'Main menu' button leads back to teacher landing|403.html appears|Pass|--|
@@ -255,6 +256,7 @@ Further security tests can be seen in automated tests.
 |Date|Test|Method|Expected result|Result|Follow up|
 |:--|:--|:--|:--|:--|:--|
 |11/07/2026|student detail|On student page, click on a student|The student's record appears|Pass|--|
+|15/07/2026|student detail pagination|On student detail page, click on 'next'. Click on 'previous'|The next or previous page of records appears|Pass|--|
 |11/07/2026|Student detail's 'Email' button|On an individual student's attendance record, click on 'Email'|email page loads|Pass|--|
 |11/07/2026|email individual student page|Select a subject for email. Click on 'Send email'|Email is sent. Teacher landing page loads with success message|Pass|--|
 |11/07/2026|'Add parent' button|Click on 'Add parent' Button|403.html loads. 'Main menu' button leads to teacher landing|Pass|--|

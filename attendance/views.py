@@ -281,7 +281,7 @@ def students_list(request):
     Renders list of all registered students.
     Displays instances of :model:`attendance.Student`
     **Context**
-    ``students``
+    ``students_page``
         queryset of registered students in :model:`attendance.Student`
     **Template**
     :template:`attendance/students_list.html`
@@ -292,7 +292,10 @@ def students_list(request):
                 present_sessions=Count('dailyregister',
                                        filter=Q(dailyregister__mark=0)),
             )
-    for student in students:
+    paginator = Paginator(students, 10)
+    page_number = request.GET.get("page")
+    students_page = paginator.get_page(page_number)
+    for student in students_page:
         if student.total_sessions > 0:
             student.attendancepercentage = round(
                 (student.present_sessions/student.total_sessions)*100, 2)
@@ -301,7 +304,8 @@ def students_list(request):
     return render(
         request,
         "attendance/students_list.html",
-        {"students": students}
+        {
+            "students_page": students_page}
         )
 
 

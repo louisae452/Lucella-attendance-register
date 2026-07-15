@@ -15,7 +15,7 @@
             <th>Music option</th>
             <th>Attendance</th>
         </tr>
-        {% for student in students %}
+        {% for student in students_page %}
         <tr>
             <td><a href="{% url 'studentdetail' student.student_code %}">{{ student.student_code }}</a></td>
             <td>{{ student.student_name}}</td>
@@ -27,6 +27,21 @@
         </tr>
         {% endfor %}
     </table>
+    <div class="pagination">
+            <span class="step-links">
+                {% if students_page.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ studens_page.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="current">
+                    Page {{ students_page.number }} of {{ students_page.paginator.num_pages }}.
+                </span>
+                {% if students_page.has_next %}
+                    <a href="?page={{ students_page.next_page_number }}">next</a>
+                    <a href="?page={{ students_page.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
     {% endif %}
     </div>
     <div class="turn-message" id="turn-message">
